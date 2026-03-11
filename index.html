@@ -15,16 +15,15 @@
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;900&family=Cairo:wght@400;700&display=swap');
         :root { --neon-color: #00f3ff; }
         
-        /* جعل الخلفية العامة شفافة أو ذات تدرج خفيف جداً */
         body, html { 
             margin: 0; padding: 0; height: 100%; 
-            background: transparent; /* تغيير من #000 إلى شفاف */
+            background: #000; 
             color: #fff; overflow: hidden; font-family: 'Cairo', sans-serif; 
         }
         
-        /* محرك التمرير شفاف */
         .scroll-engine { 
             height: 100vh; 
+            width: 100vw;
             overflow-y: scroll; 
             scroll-snap-type: y mandatory; 
             scrollbar-width: none; 
@@ -34,16 +33,26 @@
         }
         .scroll-engine::-webkit-scrollbar { display: none; }
         
-        /* جعل حاوية الفيديو شفافة */
+        /* جعل الحاوية مطابقة تماماً لحجم الشاشة */
         .video-segment { 
-            height: 100vh; width: 100vw; scroll-snap-align: start; 
-            position: relative; background: transparent; 
-            border-bottom: 1px solid rgba(255,255,255,0.05); 
+            height: 100vh; 
+            width: 100vw; 
+            scroll-snap-align: start; 
+            position: relative; 
+            background: #000; 
+            overflow: hidden; /* لمنع أي تجاوز */
         }
         
-        video { width: 100%; height: 100%; object-fit: cover; }
+        /* جعل الفيديو يملأ المساحة بالكامل ويحافظ على التناسب */
+        video { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; /* يضمن ملء الشاشة مثل تيك توك */
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
 
-        /* تعديل تأثير الزجاج ليكون أكثر شفافية */
         .glass-ui { 
             background: rgba(255, 255, 255, 0.03) !important; 
             backdrop-filter: blur(10px); 
@@ -65,7 +74,6 @@
         .video-info { position: absolute; bottom: 100px; right: 20px; text-align: right; pointer-events: none; z-index: 40; }
         .watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); font-family: 'Orbitron', sans-serif; font-size: 3rem; font-weight: 900; color: rgba(255, 255, 255, 0.08); white-space: nowrap; pointer-events: none; z-index: 10; user-select: none; }
         
-        /* جعل لوحة الإدارة شفافة بلمسة داكنة خفيفة */
         .admin-panel { 
             position: fixed; inset: 0; z-index: 500; 
             background: rgba(5, 5, 5, 0.8); 
@@ -74,7 +82,6 @@
         }
         .admin-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 10px; display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
         
-        /* زر الرفع بتصميم شفاف */
         #upload-trigger {
             background: rgba(255, 255, 255, 0.1);
             color: white;
@@ -135,13 +142,10 @@
     </div>
 
     <script>
-        // الرابط المطلوب من "المعلومات المحفوظة"
         const SAVED_AD_LINK = "https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default";
-        
         const ADMIN_PASS = "1234";
         const SPECIAL_AD_LINK = "https://www.effectivegatecpm.com/bxwxuk2f39?key=566216691dc8b76a740840e94f68f44c";
         
-        // تم دمج الرابط الجديد في مصفوفة الإعلانات
         const AD_LINKS = [
             SAVED_AD_LINK,
             "https://periodicdisease.com/JYauq8",
