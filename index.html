@@ -14,8 +14,15 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;900&family=Cairo:wght@400;700&display=swap');
         :root { --neon-color: #00f3ff; }
-        body, html { margin: 0; padding: 0; height: 100%; background: #000; color: #fff; overflow: hidden; font-family: 'Cairo', sans-serif; }
         
+        /* جعل الخلفية العامة شفافة أو ذات تدرج خفيف جداً */
+        body, html { 
+            margin: 0; padding: 0; height: 100%; 
+            background: transparent; /* تغيير من #000 إلى شفاف */
+            color: #fff; overflow: hidden; font-family: 'Cairo', sans-serif; 
+        }
+        
+        /* محرك التمرير شفاف */
         .scroll-engine { 
             height: 100vh; 
             overflow-y: scroll; 
@@ -23,37 +30,62 @@
             scrollbar-width: none; 
             scroll-behavior: smooth; 
             -webkit-overflow-scrolling: touch;
+            background: transparent;
         }
         .scroll-engine::-webkit-scrollbar { display: none; }
         
-        .video-segment { height: 100vh; width: 100vw; scroll-snap-align: start; position: relative; background: #000; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        /* جعل حاوية الفيديو شفافة */
+        .video-segment { 
+            height: 100vh; width: 100vw; scroll-snap-align: start; 
+            position: relative; background: transparent; 
+            border-bottom: 1px solid rgba(255,255,255,0.05); 
+        }
+        
+        video { width: 100%; height: 100%; object-fit: cover; }
 
-        /* التعديل هنا: جعل الفيديو شفافاً من جميع الأطراف ليندمج مع الهيكل */
-        video { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            -webkit-mask-image: radial-gradient(circle, black 40%, rgba(0,0,0,0.5) 70%, transparent 95%);
-            mask-image: radial-gradient(circle, black 40%, rgba(0,0,0,0.5) 70%, transparent 95%);
+        /* تعديل تأثير الزجاج ليكون أكثر شفافية */
+        .glass-ui { 
+            background: rgba(255, 255, 255, 0.03) !important; 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1); 
         }
 
-        .glass-ui { background: rgba(0,0,0,0.4); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.05); }
         .neon-border { border-color: var(--neon-color) !important; box-shadow: 0 0 10px var(--neon-color); }
         .neon-text { color: var(--neon-color) !important; text-shadow: 0 0 5px var(--neon-color); }
+        
         .xp-bar-container { position: fixed; top: 70px; left: 20px; width: 120px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 10px; z-index: 150; }
         #xp-progress { height: 100%; width: 0%; background: var(--neon-color); border-radius: 10px; transition: 1s; }
+        
         .side-controls { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 20px; z-index: 50; }
         .glass-btn { width: 50px; height: 50px; border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.3s; cursor: pointer; }
+        
         .shuffle-btn { position: fixed; top: 80px; right: 20px; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; border: 1px solid rgba(0,243,255,0.3); }
+        
         .video-info { position: absolute; bottom: 100px; right: 20px; text-align: right; pointer-events: none; z-index: 40; }
         .watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); font-family: 'Orbitron', sans-serif; font-size: 3rem; font-weight: 900; color: rgba(255, 255, 255, 0.08); white-space: nowrap; pointer-events: none; z-index: 10; user-select: none; }
-        .admin-panel { position: fixed; inset: 0; z-index: 500; background: #050505; display: none; flex-direction: column; padding: 20px; overflow-y: auto; }
-        .admin-card { background: #111; border: 1px solid #222; padding: 10px; border-radius: 10px; display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        
+        /* جعل لوحة الإدارة شفافة بلمسة داكنة خفيفة */
+        .admin-panel { 
+            position: fixed; inset: 0; z-index: 500; 
+            background: rgba(5, 5, 5, 0.8); 
+            backdrop-filter: blur(20px);
+            display: none; flex-direction: column; padding: 20px; overflow-y: auto; 
+        }
+        .admin-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 10px; display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        
+        /* زر الرفع بتصميم شفاف */
+        #upload-trigger {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
     </style>
 </head>
 <body>
 
-    <header class="fixed top-0 w-full z-[200] glass-ui p-4 flex justify-between items-center border-b">
+    <header class="fixed top-0 w-full z-[200] glass-ui p-4 flex justify-between items-center border-b border-white/5">
         <div class="flex flex-col">
             <span id="user-level" class="text-[9px] font-[Orbitron] neon-text">LEVEL 1 [INITIATE]</span>
             <div class="xp-bar-container"><div id="xp-progress"></div></div>
@@ -76,20 +108,20 @@
     <nav class="fixed bottom-5 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px] h-16 glass-ui rounded-2xl flex justify-around items-center z-[200]">
         <i class="fas fa-home neon-text text-xl"></i>
         <i class="fas fa-comment-dots opacity-60 hover:opacity-100 transition-opacity" onclick="toggleChatWithAd()"></i>
-        <div id="upload-trigger" class="w-12 h-12 bg-white text-black rounded-xl flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.5)] active:scale-90 transition-transform">
+        <div id="upload-trigger" class="w-12 h-12 rounded-xl flex items-center justify-center active:scale-90 transition-transform">
             <i class="fas fa-plus"></i>
         </div>
         <i class="fas fa-random opacity-60 hover:opacity-100 transition-opacity" onclick="shuffleProtocol()"></i>
     </nav>
 
-    <div id="chat-overlay" class="fixed inset-0 z-[300] hidden flex-col glass-ui" style="background: rgba(0,0,0,0.92);">
+    <div id="chat-overlay" class="fixed inset-0 z-[300] hidden flex-col glass-ui" style="background: rgba(0,0,0,0.7) !important;">
         <div class="p-4 flex justify-between border-b border-white/10">
             <span class="neon-text font-[Orbitron] tracking-widest">ENCRYPTED_COMMS</span>
             <i class="fas fa-chevron-down cursor-pointer p-2" onclick="toggleChat()"></i>
         </div>
         <div id="chat-box" class="flex-1 p-5 overflow-y-auto space-y-4"></div>
-        <div class="p-4 flex gap-2 border-t border-white/10 bg-black/50">
-            <input type="text" id="msg-input" class="flex-1 bg-white/5 border border-white/10 rounded-xl p-3 outline-none focus:border-[#00f3ff]/50 transition-colors" placeholder="Send secure message..." onkeypress="handleKey(event)">
+        <div class="p-4 flex gap-2 border-t border-white/10">
+            <input type="text" id="msg-input" class="flex-1 bg-white/5 border border-white/10 rounded-xl p-3 outline-none focus:border-[#00f3ff]/50 transition-colors text-white" placeholder="Send secure message..." onkeypress="handleKey(event)">
             <button onclick="sendChat()" class="neon-text p-2 hover:scale-110 transition-transform"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
@@ -103,10 +135,15 @@
     </div>
 
     <script>
+        // الرابط المطلوب من "المعلومات المحفوظة"
+        const SAVED_AD_LINK = "https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default";
+        
         const ADMIN_PASS = "1234";
         const SPECIAL_AD_LINK = "https://www.effectivegatecpm.com/bxwxuk2f39?key=566216691dc8b76a740840e94f68f44c";
         
+        // تم دمج الرابط الجديد في مصفوفة الإعلانات
         const AD_LINKS = [
+            SAVED_AD_LINK,
             "https://periodicdisease.com/JYauq8",
             "https://www.effectivegatecpm.com/bxwxuk2f39?key=566216691dc8b76a740840e94f68f44c"
         ];
@@ -142,8 +179,10 @@
             const level = Math.floor(userXP / 500) + 1;
             const progress = (userXP % 500) / 5;
             const titles = ["RECRUIT", "OPERATIVE", "ELITE", "PHANTOM", "SHΔDØW_MASTER"];
-            document.getElementById('user-level').innerText = `LVL ${level} // ${titles[Math.min(level-1, 4)]}`;
-            document.getElementById('xp-progress').style.width = progress + "%";
+            const levelEl = document.getElementById('user-level');
+            if(levelEl) levelEl.innerText = `LVL ${level} // ${titles[Math.min(level-1, 4)]}`;
+            const progressEl = document.getElementById('xp-progress');
+            if(progressEl) progressEl.style.width = progress + "%";
         }
         updateXPUI();
 
@@ -324,8 +363,7 @@
                         const colors = ['#00f3ff', '#ff0055', '#00ffaa', '#ccff00', '#7000ff', '#ffaa00'];
                         document.documentElement.style.setProperty('--neon-color', colors[Math.floor(Math.random()*colors.length)]);
                     } else { 
-                        v.pause(); 
-                        v.currentTime = 0; 
+                        if(v) { v.pause(); v.currentTime = 0; }
                     }
                 });
             }, { threshold: 0.6 });
