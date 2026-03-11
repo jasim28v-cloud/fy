@@ -15,10 +15,20 @@
         :root { --neon: #ff007f; --bg: #050002; }
         body, html { margin: 0; padding: 0; height: 100%; background: var(--bg); color: #fff; overflow: hidden; font-family: 'Cairo', sans-serif; user-select: none; }
 
-        /* خلفية ناعمة جداً */
-        .pink-void-bg { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 50% 50%, #150008 0%, #000 100%); }
+        /* شاشة التحميل الفخمة */
+        #splash-screen {
+            position: fixed; inset: 0; z-index: 9999; background: #050002;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
+        .loader-logo { font-family: 'Orbitron'; font-size: 2.5rem; font-weight: 900; color: #fff; text-shadow: 0 0 20px var(--neon); margin-bottom: 20px; animation: pulse 2s infinite; }
+        .loader-bar { width: 150px; height: 3px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
+        .loader-progress { width: 40%; height: 100%; background: var(--neon); box-shadow: 0 0 15px var(--neon); animation: load 1.5s infinite ease-in-out; }
         
-        /* محرك التمرير عالي الأداء */
+        @keyframes load { 0% { transform: translateX(-100%); } 100% { transform: translateX(250%); } }
+        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(0.95); } }
+
+        .pink-void-bg { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 50% 50%, #150008 0%, #000 100%); }
         .scroll-engine { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
         .scroll-engine::-webkit-scrollbar { display: none; }
         
@@ -26,38 +36,40 @@
         .crystal-frame { width: 100%; height: 100%; position: relative; background: #000; }
         video { width: 100%; height: 100%; object-fit: cover; }
 
-        /* هيدر زجاجي */
         header { position: fixed; top: 20px; left: 20px; right: 20px; z-index: 500; display: flex; justify-content: space-between; align-items: center; pointer-events: none; }
-        .brand-box { padding: 10px 25px; border-radius: 20px; border-left: 5px solid var(--neon); background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); pointer-events: auto; }
+        .brand-box { padding: 10px 25px; border-radius: 20px; border-left: 5px solid var(--neon); background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); pointer-events: auto; transition: 0.5s; }
         .brand-name { font-family: 'Orbitron', sans-serif; font-weight: 900; letter-spacing: 3px; color: #fff; text-shadow: 0 0 15px var(--neon); }
 
-        /* العلامة المائية الاحترافية */
         .v-watermark { position: absolute; top: 25%; right: 10%; font-family: 'Orbitron'; font-size: 0.75rem; color: rgba(255,255,255,0.1); z-index: 20; letter-spacing: 5px; animation: floatMark 12s infinite linear; pointer-events: none; }
-        @keyframes floatMark { 0% { transform: translate(0,0); } 50% { transform: translate(-40px, 60px); } 100% { transform: translate(0,0); } }
+        @keyframes floatMark { 0% { transform: translate(0,0); } 50% { transform: translate(-30px, 60px); } 100% { transform: translate(0,0); } }
 
-        /* الأزرار الجانبية الشفافة */
         .side-actions { position: absolute; left: 20px; bottom: 160px; display: flex; flex-direction: column; gap: 15px; z-index: 100; }
         .action-btn { width: 58px; height: 58px; border-radius: 22px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.1); transition: 0.4s; cursor: pointer; }
         .action-btn i { font-size: 1.4rem; color: var(--neon); filter: drop-shadow(0 0 10px var(--neon)); }
         .btn-label { font-size: 10px; font-weight: 700; margin-top: 3px; color: #fff; opacity: 0.6; font-family: 'Orbitron'; }
 
-        /* نافيجيشن أيوني */
         nav { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 420px; height: 80px; border-radius: 40px; background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(30px); border: 1px solid rgba(255,255,255,0.15); display: flex; justify-content: space-around; align-items: center; z-index: 200; }
-        .finger-admin { color: var(--neon); cursor: pointer; filter: drop-shadow(0 0 12px var(--neon)); transition: 0.4s; }
+        .finger-admin { color: var(--neon); cursor: pointer; filter: drop-shadow(0 0 12px var(--neon)); animation: fingerPulse 2s infinite; }
+        @keyframes fingerPulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.7; } }
 
         #upload-trigger { background: var(--neon); box-shadow: 0 0 30px var(--neon); cursor: pointer; width: 65px; height: 65px; border-radius: 25px; display: flex; align-items: center; justify-content: center; transform: translateY(-18px); border: 5px solid var(--bg); transition: 0.3s; }
 
-        /* القوائم الجانبية */
         #admin-panel, #chat-overlay { position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.97); display: none; flex-direction: column; padding: 40px 25px; backdrop-filter: blur(30px); }
         .video-item { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 20px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.1); }
     </style>
 </head>
 <body>
 
+    <div id="splash-screen">
+        <div class="loader-logo">VØID_X</div>
+        <div class="loader-bar"><div class="loader-progress"></div></div>
+        <div class="mt-4 text-[10px] font-[Orbitron] text-white/30 tracking-[5px]">ELITE SYSTEM LOADING</div>
+    </div>
+
     <div class="pink-void-bg"></div>
 
     <header>
-        <div class="brand-box"><span class="brand-name">VØID_X ELITE</span></div>
+        <div class="brand-box"><span class="brand-name">VØID_X</span></div>
         <div class="text-[12px] font-[Orbitron] text-white/50 bg-white/5 px-4 py-2 rounded-full border border-white/10" id="clock">00:00:00</div>
     </header>
 
@@ -71,7 +83,7 @@
 
     <div id="admin-panel">
         <div class="flex justify-between items-center mb-10">
-            <h2 class="font-[Orbitron] text-xl text-pink-500 tracking-widest">ADMIN_CENTRAL</h2>
+            <h2 class="font-[Orbitron] text-xl text-pink-500">ADMIN_CENTRAL</h2>
             <i class="fas fa-xmark text-3xl" onclick="closeAdmin()"></i>
         </div>
         <div id="admin-list" class="flex-1 overflow-y-auto"></div>
@@ -84,7 +96,7 @@
         </div>
         <div id="chat-box" class="flex-1 overflow-y-auto space-y-4"></div>
         <div class="mt-4 flex gap-3">
-            <input type="text" id="msg-input" class="bg-white/5 flex-1 rounded-2xl p-4 outline-none border border-white/10" placeholder="Say something...">
+            <input type="text" id="msg-input" class="bg-white/5 flex-1 rounded-2xl p-4 outline-none border border-white/10" placeholder="Type message...">
             <button onclick="sendMsg()" class="bg-pink-600 px-6 rounded-2xl"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
@@ -96,24 +108,29 @@
         let isMuted = true;
         const USR_ID = "ELITE-" + Math.floor(Math.random()*9999);
 
-        // روابط السحابة والديتابيس الجديدة
         const firebaseConfig = { databaseURL: "https://fokx-c135a-default-rtdb.firebaseio.com/" };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
+        // إخفاء شاشة التحميل
+        window.onload = () => {
+            setTimeout(() => {
+                const ss = document.getElementById('splash-screen');
+                ss.style.opacity = '0';
+                setTimeout(() => ss.style.visibility = 'hidden', 800);
+            }, 2500);
+        };
+
         function triggerAd() { window.open(AD_LINKS[currentAd], '_blank'); currentAd = (currentAd + 1) % AD_LINKS.length; }
-        
         function toggleMute() {
             isMuted = !isMuted;
             document.querySelectorAll('video').forEach(v => v.muted = isMuted);
             document.querySelectorAll('.mute-icon').forEach(i => i.className = isMuted ? 'fas fa-volume-xmark' : 'fas fa-volume-high');
         }
-
         function toggleChatWithAd() { triggerAd(); toggleChat(); }
 
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString('en-GB'); }, 1000);
 
-        // جلب البيانات
         db.ref('videos').on('value', (snap) => {
             const container = document.getElementById('video-stack');
             const adminList = document.getElementById('admin-list');
@@ -162,17 +179,16 @@
             initObserver();
         });
 
-        // الوظائف الأساسية
         function openAdmin() { if(prompt("SECURITY CODE:") === ADMIN_CODE) document.getElementById('admin-panel').style.display = 'flex'; }
         function closeAdmin() { document.getElementById('admin-panel').style.display = 'none'; }
-        function deleteVideo(id) { if(confirm("Confirm Delete?")) db.ref(`videos/${id}`).remove(); }
+        function deleteVideo(id) { if(confirm("Delete Video?")) db.ref(`videos/${id}`).remove(); }
         function likeVideo(id) { triggerAd(); db.ref(`videos/${id}/likes`).transaction(l => (l || 0) + 1); }
         function shareVideo() { triggerAd(); if(navigator.share) navigator.share({url: window.location.href}); }
         function toggleChat() { const c = document.getElementById('chat-overlay'); c.style.display = c.style.display==='flex'?'none':'flex'; }
         
         function sendMsg() {
             const inp = document.getElementById('msg-input');
-            if(inp.value.trim()){ db.ref('chat').push({user:USR_ID, text:inp.value}); inp.value=''; }
+            if(inp.value.trim()){ db.ref('chat').push({user:USR_ID, text:inp.value, time:Date.now()}); inp.value=''; }
         }
 
         db.ref('chat').limitToLast(20).on('value', s => {
@@ -187,7 +203,6 @@
             box.scrollTop = box.scrollHeight;
         });
 
-        // سحابة Cloudinary الجديدة
         const myWidget = cloudinary.createUploadWidget({ 
             cloudName: "dk5kas1gc", uploadPreset: "go_kck",
             maxFiles: 1, clientAllowedFormats: ["mp4", "mov", "webm"],
