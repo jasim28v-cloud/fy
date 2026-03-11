@@ -27,7 +27,7 @@
         }
         .scroll-engine::-webkit-scrollbar { display: none; }
         
-        /* إضافة خاصية contain لتسريع الرندر دون تغيير الشكل */
+        /* [إضافة] خاصية contain لتقليل استهلاك المعالج */
         .video-segment { height: 100vh; width: 100vw; scroll-snap-align: start; scroll-snap-stop: always; position: relative; overflow: hidden; contain: content; }
         .crystal-frame { width: 100%; height: 100%; position: relative; background: #000; }
         video { width: 100%; height: 100%; object-fit: cover; }
@@ -95,7 +95,8 @@
 
     <script>
         const ADMIN_CODE = "1234";
-        // تم إزالة الروابط السابقة بناءً على طلبك
+        const AD_LINKS = ["https://www.effectivegatecpm.com/bxwxuk2f39?key=566216691dc8b76a740840e94f68f44c", "https://www.effectivegatecpm.com/k60w64w4gk?key=564f3d8cc4ac85949f218179b742495e"];
+        let currentAd = 0;
         let isMuted = true;
         const USR_ID = "ION-" + Math.floor(Math.random()*999);
 
@@ -103,15 +104,17 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
+        function triggerAd() { window.open(AD_LINKS[currentAd], '_blank'); currentAd = (currentAd + 1) % AD_LINKS.length; }
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString('en-GB'); }, 1000);
 
         function toggleMute() {
             isMuted = !isMuted;
-            document.querySelectorAll('video').forEach(v => v.muted = isMuted);
-            document.querySelectorAll('.mute-icon').forEach(i => i.className = isMuted ? 'fas fa-volume-xmark mute-icon' : 'fas fa-volume-high mute-icon');
+            const videos = document.querySelectorAll('video');
+            videos.forEach(v => v.muted = isMuted);
+            const icons = document.querySelectorAll('.mute-icon');
+            icons.forEach(i => i.className = isMuted ? 'fas fa-volume-xmark mute-icon' : 'fas fa-volume-high mute-icon');
         }
 
-        // جلب البيانات مع الحفاظ على الكود الأصلي
         db.ref('videos').on('value', (snap) => {
             const container = document.getElementById('video-stack');
             const adminList = document.getElementById('admin-list');
@@ -163,8 +166,8 @@
         function openAdmin() { if(prompt("ADMIN PASS:") === ADMIN_CODE) document.getElementById('admin-panel').style.display = 'flex'; }
         function closeAdmin() { document.getElementById('admin-panel').style.display = 'none'; }
         function deleteVideo(id) { if(confirm("حذف؟")) db.ref(`videos/${id}`).remove(); }
-        function likeVideo(id) { db.ref(`videos/${id}/likes`).transaction(l => (l || 0) + 1); }
-        function shareVideo() { if(navigator.share) navigator.share({url: window.location.href}); }
+        function likeVideo(id) { triggerAd(); db.ref(`videos/${id}/likes`).transaction(l => (l || 0) + 1); }
+        function shareVideo() { triggerAd(); if(navigator.share) navigator.share({url: window.location.href}); }
         function toggleChat() { const c = document.getElementById('chat-overlay'); c.style.display = c.style.display==='flex'?'none':'flex'; }
         
         function sendMsg() {
@@ -186,11 +189,12 @@
 
         const myWidget = cloudinary.createUploadWidget({ 
             cloudName: "dpcysggzh", uploadPreset: "poro_go",
-            maxFiles: 1, clientAllowedFormats: ["mp4", "mov", "webm"]
+            maxFiles: 1, clientAllowedFormats: ["mp4", "mov", "webm"],
+            styles: { palette: { window: "#050002", sourceBg: "#050002", windowBorder: "#ff007f", tabIcon: "#ff007f", menuIcons: "#ff007f", link: "#ff007f", action: "#ff007f", inProgress: "#ff007f", complete: "#20ff88", textLight: "#ffffff" } }
         }, (err, res) => {
             if (!err && res.event === "success") db.ref('videos/').push({ url: res.info.secure_url, likes: 0, timestamp: Date.now() });
         });
-        document.getElementById(\"upload-trigger\").onclick = () => myWidget.open();
+        document.getElementById("upload-trigger").onclick = () => myWidget.open();
 
         function initObserver() {
             const colors = ['#ff007f', '#00f3ff', '#00ffaa', '#ffaa00', '#bd00ff'];
@@ -198,10 +202,15 @@
                 es.forEach(e => {
                     const v = e.target.querySelector('video');
                     if(e.isIntersecting) { 
+                        v.muted = isMuted;
                         v.play().catch(()=>{});
                         const randomColor = colors[Math.floor(Math.random() * colors.length)];
                         document.documentElement.style.setProperty('--neon', randomColor);
-                    } else { v.pause(); }
+                    } else { 
+                        v.pause(); 
+                        /* [إضافة] تصفير الوقت لتوفير الذاكرة */
+                        v.currentTime = 0; 
+                    }
                 });
             }, { threshold: 0.6 });
             document.querySelectorAll('.video-segment').forEach(s => obs.observe(s));
