@@ -27,8 +27,12 @@
         }
         .scroll-engine::-webkit-scrollbar { display: none; }
         
-        /* [إضافة] خاصية contain لتقليل استهلاك المعالج */
-        .video-segment { height: 100vh; width: 100vw; scroll-snap-align: start; scroll-snap-stop: always; position: relative; overflow: hidden; contain: content; }
+        /* [إضافة تقنية] لزيادة سرعة معالجة الفيديوهات */
+        .video-segment { 
+            height: 100vh; width: 100vw; scroll-snap-align: start; scroll-snap-stop: always; 
+            position: relative; overflow: hidden;
+            contain: strict; 
+        }
         .crystal-frame { width: 100%; height: 100%; position: relative; background: #000; }
         video { width: 100%; height: 100%; object-fit: cover; }
 
@@ -208,7 +212,7 @@
                         document.documentElement.style.setProperty('--neon', randomColor);
                     } else { 
                         v.pause(); 
-                        /* [إضافة] تصفير الوقت لتوفير الذاكرة */
+                        /* [إضافة تقنية] تصفير الوقت عند الخروج من الشاشة لتحرير ذاكرة الجهاز */
                         v.currentTime = 0; 
                     }
                 });
