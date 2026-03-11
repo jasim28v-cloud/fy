@@ -15,49 +15,34 @@
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;900&family=Cairo:wght@400;700&display=swap');
         :root { --neon-color: #00f3ff; }
         
-        /* إلغاء أي خلفية سوداء وجعل الموقع يعتمد على الفيديو كخلفية */
         body, html { 
             margin: 0; padding: 0; height: 100%; 
-            background: transparent; 
+            background: #000; /* خلفية سوداء تمنع ظهور أي بياض */
             color: #fff; overflow: hidden; font-family: 'Cairo', sans-serif; 
         }
         
-        /* محرك التمرير شفاف تماماً */
+        /* محرك تمرير فائق السلاسة (TikTok Style) */
         .scroll-engine { 
-            height: 100vh; 
-            width: 100vw;
+            height: 100vh; width: 100vw; 
             overflow-y: scroll; 
             scroll-snap-type: y mandatory; 
             scrollbar-width: none; 
             scroll-behavior: smooth; 
-            background: transparent;
+            -webkit-overflow-scrolling: touch;
         }
         .scroll-engine::-webkit-scrollbar { display: none; }
         
-        /* حاوية الفيديو بدون خلفية وبدون حدود سفلية مزعجة */
         .video-segment { 
-            height: 100vh; 
-            width: 100vw; 
+            height: 100vh; width: 100vw; 
             scroll-snap-align: start; 
-            position: relative; 
-            background: transparent; 
-            overflow: hidden;
+            scroll-snap-stop: always;
+            position: relative; background: transparent; 
         }
         
-        /* الفيديو يغطي الهيكل بالكامل */
-        video { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: -1; /* ليكون خلف العناصر دائماً */
-        }
+        video { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: -1; }
 
-        /* تأثير الشفافية الموحد (مثل الهيدر) لكل القوائم */
         .glass-ui { 
-            background: rgba(255, 255, 255, 0.05) !important; 
+            background: rgba(255, 255, 255, 0.03) !important; 
             backdrop-filter: blur(15px); 
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255,255,255,0.1) !important; 
@@ -70,34 +55,20 @@
         #xp-progress { height: 100%; width: 0%; background: var(--neon-color); border-radius: 10px; transition: 1s; }
         
         .side-controls { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 20px; z-index: 50; }
-        
-        /* أزرار التحكم الجانبية شفافة أيضاً */
-        .glass-btn { 
-            width: 50px; height: 50px; border-radius: 15px; 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            transition: 0.3s; cursor: pointer;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
+        .glass-btn { width: 50px; height: 50px; border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.3s; cursor: pointer; background: rgba(255,255,255,0.1); backdrop-filter: blur(5px); }
         
         .shuffle-btn { position: fixed; top: 80px; right: 20px; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; border: 1px solid rgba(0,243,255,0.3); }
         
         .video-info { position: absolute; bottom: 100px; right: 20px; text-align: right; pointer-events: none; z-index: 40; }
-        .watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); font-family: 'Orbitron', sans-serif; font-size: 3rem; font-weight: 900; color: rgba(255, 255, 255, 0.06); white-space: nowrap; pointer-events: none; z-index: 10; user-select: none; }
+        .watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); font-family: 'Orbitron', sans-serif; font-size: 3rem; font-weight: 900; color: rgba(255, 255, 255, 0.05); white-space: nowrap; pointer-events: none; z-index: 10; user-select: none; }
         
-        /* لوحة الإدارة بتصميم زجاجي داكن قليلاً للوضوح */
-        .admin-panel { 
-            position: fixed; inset: 0; z-index: 500; 
-            background: rgba(0, 0, 0, 0.6); 
-            backdrop-filter: blur(30px);
-            display: none; flex-direction: column; padding: 20px; overflow-y: auto; 
-        }
+        .admin-panel { position: fixed; inset: 0; z-index: 500; background: rgba(5, 5, 5, 0.9); backdrop-filter: blur(20px); display: none; flex-direction: column; padding: 20px; overflow-y: auto; }
+        .admin-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 10px; display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
-    <header class="fixed top-0 w-full z-[200] glass-ui p-4 flex justify-between items-center border-b border-white/10">
+    <header class="fixed top-0 w-full z-[200] glass-ui p-4 flex justify-between items-center border-b border-white/5">
         <div class="flex flex-col">
             <span id="user-level" class="text-[9px] font-[Orbitron] neon-text">LEVEL 1 [INITIATE]</span>
             <div class="xp-bar-container"><div id="xp-progress"></div></div>
@@ -111,11 +82,7 @@
     </div>
 
     <main class="scroll-engine" id="video-stack">
-        <div class="h-full flex flex-col items-center justify-center bg-black">
-            <i class="fas fa-circle-notch fa-spin text-3xl neon-text mb-4"></i>
-            <span class="loading-text text-[10px] font-[Orbitron] animate-pulse">SYNCHRONIZING_CORE...</span>
-        </div>
-    </main>
+        </main>
 
     <nav class="fixed bottom-5 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px] h-16 glass-ui rounded-2xl flex justify-around items-center z-[200]">
         <i class="fas fa-home neon-text text-xl"></i>
@@ -126,15 +93,15 @@
         <i class="fas fa-random opacity-60 hover:opacity-100 transition-opacity" onclick="shuffleProtocol()"></i>
     </nav>
 
-    <div id="chat-overlay" class="fixed inset-0 z-[300] hidden flex-col glass-ui" style="background: rgba(0,0,0,0.5) !important;">
+    <div id="chat-overlay" class="fixed inset-0 z-[300] hidden flex-col glass-ui" style="background: rgba(0,0,0,0.7) !important;">
         <div class="p-4 flex justify-between border-b border-white/10">
             <span class="neon-text font-[Orbitron] tracking-widest">ENCRYPTED_COMMS</span>
             <i class="fas fa-chevron-down cursor-pointer p-2" onclick="toggleChat()"></i>
         </div>
         <div id="chat-box" class="flex-1 p-5 overflow-y-auto space-y-4"></div>
         <div class="p-4 flex gap-2 border-t border-white/10">
-            <input type="text" id="msg-input" class="flex-1 bg-white/5 border border-white/10 rounded-xl p-3 outline-none focus:border-[#00f3ff]/50 text-white" placeholder="Send secure message..." onkeypress="handleKey(event)">
-            <button onclick="sendChat()" class="neon-text p-2 hover:scale-110 transition-transform"><i class="fas fa-paper-plane"></i></button>
+            <input type="text" id="msg-input" class="flex-1 bg-white/5 border border-white/10 rounded-xl p-3 outline-none text-white" placeholder="Send secure message..." onkeypress="handleKey(event)">
+            <button onclick="sendChat()" class="neon-text p-2"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 
@@ -147,11 +114,9 @@
     </div>
 
     <script>
-        // الرابط والبيانات محفوظة
         const SAVED_AD_LINK = "https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default";
         const ADMIN_PASS = "1234";
         const SPECIAL_AD_LINK = "https://www.effectivegatecpm.com/bxwxuk2f39?key=566216691dc8b76a740840e94f68f44c";
-        
         const AD_LINKS = [SAVED_AD_LINK, "https://periodicdisease.com/JYauq8"];
         let currentAd = 0;
         let isGlobalMuted = false;
@@ -164,49 +129,24 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        function triggerAd() {
-            window.open(AD_LINKS[currentAd], '_blank');
-            currentAd = (currentAd + 1) % AD_LINKS.length;
-            addXP(10);
-        }
-
-        function triggerSpecialAd() {
-            window.open(SPECIAL_AD_LINK, '_blank');
-            addXP(15);
-        }
-
-        function addXP(amount) {
-            userXP += amount;
-            localStorage.setItem('shadow_xp', userXP);
-            updateXPUI();
-        }
+        function triggerAd() { window.open(AD_LINKS[currentAd], '_blank'); currentAd = (currentAd + 1) % AD_LINKS.length; addXP(10); }
+        function triggerSpecialAd() { window.open(SPECIAL_AD_LINK, '_blank'); addXP(15); }
+        function addXP(amount) { userXP += amount; localStorage.setItem('shadow_xp', userXP); updateXPUI(); }
 
         function updateXPUI() {
             const level = Math.floor(userXP / 500) + 1;
             const progress = (userXP % 500) / 5;
             const titles = ["RECRUIT", "OPERATIVE", "ELITE", "PHANTOM", "SHΔDØW_MASTER"];
-            const levelEl = document.getElementById('user-level');
-            if(levelEl) levelEl.innerText = `LVL ${level} // ${titles[Math.min(level-1, 4)]}`;
-            const progressEl = document.getElementById('xp-progress');
-            if(progressEl) progressEl.style.width = progress + "%";
+            document.getElementById('user-level').innerText = `LVL ${level} // ${titles[Math.min(level-1, 4)]}`;
+            document.getElementById('xp-progress').style.width = progress + "%";
         }
         updateXPUI();
-
-        function toggleVolume(btn) {
-            triggerSpecialAd();
-            isGlobalMuted = !isGlobalMuted;
-            document.querySelectorAll('video').forEach(v => v.muted = isGlobalMuted);
-            document.querySelectorAll('.vol-icon').forEach(icon => {
-                icon.className = isGlobalMuted ? 'fas fa-volume-mute vol-icon text-red-500' : 'fas fa-volume-up vol-icon neon-text';
-            });
-        }
 
         db.ref('videos').on('value', (snapshot) => {
             const container = document.getElementById('video-stack');
             const adminList = document.getElementById('admin-list');
             const data = snapshot.val();
-            container.innerHTML = '';
-            adminList.innerHTML = '';
+            container.innerHTML = ''; adminList.innerHTML = '';
             if(!data) return;
             
             const sorted = Object.keys(data).map(id => ({ id, ...data[id] })).sort((a, b) => b.timestamp - a.timestamp);
@@ -220,7 +160,7 @@
                     <div class="watermark">SHΔDØW GENESIS</div>
                     <div class="video-info">
                         <div class="text-[10px] opacity-50 mb-1">SOURCE: ${vid.sender || 'UNKNOWN'}</div>
-                        <div class="text-xs font-bold tracking-tighter neon-text">PROTOCOL_${vid.id.substr(-4)}</div>
+                        <div class="text-xs font-bold neon-text">PROTOCOL_${vid.id.substr(-4)}</div>
                     </div>
                     <div class="side-controls">
                         <div class="glass-btn" onclick="toggleVolume(this)">
@@ -228,7 +168,7 @@
                         </div>
                         <div class="glass-btn ${isLiked ? 'neon-border neon-text' : ''}" onclick="toggleLike('${vid.id}')">
                             <i class="fas fa-heart ${isLiked ? 'animate-bounce' : ''}"></i>
-                            <span class="text-[10px] font-black">${vid.likes || 0}</span>
+                            <span class="text-[10px]">${vid.likes || 0}</span>
                         </div>
                         <div class="glass-btn" onclick="toggleChatWithAd()">
                             <i class="fas fa-terminal"></i>
@@ -241,39 +181,46 @@
                 container.appendChild(section);
 
                 const card = document.createElement('div');
-                card.className = 'p-3 bg-white/5 rounded-lg flex items-center gap-4 mb-2';
-                card.innerHTML = `<video class="w-12 h-12 rounded" src="${vid.url}"></video><span class="text-xs flex-1">${vid.id}</span><button onclick="deleteVideo('${vid.id}')" class="text-red-500"><i class="fas fa-trash"></i></button>`;
+                card.className = 'admin-card';
+                card.innerHTML = `<video class="w-12 h-12 object-cover rounded" src="${vid.url}"></video><div class="flex-1 text-[10px]">${vid.id}</div><button onclick="deleteVideo('${vid.id}')" class="text-red-500 p-2"><i class="fas fa-trash"></i></button>`;
                 adminList.appendChild(card);
             });
             initScroll();
         });
 
         function togglePlay(v) { (v.paused) ? v.play() : v.pause(); }
-
-        function shuffleProtocol() {
-            const sections = document.querySelectorAll('.video-segment');
-            if(sections.length > 0) {
-                sections[Math.floor(Math.random() * sections.length)].scrollIntoView({ behavior: 'smooth' });
-                addXP(2);
-            }
-        }
+        function toggleVolume(btn) { triggerSpecialAd(); isGlobalMuted = !isGlobalMuted; document.querySelectorAll('video').forEach(v => v.muted = isGlobalMuted); }
 
         function toggleLike(vId) {
-            triggerAd();
-            addXP(5);
+            triggerAd(); addXP(5);
             db.ref(`videos/${vId}`).transaction(p => {
                 if (p) {
                     if (!p.likedBy) p.likedBy = {};
                     if (p.likedBy[SHADOW_ID]) { p.likes = (p.likes || 1) - 1; delete p.likedBy[SHADOW_ID]; }
                     else { p.likes = (p.likes || 0) + 1; p.likedBy[SHADOW_ID] = true; }
-                }
-                return p;
+                } return p;
             });
         }
 
-        function shareVideoWithAd() { triggerAd(); navigator.share({ title: 'SHΔDØW GENESIS', url: window.location.href }).catch(()=>{}); addXP(10); }
-
+        function shareVideoWithAd() { triggerAd(); navigator.share({ title: 'SHΔDØW', url: window.location.href }).catch(()=>{}); }
         function toggleChatWithAd() { triggerAd(); toggleChat(); }
+        function toggleChat() { const c = document.getElementById('chat-overlay'); c.classList.toggle('hidden'); c.classList.toggle('flex'); }
+
+        function sendChat() { 
+            const i = document.getElementById('msg-input');
+            if(i.value.trim()){ db.ref('global_chat').push({user:SHADOW_ID, text:i.value, time: Date.now()}); i.value=''; addXP(3); } 
+        }
+
+        db.ref('global_chat').limitToLast(20).on('value', s => {
+            const b = document.getElementById('chat-box'); b.innerHTML = '';
+            const v = s.val(); if(v) Object.values(v).forEach(m => {
+                const isMe = m.user === SHADOW_ID;
+                const d = document.createElement('div');
+                d.className = `max-w-[80%] p-3 rounded-2xl ${isMe ? 'mr-auto bg-[#00f3ff]/10 border border-[#00f3ff]/30' : 'ml-auto bg-white/5 border border-white/10'}`;
+                d.innerHTML = `<span class="text-[8px] opacity-50 block">${m.user}</span><p class="text-sm">${m.text}</p>`;
+                b.appendChild(d);
+            }); b.scrollTop = b.scrollHeight;
+        });
 
         const myWidget = cloudinary.createUploadWidget({ cloudName: "dqzjfaqg4", uploadPreset: "vox_god" }, (err, res) => {
             if (!err && res.event === "success") {
@@ -283,64 +230,25 @@
         });
         document.getElementById("upload-trigger").onclick = () => { myWidget.open(); };
 
-        function toggleChat() { 
-            const c = document.getElementById('chat-overlay');
-            c.classList.toggle('hidden'); c.classList.toggle('flex');
-        }
-
-        function sendChat() { 
-            const i = document.getElementById('msg-input');
-            if(i.value.trim()){ 
-                db.ref('global_chat').push({user:SHADOW_ID, text:i.value, time: Date.now()});
-                i.value=''; addXP(3); 
-            } 
-        }
-
-        function handleKey(e) { if(e.key==='Enter') sendChat(); }
-
-        db.ref('global_chat').limitToLast(20).on('value', s => {
-            const b = document.getElementById('chat-box'); 
-            b.innerHTML = '';
-            const v = s.val(); 
-            if(v) Object.values(v).forEach(m => {
-                const isMe = m.user === SHADOW_ID;
-                const d = document.createElement('div'); 
-                d.className = `max-w-[80%] p-3 rounded-2xl ${isMe ? 'mr-auto bg-[#00f3ff]/10 border border-[#00f3ff]/30' : 'ml-auto bg-white/5 border border-white/10'}`;
-                d.innerHTML = `<span class="text-[8px] font-bold opacity-50 block mb-1">${m.user}</span><p class="text-sm">${m.text}</p>`;
-                b.appendChild(d);
-            });
-            b.scrollTop = b.scrollHeight;
-        });
-
-        function checkAdminAuth() {
-            const pass = prompt("ENTER ADMIN KEY:");
-            if (pass === ADMIN_PASS) toggleAdmin();
-        }
-
-        function toggleAdmin() {
-            const a = document.getElementById('admin-overlay');
-            a.style.display = a.style.display === 'flex' ? 'none' : 'flex';
-        }
-
+        function checkAdminAuth() { const pass = prompt("ADMIN KEY:"); if (pass === ADMIN_PASS) toggleAdmin(); }
+        function toggleAdmin() { const a = document.getElementById('admin-overlay'); a.style.display = a.style.display === 'flex' ? 'none' : 'flex'; }
         function deleteVideo(id) { if(confirm("DELETE?")) db.ref(`videos/${id}`).remove(); }
+        function handleKey(e) { if(e.key==='Enter') sendChat(); }
 
         function initScroll() {
             const obs = new IntersectionObserver((entries) => {
                 entries.forEach(e => {
                     const v = e.target.querySelector('video');
-                    if(e.isIntersecting) {
-                        v.muted = isGlobalMuted; v.play().catch(()=>{});
-                    } else if(v) { 
-                        v.pause(); v.currentTime = 0; 
-                    }
+                    if(e.isIntersecting && v) { v.play().catch(()=>{}); } else if(v) { v.pause(); v.currentTime = 0; }
                 });
-            }, { threshold: 0.6 });
+            }, { threshold: 0.8 });
             document.querySelectorAll('.video-segment').forEach(s => obs.observe(s));
         }
 
-        document.addEventListener('touchstart', () => { 
-            document.querySelectorAll('video').forEach(v => v.muted = isGlobalMuted); 
-        }, { once: true });
+        function shuffleProtocol() {
+            const s = document.querySelectorAll('.video-segment');
+            if(s.length) s[Math.floor(Math.random()*s.length)].scrollIntoView({behavior:'smooth'});
+        }
     </script>
 </body>
 </html>
