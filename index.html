@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="referrer" content="no-referrer-when-downgrade" />
-    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>SHΔDØW | GENESIS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://upload-widget.cloudinary.com/global/all.js"></script>
@@ -14,15 +14,23 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;900&family=Cairo:wght@400;700&display=swap');
         :root { --neon-color: #00f3ff; }
-        body, html { margin: 0; padding: 0; height: 100%; background: #000; color: #fff; overflow: hidden; font-family: 'Cairo', sans-serif; }
         
-        /* تحسين سلاسة التمرير */
+        /* تعديل لجعل التمرير طبيعياً */
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            background: #000; 
+            color: #fff; 
+            font-family: 'Cairo', sans-serif;
+            overflow-x: hidden; /* منع الاهتزاز الجانبي فقط */
+        }
+        
+        /* محرك التمرير يسمح للمتصفح بإخفاء شريط العنوان */
         .scroll-engine { 
-            height: 100vh; 
-            overflow-y: scroll; 
+            width: 100vw;
             scroll-snap-type: y mandatory; 
             scrollbar-width: none; 
-            scroll-behavior: smooth; 
+            scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
         }
         .scroll-engine::-webkit-scrollbar { display: none; }
@@ -59,11 +67,7 @@
     </div>
 
     <main class="scroll-engine" id="video-stack">
-        <div class="h-full flex flex-col items-center justify-center">
-            <i class="fas fa-circle-notch fa-spin text-3xl neon-text mb-4"></i>
-            <span class="loading-text text-[10px] font-[Orbitron] animate-pulse">SYNCHRONIZING_CORE...</span>
-        </div>
-    </main>
+        </main>
 
     <nav class="fixed bottom-5 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px] h-16 glass-ui rounded-2xl flex justify-around items-center z-[200]">
         <i class="fas fa-home neon-text text-xl"></i>
@@ -97,11 +101,7 @@
     <script>
         const ADMIN_PASS = "1234";
         const SPECIAL_AD_LINK = "https://www.effectivegatecpm.com/bxwxuk2f39?key=566216691dc8b76a740840e94f68f44c";
-        
-        const AD_LINKS = [
-            "https://periodicdisease.com/JYauq8",
-            "https://www.effectivegatecpm.com/bxwxuk2f39?key=566216691dc8b76a740840e94f68f44c"
-        ];
+        const AD_LINKS = ["https://periodicdisease.com/JYauq8", "https://www.effectivegatecpm.com/bxwxuk2f39?key=566216691dc8b76a740840e94f68f44c"];
         let currentAd = 0;
         let isGlobalMuted = false;
 
@@ -113,12 +113,12 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // ميزة إخفاء شريط العنوان (Trick 3)
-        window.addEventListener("load", function() {
-            setTimeout(function() {
+        // خدعة التمرير التلقائي لإخفاء الشريط فور التحميل
+        window.onload = () => {
+            setTimeout(() => {
                 window.scrollTo(0, 1);
             }, 500);
-        });
+        };
 
         function triggerAd() {
             window.open(AD_LINKS[currentAd], '_blank');
@@ -141,19 +141,18 @@
             const level = Math.floor(userXP / 500) + 1;
             const progress = (userXP % 500) / 5;
             const titles = ["RECRUIT", "OPERATIVE", "ELITE", "PHANTOM", "SHΔDØW_MASTER"];
-            document.getElementById('user-level').innerText = `LVL ${level} // ${titles[Math.min(level-1, 4)]}`;
-            document.getElementById('xp-progress').style.width = progress + "%";
+            const levelEl = document.getElementById('user-level');
+            const progressEl = document.getElementById('xp-progress');
+            if(levelEl) levelEl.innerText = `LVL ${level} // ${titles[Math.min(level-1, 4)]}`;
+            if(progressEl) progressEl.innerText = progress + "%";
         }
         updateXPUI();
 
         function toggleVolume(btn) {
             triggerSpecialAd();
             isGlobalMuted = !isGlobalMuted;
-            const videos = document.querySelectorAll('video');
-            videos.forEach(v => v.muted = isGlobalMuted);
-            
-            const volIcons = document.querySelectorAll('.vol-icon');
-            volIcons.forEach(icon => {
+            document.querySelectorAll('video').forEach(v => v.muted = isGlobalMuted);
+            document.querySelectorAll('.vol-icon').forEach(icon => {
                 icon.className = isGlobalMuted ? 'fas fa-volume-mute vol-icon text-red-500' : 'fas fa-volume-up vol-icon neon-text';
             });
         }
@@ -162,6 +161,7 @@
             const container = document.getElementById('video-stack');
             const adminList = document.getElementById('admin-list');
             const data = snapshot.val();
+            if(!container) return;
             container.innerHTML = '';
             adminList.innerHTML = '';
             if(!data) return;
@@ -286,6 +286,7 @@
 
         db.ref('global_chat').limitToLast(25).on('value', s => {
             const b = document.getElementById('chat-box'); 
+            if(!b) return;
             b.innerHTML = '';
             const v = s.val(); 
             if(v) Object.values(v).forEach(m => {
