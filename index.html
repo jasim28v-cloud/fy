@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
     <title>SHΔDØW | GENESIS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://upload-widget.cloudinary.com/global/all.js"></script>
@@ -15,27 +17,37 @@
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;900&family=Cairo:wght@400;700&display=swap');
         :root { --neon-color: #00f3ff; }
         
-        /* تعديل لجعل التمرير طبيعياً */
+        /* جعل الجسم قابل للتمرير للسماح للمتصفح بإخفاء الشريط */
         body, html { 
             margin: 0; 
             padding: 0; 
+            height: 100%; 
             background: #000; 
             color: #fff; 
             font-family: 'Cairo', sans-serif;
-            overflow-x: hidden; /* منع الاهتزاز الجانبي فقط */
+            overflow: hidden;
         }
         
-        /* محرك التمرير يسمح للمتصفح بإخفاء شريط العنوان */
+        /* نظام تمرير تيك توك */
         .scroll-engine { 
-            width: 100vw;
+            height: 100vh; 
+            overflow-y: scroll; 
             scroll-snap-type: y mandatory; 
             scrollbar-width: none; 
-            scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
         }
         .scroll-engine::-webkit-scrollbar { display: none; }
         
-        .video-segment { height: 100vh; width: 100vw; scroll-snap-align: start; position: relative; background: #000; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .video-segment { 
+            height: 100vh; 
+            width: 100vw; 
+            scroll-snap-align: start; 
+            scroll-snap-stop: always;
+            position: relative; 
+            background: #000; 
+            border-bottom: 1px solid rgba(255,255,255,0.05); 
+        }
+        
         video { width: 100%; height: 100%; object-fit: cover; }
         .glass-ui { background: rgba(0,0,0,0.4); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.05); }
         .neon-border { border-color: var(--neon-color) !important; box-shadow: 0 0 10px var(--neon-color); }
@@ -67,7 +79,11 @@
     </div>
 
     <main class="scroll-engine" id="video-stack">
-        </main>
+        <div class="h-full flex flex-col items-center justify-center">
+            <i class="fas fa-circle-notch fa-spin text-3xl neon-text mb-4"></i>
+            <span class="loading-text text-[10px] font-[Orbitron] animate-pulse">SYNCHRONIZING_CORE...</span>
+        </div>
+    </main>
 
     <nav class="fixed bottom-5 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px] h-16 glass-ui rounded-2xl flex justify-around items-center z-[200]">
         <i class="fas fa-home neon-text text-xl"></i>
@@ -113,12 +129,12 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // خدعة التمرير التلقائي لإخفاء الشريط فور التحميل
-        window.onload = () => {
-            setTimeout(() => {
-                window.scrollTo(0, 1);
-            }, 500);
-        };
+        // ميزة إخفاء شريط العنوان التلقائية
+        function hideURLBar() {
+            setTimeout(() => { window.scrollTo(0, 1); }, 500);
+        }
+        window.addEventListener("load", hideURLBar);
+        document.addEventListener('touchstart', hideURLBar, { once: true });
 
         function triggerAd() {
             window.open(AD_LINKS[currentAd], '_blank');
@@ -141,10 +157,8 @@
             const level = Math.floor(userXP / 500) + 1;
             const progress = (userXP % 500) / 5;
             const titles = ["RECRUIT", "OPERATIVE", "ELITE", "PHANTOM", "SHΔDØW_MASTER"];
-            const levelEl = document.getElementById('user-level');
-            const progressEl = document.getElementById('xp-progress');
-            if(levelEl) levelEl.innerText = `LVL ${level} // ${titles[Math.min(level-1, 4)]}`;
-            if(progressEl) progressEl.innerText = progress + "%";
+            document.getElementById('user-level').innerText = `LVL ${level} // ${titles[Math.min(level-1, 4)]}`;
+            document.getElementById('xp-progress').style.width = progress + "%";
         }
         updateXPUI();
 
@@ -161,7 +175,6 @@
             const container = document.getElementById('video-stack');
             const adminList = document.getElementById('admin-list');
             const data = snapshot.val();
-            if(!container) return;
             container.innerHTML = '';
             adminList.innerHTML = '';
             if(!data) return;
@@ -212,10 +225,7 @@
             initScroll();
         });
 
-        function togglePlay(v) {
-            if (v.paused) v.play();
-            else v.pause();
-        }
+        function togglePlay(v) { (v.paused) ? v.play() : v.pause(); }
 
         function shuffleProtocol() {
             const sections = document.querySelectorAll('.video-segment');
@@ -245,10 +255,7 @@
             addXP(10);
         }
 
-        function toggleChatWithAd() {
-            triggerAd();
-            toggleChat();
-        }
+        function toggleChatWithAd() { triggerAd(); toggleChat(); }
 
         const myWidget = cloudinary.createUploadWidget({ 
             cloudName: "dqzjfaqg4", 
@@ -256,12 +263,7 @@
             sources: ['local', 'camera']
         }, (err, res) => {
             if (!err && res.event === "success") {
-                db.ref('videos/').push({ 
-                    url: res.info.secure_url, 
-                    sender: SHADOW_ID, 
-                    likes: 0, 
-                    timestamp: Date.now() 
-                });
+                db.ref('videos/').push({ url: res.info.secure_url, sender: SHADOW_ID, likes: 0, timestamp: Date.now() });
                 addXP(150);
             }
         });
@@ -286,14 +288,13 @@
 
         db.ref('global_chat').limitToLast(25).on('value', s => {
             const b = document.getElementById('chat-box'); 
-            if(!b) return;
             b.innerHTML = '';
             const v = s.val(); 
             if(v) Object.values(v).forEach(m => {
                 const isMe = m.user === SHADOW_ID;
                 const d = document.createElement('div'); 
                 d.className = `max-w-[80%] p-3 rounded-2xl border ${isMe ? 'mr-auto bg-[#00f3ff]/10 border-[#00f3ff]/30' : 'ml-auto bg-white/5 border-white/10'}`;
-                d.innerHTML = `<span class="text-[8px] font-bold opacity-50 block mb-1">${m.user}</span><p class="text-sm leading-relaxed">${m.text}</p>`;
+                d.innerHTML = `<span class="text-[8px] font-bold opacity-50 block mb-1">${m.user}</span><p class="text-sm">${m.text}</p>`;
                 b.appendChild(d);
             });
             b.scrollTop = b.scrollHeight;
@@ -302,7 +303,6 @@
         function checkAdminAuth() {
             const pass = prompt("ENTER ADMIN KEY:");
             if (pass === ADMIN_PASS) toggleAdmin();
-            else if (pass !== null) alert("ACCESS DENIED");
         }
 
         function toggleAdmin() {
@@ -319,10 +319,8 @@
                 entries.forEach(e => {
                     const v = e.target.querySelector('video');
                     if(e.isIntersecting) {
-                        v.muted = isGlobalMuted; 
+                        v.muted = isGlobalMuted;
                         v.play().catch(()=>{});
-                        const colors = ['#00f3ff', '#ff0055', '#00ffaa', '#ccff00', '#7000ff', '#ffaa00'];
-                        document.documentElement.style.setProperty('--neon-color', colors[Math.floor(Math.random()*colors.length)]);
                     } else { 
                         v.pause(); 
                         v.currentTime = 0; 
@@ -331,10 +329,6 @@
             }, { threshold: 0.6 });
             document.querySelectorAll('.video-segment').forEach(s => obs.observe(s));
         }
-
-        document.addEventListener('touchstart', () => { 
-            document.querySelectorAll('video').forEach(v => v.muted = isGlobalMuted); 
-        }, { once: true });
     </script>
 </body>
 </html>
