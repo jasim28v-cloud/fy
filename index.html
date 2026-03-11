@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VØID_X | HYPER ELITE</title>
+    <title>VØID_X | HYPER ELITE v2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://upload-widget.cloudinary.com/global/all.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
@@ -13,58 +13,47 @@
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;900&family=Cairo:wght@400;700&display=swap');
         
         :root { --neon: #ff007f; --bg: #020001; }
-        body, html { margin: 0; padding: 0; height: 100%; background: var(--bg); color: #fff; overflow: hidden; font-family: 'Cairo', sans-serif; user-select: none; scroll-behavior: smooth; }
+        body, html { margin: 0; padding: 0; height: 100%; background: var(--bg); color: #fff; overflow: hidden; font-family: 'Cairo', sans-serif; user-select: none; }
 
-        /* شاشة التحميل الهايبر */
-        #loader {
-            position: fixed; inset: 0; z-index: 9999; background: #000;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
-        .v-logo { font-family: 'Orbitron'; font-size: 3rem; font-weight: 900; background: linear-gradient(to bottom, #fff, var(--neon)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 15px var(--neon)); animation: scan 2s infinite alternate; }
-        @keyframes scan { from { filter: hue-rotate(0deg) drop-shadow(0 0 15px var(--neon)); } to { filter: hue-rotate(90deg) drop-shadow(0 0 30px #00f3ff); } }
+        /* شاشة التحميل */
+        #loader { position: fixed; inset: 0; z-index: 9999; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.5s; }
+        .v-logo { font-family: 'Orbitron'; font-size: 3rem; font-weight: 900; background: linear-gradient(to bottom, #fff, var(--neon)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 15px var(--neon)); }
 
-        /* محرك التمرير الفائق */
         .viewport { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
         .viewport::-webkit-scrollbar { display: none; }
-        
         .card { height: 100vh; width: 100vw; scroll-snap-align: start; scroll-snap-stop: always; position: relative; background: #000; }
-        video { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s; }
+        video { width: 100%; height: 100%; object-fit: cover; }
 
-        /* الهيدر الزجاجي المطور */
+        /* العلامة المائية البرمجية (خفيفة جداً) */
+        .smart-watermark { position: absolute; top: 20%; left: 5%; font-family: 'Orbitron'; font-size: 14px; font-weight: 900; color: rgba(255,255,255,0.08); z-index: 50; pointer-events: none; letter-spacing: 4px; transform: rotate(-45deg); text-transform: uppercase; }
+
         header { position: fixed; top: 15px; width: 100%; padding: 0 20px; z-index: 1000; display: flex; justify-content: space-between; align-items: center; pointer-events: none; }
-        .glass-tag { background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); padding: 8px 18px; border-radius: 100px; pointer-events: auto; box-shadow: 0 4px 30px rgba(0,0,0,0.1); }
-        .sys-status { font-family: 'Orbitron'; font-size: 10px; color: var(--neon); letter-spacing: 2px; }
+        .glass-tag { background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); padding: 8px 18px; border-radius: 100px; pointer-events: auto; }
 
-        /* الأزرار الجانبية (الأيونيك) */
         .side-bar { position: absolute; left: 15px; bottom: 140px; display: flex; flex-direction: column; gap: 20px; z-index: 500; }
-        .btn-ionic { width: 54px; height: 54px; border-radius: 18px; background: rgba(255,255,255,0.07); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .btn-ionic i { font-size: 1.3rem; color: #fff; filter: drop-shadow(0 0 5px var(--neon)); }
-        .count { font-size: 9px; font-weight: 900; margin-top: 4px; font-family: 'Orbitron'; color: rgba(255,255,255,0.6); }
-        .btn-ionic:active { transform: scale(0.9) rotate(-10deg); background: var(--neon); }
+        .btn-ionic { width: 54px; height: 54px; border-radius: 18px; background: rgba(255,255,255,0.07); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.3s; }
 
-        /* شريط التحكم السفلي */
-        nav { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 380px; height: 70px; background: rgba(10,10,10,0.6); backdrop-filter: blur(30px); border: 1px solid rgba(255,255,255,0.1); border-radius: 35px; display: flex; justify-content: space-around; align-items: center; z-index: 1000; box-shadow: 0 -10px 40px rgba(0,0,0,0.5); }
-        .admin-trigger { font-size: 2rem; color: var(--neon); cursor: pointer; transition: 0.5s; }
-        .add-btn { width: 55px; height: 55px; background: var(--neon); border-radius: 20px; display: flex; align-items: center; justify-content: center; transform: translateY(-20px); border: 4px solid var(--bg); box-shadow: 0 10px 20px rgba(255,0,127,0.3); }
+        nav { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 380px; height: 70px; background: rgba(10,10,10,0.6); backdrop-filter: blur(30px); border: 1px solid rgba(255,255,255,0.1); border-radius: 35px; display: flex; justify-content: space-around; align-items: center; z-index: 1000; }
+        .admin-trigger { font-size: 2rem; color: var(--neon); cursor: pointer; filter: drop-shadow(0 0 10px var(--neon)); }
+        .add-btn { width: 55px; height: 55px; background: var(--neon); border-radius: 20px; display: flex; align-items: center; justify-content: center; transform: translateY(-20px); border: 4px solid var(--bg); }
 
-        /* العلامة المائية */
-        .watermark { position: absolute; bottom: 100px; right: 20px; writing-mode: vertical-rl; font-family: 'Orbitron'; font-size: 10px; color: rgba(255,255,255,0.1); letter-spacing: 5px; pointer-events: none; }
-
-        /* القوائم */
         .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.98); backdrop-filter: blur(40px); z-index: 2000; display: none; flex-direction: column; padding: 30px; }
-        .video-card { background: rgba(255,255,255,0.03); border-radius: 20px; padding: 12px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: space-between; }
+        
+        /* تصميم عداد الزوار داخل التحكم */
+        .stats-box { background: linear-gradient(135deg, rgba(255,0,127,0.1), rgba(0,243,255,0.05)); border-radius: 25px; padding: 20px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; text-align: center; }
+        .visitor-count { font-family: 'Orbitron'; font-size: 3rem; font-weight: 900; color: #fff; text-shadow: 0 0 20px var(--neon); }
     </style>
 </head>
 <body>
 
     <div id="loader">
         <div class="v-logo">VØID_X</div>
-        <div class="sys-status mt-4">INITIALIZING ELITE CORE...</div>
+        <div class="text-[10px] font-[Orbitron] text-pink-500 mt-4 tracking-[5px]">SYNCING CLOUD...</div>
     </div>
 
     <header>
-        <div class="glass-tag"><span class="brand-name font-black tracking-tighter italic">VØID_X <span class="text-pink-500">ELITE</span></span></div>
-        <div class="glass-tag sys-status" id="timer">00:00:00</div>
+        <div class="glass-tag"><span class="font-black italic">VØID_X <span class="text-pink-500">ELITE</span></span></div>
+        <div class="glass-tag font-[Orbitron] text-[10px]" id="timer">00:00:00</div>
     </header>
 
     <main class="viewport" id="feed"></main>
@@ -76,27 +65,33 @@
     </nav>
 
     <div id="admin-ui" class="overlay">
-        <div class="flex justify-between items-center mb-10">
-            <h1 class="font-[Orbitron] text-2xl text-pink-500 font-black">CORE_DATABASE</h1>
-            <i class="fas fa-times text-3xl" onclick="closeAdmin()"></i>
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="font-[Orbitron] text-xl text-pink-500">SYSTEM_CONTROL</h1>
+            <i class="fas fa-times text-2xl" onclick="closeAdmin()"></i>
         </div>
-        <div id="admin-list" class="flex-1 overflow-y-auto"></div>
+        
+        <div class="stats-box">
+            <div class="text-[10px] font-[Orbitron] opacity-50 mb-1">LIVE VISITORS NOW</div>
+            <div class="visitor-count" id="live-visitors">0</div>
+            <div class="text-[10px] text-green-500 font-bold mt-2"><i class="fas fa-circle animate-pulse mr-1"></i> SERVER ACTIVE</div>
+        </div>
+
+        <div id="admin-list" class="flex-1 overflow-y-auto space-y-3"></div>
     </div>
 
     <div id="chat-ui" class="overlay">
         <div class="flex justify-between items-center mb-6">
-            <h1 class="font-[Orbitron] text-2xl text-pink-500">SECURE_CHAT</h1>
-            <i class="fas fa-chevron-down text-3xl" onclick="toggleChat()"></i>
+            <h1 class="font-[Orbitron] text-xl text-pink-500">SECURE_CHAT</h1>
+            <i class="fas fa-chevron-down text-2xl" onclick="toggleChat()"></i>
         </div>
-        <div id="chat-msgs" class="flex-1 overflow-y-auto space-y-4 pr-2"></div>
+        <div id="chat-msgs" class="flex-1 overflow-y-auto space-y-4"></div>
         <div class="mt-4 flex gap-2">
-            <input type="text" id="msg-input" class="bg-white/5 flex-1 rounded-2xl p-4 outline-none border border-white/10" placeholder="Type encrypted message...">
+            <input type="text" id="msg-input" class="bg-white/5 flex-1 rounded-2xl p-4 outline-none border border-white/10" placeholder="Type message...">
             <button onclick="sendMsg()" class="bg-pink-600 px-6 rounded-2xl"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 
     <script>
-        // التكوينات التقنية (الروابط الجديدة)
         const firebaseConfig = { databaseURL: "https://fokx-c135a-default-rtdb.firebaseio.com/" };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
@@ -106,13 +101,20 @@
         let isMuted = true;
         const USR_ID = "ELITE-" + Math.random().toString(36).substr(2, 4).toUpperCase();
 
+        // نظام عداد الزوار المباشر (Presence)
+        const myPresenceRef = db.ref(`presence/${USR_ID}`);
+        myPresenceRef.onDisconnect().remove();
+        myPresenceRef.set(true);
+
+        db.ref('presence').on('value', snap => {
+            const count = snap.numChildren();
+            document.getElementById('live-visitors').innerText = count;
+        });
+
         function triggerAd() { window.open(AD_LINKS[currentAd], '_blank'); currentAd = (currentAd + 1) % AD_LINKS.length; }
         function openChatWithAd() { triggerAd(); toggleChat(); }
-
-        // محرك الوقت
         setInterval(() => { document.getElementById('timer').innerText = new Date().toLocaleTimeString('en-GB'); }, 1000);
 
-        // تحميل المحتوى
         db.ref('videos').on('value', (snap) => {
             const feed = document.getElementById('feed');
             const adminList = document.getElementById('admin-list');
@@ -125,40 +127,37 @@
                     const section = document.createElement('div');
                     section.className = 'card';
                     section.innerHTML = `
-                        <div class="watermark">VØID_X SUPREME</div>
+                        <div class="smart-watermark">VØID_X ELITE</div>
                         <video loop playsinline muted src="${v.url}" onclick="this.paused ? this.play() : this.pause()"></video>
                         <div class="side-bar">
                             <div class="btn-ionic" onclick="toggleMute()">
                                 <i class="fas ${isMuted ? 'fa-volume-mute' : 'fa-volume-up'} m-icon"></i>
-                                <span class="count">VOL</span>
                             </div>
                             <div class="btn-ionic" onclick="likeVid('${id}')">
                                 <i class="fas fa-bolt text-pink-500"></i>
-                                <span class="count">${v.likes || 0}</span>
+                                <span class="text-[9px] font-bold mt-1">${v.likes || 0}</span>
                             </div>
                             <div class="btn-ionic" onclick="openChatWithAd()">
-                                <i class="fas fa-terminal"></i>
-                                <span class="count">ID</span>
+                                <i class="fas fa-terminal text-blue-400"></i>
                             </div>
                             <div class="btn-ionic" onclick="shareVid()">
                                 <i class="fas fa-share-nodes"></i>
-                                <span class="count">LINK</span>
                             </div>
                         </div>
                     `;
                     feed.appendChild(section);
 
                     adminList.innerHTML += `
-                        <div class="video-card">
-                            <video src="${v.url}" class="w-12 h-12 rounded-lg object-cover"></video>
-                            <span class="text-[10px] opacity-40 font-mono">${id}</span>
-                            <button onclick="deleteVid('${id}')" class="text-red-500"><i class="fas fa-trash"></i></button>
+                        <div class="bg-white/5 p-3 rounded-2xl flex items-center justify-between border border-white/5">
+                            <video src="${v.url}" class="w-10 h-10 rounded-lg object-cover"></video>
+                            <span class="text-[9px] font-mono opacity-30">${id.substr(0,8)}</span>
+                            <button onclick="deleteVid('${id}')" class="text-red-500 px-3"><i class="fas fa-trash-alt"></i></button>
                         </div>
                     `;
                 });
                 observeFeed();
             }
-            setTimeout(() => { document.getElementById('loader').style.display = 'none'; }, 2000);
+            setTimeout(() => { document.getElementById('loader').style.opacity = '0'; setTimeout(()=>document.getElementById('loader').style.display='none', 500); }, 2000);
         });
 
         function toggleMute() {
@@ -172,9 +171,8 @@
         function openAdmin() { if(prompt("ACCESS CODE:") === "1234") document.getElementById('admin-ui').style.display = 'flex'; }
         function closeAdmin() { document.getElementById('admin-ui').style.display = 'none'; }
         function toggleChat() { const c = document.getElementById('chat-ui'); c.style.display = c.style.display==='flex'?'none':'flex'; }
-        function deleteVid(id) { if(confirm("Permanently delete?")) db.ref(`videos/${id}`).remove(); }
+        function deleteVid(id) { if(confirm("Confirm delete?")) db.ref(`videos/${id}`).remove(); }
 
-        // محرك الدردشة
         function sendMsg() {
             const i = document.getElementById('msg-input');
             if(i.value.trim()) { db.ref('chat').push({u: USR_ID, t: i.value}); i.value = ''; }
@@ -183,25 +181,23 @@
             const b = document.getElementById('chat-msgs'); b.innerHTML = '';
             s.forEach(m => {
                 const d = m.val();
-                b.innerHTML += `<div class="bg-white/5 p-4 rounded-2xl border-r-2 border-pink-500/30">
-                    <div class="text-[9px] font-black text-pink-500 mb-1 tracking-tighter">${d.u}</div>
-                    <div class="text-sm opacity-80">${d.t}</div>
+                b.innerHTML += `<div class="bg-white/5 p-3 rounded-2xl border-l-2 border-pink-500">
+                    <div class="text-[8px] text-pink-500 font-black mb-1">${d.u}</div>
+                    <div class="text-sm">${d.t}</div>
                 </div>`;
             });
             b.scrollTop = b.scrollHeight;
         });
 
-        // محرك الرفع السحابي (Cloudinary dk5kas1gc)
         const widget = cloudinary.createUploadWidget({
             cloudName: "dk5kas1gc", uploadPreset: "go_kck",
             clientAllowedFormats: ["mp4", "mov"], maxFiles: 1,
-            styles: { palette: { window: "#000", windowBorder: "#ff007f", tabIcon: "#ff007f", menuIcons: "#ff007f", textLight: "#fff", link: "#ff007f", action: "#ff007f", inactiveTabIcon: "#444" } }
+            styles: { palette: { window: "#000", windowBorder: "#ff007f", tabIcon: "#ff007f", menuIcons: "#ff007f", textLight: "#fff", link: "#ff007f", action: "#ff007f" } }
         }, (err, res) => {
             if(!err && res.event === "success") db.ref('videos').push({url: res.info.secure_url, likes: 0});
         });
         document.getElementById('upload-btn').onclick = () => widget.open();
 
-        // محرك الملاحظة الذكي (High Performance Observer)
         function observeFeed() {
             const obs = new IntersectionObserver(entries => {
                 entries.forEach(e => {
