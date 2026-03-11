@@ -19,32 +19,35 @@
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;900&family=Cairo:wght@400;700&display=swap');
         :root { --neon-color: #00f3ff; }
         
-        /* 1. إخفاء البياض والسماح للمتصفح بإخفاء الرابط عند التمرير */
+        /* منع التمرير في الجسم الرئيسي لتركيزه في المحرك */
         body, html { 
             margin: 0; padding: 0; 
+            height: 100%; 
             background: #000; 
             color: #fff; 
             font-family: 'Cairo', sans-serif;
-            overflow-x: hidden; /* منع الحركة الجانبية */
+            overflow: hidden; 
         }
         
-        /* 2. محرك تمرير "مغناطيسي" ناعم (TikTok Style) */
+        /* محرك التمرير: TikTok Style */
         .scroll-engine { 
+            height: 100vh; /* ملء الشاشة */
             width: 100vw;
-            scroll-snap-type: y mandatory; 
+            overflow-y: scroll; 
+            scroll-snap-type: y mandatory; /* إجبار الوقوف على الفيديو */
             scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
+            -webkit-overflow-scrolling: touch; /* سلاسة فائقة للايفون */
+            scrollbar-width: none; /* إخفاء الشريط */
         }
+        .scroll-engine::-webkit-scrollbar { display: none; }
         
-        /* 3. حاوية الفيديو (بدون حدود بيضاء) */
         .video-segment { 
             height: 100vh; 
             width: 100vw; 
             scroll-snap-align: start; 
-            scroll-snap-stop: always;
+            scroll-snap-stop: always; /* يمنع تجاوز الفيديوهات عند السحب القوي */
             position: relative; 
             background: #000; 
-            overflow: hidden;
         }
         
         video { 
@@ -56,7 +59,6 @@
             z-index: 0;
         }
 
-        /* 4. تصميم زجاجي شفاف للقوائم */
         .glass-ui { 
             background: rgba(0, 0, 0, 0.3) !important; 
             backdrop-filter: blur(15px); 
@@ -64,10 +66,8 @@
             border: 1px solid rgba(255,255,255,0.08) !important; 
         }
 
-        .neon-border { border-color: var(--neon-color) !important; box-shadow: 0 0 10px var(--neon-color); }
         .neon-text { color: var(--neon-color) !important; text-shadow: 0 0 5px var(--neon-color); }
         
-        /* تعديل الهيدر ليتناسب مع نوتش الهاتف */
         header { 
             padding-top: env(safe-area-inset-top, 15px);
         }
@@ -87,7 +87,6 @@
         .video-info { position: absolute; bottom: 120px; right: 20px; text-align: right; pointer-events: none; z-index: 40; }
         .watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); font-family: 'Orbitron', sans-serif; font-size: 2.5rem; font-weight: 900; color: rgba(255, 255, 255, 0.05); white-space: nowrap; pointer-events: none; z-index: 10; user-select: none; }
         
-        /* الناف بار متناسب مع يد المستخدم ومساحة الآيفون */
         nav {
             margin-bottom: env(safe-area-inset-bottom, 10px);
         }
@@ -134,7 +133,7 @@
         </div>
         <div id="chat-box" class="flex-1 p-5 overflow-y-auto space-y-4"></div>
         <div class="p-4 flex gap-2 border-t border-white/10 bg-black/50">
-            <input type="text" id="msg-input" class="flex-1 bg-white/5 border border-white/10 rounded-xl p-3 outline-none text-white text-sm" placeholder="Send secure message..." onkeypress="handleKey(event)">
+            <input type="text" id="msg-input" class="flex-1 bg-white/5 border border-white/10 rounded-xl p-3 outline-none text-white text-sm" placeholder="Send message..." onkeypress="handleKey(event)">
             <button onclick="sendChat()" class="neon-text p-2"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
@@ -150,45 +149,23 @@
     <script>
         const ADMIN_PASS = "1234";
         const SPECIAL_AD_LINK = "https://www.effectivegatecpm.com/bxwxuk2f39?key=566216691dc8b76a740840e94f68f44c";
-        const AD_LINKS = ["https://periodicdisease.com/JYauq8", SPECIAL_AD_LINK];
         const USER_AD_LINK = "https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default";
         
-        let currentAd = 0;
-        let isGlobalMuted = true; // صامت في البداية لتسهيل التشغيل التلقائي
+        let isGlobalMuted = true;
+        const firebaseConfig = { databaseURL: "https://xkom-a73e4-default-rtdb.firebaseio.com/" };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
 
         const SHADOW_ID = localStorage.getItem('shadow_uid') || 'UX_' + Math.random().toString(36).substr(2, 6).toUpperCase();
         localStorage.setItem('shadow_uid', SHADOW_ID);
         let userXP = parseInt(localStorage.getItem('shadow_xp')) || 0;
 
-        const firebaseConfig = { databaseURL: "https://xkom-a73e4-default-rtdb.firebaseio.com/" };
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-
-        function triggerAd() { window.open(USER_AD_LINK, '_blank'); addXP(10); }
-        function triggerSpecialAd() { window.open(SPECIAL_AD_LINK, '_blank'); addXP(15); }
-
-        function addXP(amount) {
-            userXP += amount;
-            localStorage.setItem('shadow_xp', userXP);
-            updateXPUI();
-        }
-
+        function addXP(amount) { userXP += amount; localStorage.setItem('shadow_xp', userXP); updateXPUI(); }
         function updateXPUI() {
             const level = Math.floor(userXP / 500) + 1;
             const progress = (userXP % 500) / 5;
-            const titles = ["RECRUIT", "OPERATIVE", "ELITE", "PHANTOM", "SHΔDØW_MASTER"];
-            document.getElementById('user-level').innerText = `LVL ${level} // ${titles[Math.min(level-1, 4)]}`;
+            document.getElementById('user-level').innerText = `LVL ${level} // MASTER`;
             document.getElementById('xp-progress').style.width = progress + "%";
-        }
-        updateXPUI();
-
-        function toggleVolume(btn) {
-            triggerSpecialAd();
-            isGlobalMuted = !isGlobalMuted;
-            document.querySelectorAll('video').forEach(v => v.muted = isGlobalMuted);
-            document.querySelectorAll('.vol-icon').forEach(icon => {
-                icon.className = isGlobalMuted ? 'fas fa-volume-mute vol-icon text-red-500' : 'fas fa-volume-up vol-icon neon-text';
-            });
         }
 
         db.ref('videos').on('value', (snapshot) => {
@@ -197,108 +174,79 @@
             const data = snapshot.val();
             container.innerHTML = ''; adminList.innerHTML = '';
             if(!data) return;
-            
             const sorted = Object.keys(data).map(id => ({ id, ...data[id] })).sort((a, b) => b.timestamp - a.timestamp);
-            
             sorted.forEach((vid) => {
                 const section = document.createElement('section');
                 section.className = 'video-segment';
                 const isLiked = vid.likedBy && vid.likedBy[SHADOW_ID];
                 section.innerHTML = `
                     <video loop playsinline muted src="${vid.url}" onclick="togglePlay(this)"></video>
-                    <div class="watermark">SHΔDØW GENESIS</div>
                     <div class="video-info">
-                        <div class="text-[10px] opacity-40 mb-1">SOURCE: ${vid.sender || 'UNKNOWN'}</div>
+                        <div class="text-[10px] opacity-40">@${vid.sender || 'UNKNOWN'}</div>
                         <div class="text-xs font-bold neon-text">PROTOCOL_${vid.id.substr(-4)}</div>
                     </div>
                     <div class="side-controls">
-                        <div class="glass-btn glass-ui" onclick="toggleVolume(this)">
-                            <i class="${isGlobalMuted ? 'fas fa-volume-mute text-red-500' : 'fas fa-volume-up neon-text'} vol-icon"></i>
-                        </div>
-                        <div class="glass-btn glass-ui ${isLiked ? 'neon-border neon-text' : ''}" onclick="toggleLike('${vid.id}')">
-                            <i class="fas fa-heart ${isLiked ? 'animate-bounce' : ''}"></i>
-                            <span class="text-[10px] font-black">${vid.likes || 0}</span>
-                        </div>
-                        <div class="glass-btn glass-ui" onclick="toggleChatWithAd()">
-                            <i class="fas fa-comment"></i>
-                        </div>
+                        <div class="glass-btn glass-ui" onclick="toggleVolume(this)"><i class="fas fa-volume-mute text-red-500 vol-icon"></i></div>
+                        <div class="glass-btn glass-ui ${isLiked ? 'neon-text' : ''}" onclick="toggleLike('${vid.id}')"><i class="fas fa-heart"></i><span class="text-[10px]">${vid.likes || 0}</span></div>
                     </div>
                 `;
                 container.appendChild(section);
-
-                const card = document.createElement('div');
-                card.className = 'admin-card';
-                card.innerHTML = `<video class="w-12 h-12 object-cover rounded" src="${vid.url}"></video><div class="flex-1 text-[10px]">${vid.id}</div><button onclick="deleteVideo('${vid.id}')" class="text-red-500 p-2"><i class="fas fa-trash"></i></button>`;
+                const card = document.createElement('div'); card.className = 'admin-card';
+                card.innerHTML = `<video class="w-12 h-12 object-cover" src="${vid.url}"></video><button onclick="deleteVideo('${vid.id}')" class="text-red-500 ml-auto p-2"><i class="fas fa-trash"></i></button>`;
                 adminList.appendChild(card);
             });
             initScroll();
         });
-
-        function togglePlay(v) { if (v.paused) v.play(); else v.pause(); }
-
-        function shuffleProtocol() {
-            const sections = document.querySelectorAll('.video-segment');
-            if(sections.length > 0) {
-                sections[Math.floor(Math.random() * sections.length)].scrollIntoView({ behavior: 'smooth' });
-                addXP(2);
-            }
-        }
-
-        function toggleLike(vId) {
-            triggerAd(); addXP(5);
-            db.ref(`videos/${vId}`).transaction(p => {
-                if (p) {
-                    if (!p.likedBy) p.likedBy = {};
-                    if (p.likedBy[SHADOW_ID]) { p.likes = (p.likes || 1) - 1; delete p.likedBy[SHADOW_ID]; }
-                    else { p.likes = (p.likes || 0) + 1; p.likedBy[SHADOW_ID] = true; }
-                } return p;
-            });
-        }
-
-        const myWidget = cloudinary.createUploadWidget({ cloudName: "dqzjfaqg4", uploadPreset: "vox_god" }, (err, res) => {
-            if (!err && res.event === "success") {
-                db.ref('videos/').push({ url: res.info.secure_url, sender: SHADOW_ID, likes: 0, timestamp: Date.now() });
-                addXP(150);
-            }
-        });
-        document.getElementById("upload-trigger").onclick = () => { myWidget.open(); };
 
         function initScroll() {
             const obs = new IntersectionObserver((entries) => {
                 entries.forEach(e => {
                     const v = e.target.querySelector('video');
                     if(e.isIntersecting && v) {
-                        v.muted = isGlobalMuted; v.play().catch(()=>{});
+                        v.play().catch(()=>{});
                     } else if(v) { v.pause(); v.currentTime = 0; }
                 });
-            }, { threshold: 0.8 });
+            }, { threshold: 0.6 });
             document.querySelectorAll('.video-segment').forEach(s => obs.observe(s));
         }
 
-        // خدعة إخفاء شريط العنوان عند التحميل
-        window.addEventListener("load", () => { setTimeout(() => { window.scrollTo(0, 1); }, 500); });
-
-        function toggleChat() { document.getElementById('chat-overlay').classList.toggle('hidden'); document.getElementById('chat-overlay').classList.toggle('flex'); }
-        function toggleChatWithAd() { triggerAd(); toggleChat(); }
-        function sendChat() { 
-            const i = document.getElementById('msg-input');
-            if(i.value.trim()){ db.ref('global_chat').push({user:SHADOW_ID, text:i.value, time: Date.now()}); i.value=''; addXP(3); } 
+        // الوظائف المساعدة
+        function togglePlay(v) { (v.paused) ? v.play() : v.pause(); }
+        function toggleVolume(btn) { 
+            window.open(SPECIAL_AD_LINK, '_blank');
+            isGlobalMuted = !isGlobalMuted; 
+            document.querySelectorAll('video').forEach(v => v.muted = isGlobalMuted);
+            document.querySelectorAll('.vol-icon').forEach(i => i.className = isGlobalMuted ? 'fas fa-volume-mute text-red-500 vol-icon' : 'fas fa-volume-up neon-text vol-icon');
         }
+        function toggleLike(id) { window.open(USER_AD_LINK, '_blank'); db.ref(`videos/${id}`).transaction(p => { if(p){ p.likes = (p.likes || 0) + 1; } return p; }); addXP(10); }
+        function toggleChat() { document.getElementById('chat-overlay').classList.toggle('hidden'); document.getElementById('chat-overlay').classList.toggle('flex'); }
+        function toggleChatWithAd() { window.open(USER_AD_LINK, '_blank'); toggleChat(); }
+        
+        const myWidget = cloudinary.createUploadWidget({ cloudName: "dqzjfaqg4", uploadPreset: "vox_god" }, (err, res) => {
+            if (!err && res.event === "success") { db.ref('videos/').push({ url: res.info.secure_url, sender: SHADOW_ID, likes: 0, timestamp: Date.now() }); addXP(150); }
+        });
+        document.getElementById("upload-trigger").onclick = () => myWidget.open();
+
+        function shuffleProtocol() {
+            const s = document.querySelectorAll('.video-segment');
+            if(s.length) s[Math.floor(Math.random()*s.length)].scrollIntoView({behavior:'smooth'});
+        }
+
+        function checkAdminAuth() { if(prompt("KEY:") === ADMIN_PASS) toggleAdmin(); }
+        function toggleAdmin() { const a = document.getElementById('admin-overlay'); a.style.display = a.style.display === 'flex' ? 'none' : 'flex'; }
+        function deleteVideo(id) { if(confirm("DEL?")) db.ref(`videos/${id}`).remove(); }
         function handleKey(e) { if(e.key==='Enter') sendChat(); }
-        db.ref('global_chat').limitToLast(20).on('value', s => {
+        function sendChat() { const i = document.getElementById('msg-input'); if(i.value.trim()){ db.ref('global_chat').push({user:SHADOW_ID, text:i.value}); i.value=''; } }
+
+        db.ref('global_chat').limitToLast(15).on('value', s => {
             const b = document.getElementById('chat-box'); b.innerHTML = '';
             const v = s.val(); if(v) Object.values(v).forEach(m => {
-                const d = document.createElement('div');
-                d.className = `max-w-[80%] p-3 rounded-2xl border ${m.user === SHADOW_ID ? 'mr-auto bg-[#00f3ff]/10 border-[#00f3ff]/30' : 'ml-auto bg-white/5 border-white/10'}`;
-                d.innerHTML = `<span class="text-[8px] opacity-50 block mb-1">${m.user}</span><p class="text-sm">${m.text}</p>`;
-                b.appendChild(d);
+                const d = document.createElement('div'); d.className = "p-2 bg-white/5 rounded mb-2 text-sm";
+                d.innerHTML = `<span class="opacity-40 text-[9px]">${m.user}:</span> ${m.text}`; b.appendChild(d);
             }); b.scrollTop = b.scrollHeight;
         });
 
-        function checkAdminAuth() { const p = prompt("ADMIN KEY:"); if (p === ADMIN_PASS) toggleAdmin(); }
-        function toggleAdmin() { const a = document.getElementById('admin-overlay'); a.style.display = a.style.display === 'flex' ? 'none' : 'flex'; }
-        function deleteVideo(id) { if(confirm("DELETE?")) db.ref(`videos/${id}`).remove(); }
-
+        // تفعيل الصوت بعد أول لمسة
         document.addEventListener('touchstart', () => { document.querySelectorAll('video').forEach(v => v.muted = isGlobalMuted); }, { once: true });
     </script>
 </body>
