@@ -3,207 +3,239 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VØID_X | SINGULARITY</title>
+    <title>VØID_X | INTRA ULTRA+</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://upload-widget.cloudinary.com/global/all.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Space+Grotesk:wght@300;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Syncopate:wght@400;700&display=swap');
         
-        :root { --hyper-cyan: #00f3ff; --hyper-pink: #ff007f; --void-black: #010101; }
-        body, html { margin: 0; padding: 0; height: 100%; background: var(--void-black); color: #fff; overflow: hidden; font-family: 'Space Grotesk', sans-serif; }
+        :root { --neon-blue: #00f3ff; --neon-pink: #ff007f; --bg-void: #000103; }
+        body, html { margin: 0; padding: 0; height: 100%; background: var(--bg-void); color: #fff; overflow: hidden; font-family: 'Orbitron', sans-serif; }
 
-        /* الإنترو الذري */
-        #singularity-intro {
-            position: fixed; inset: 0; z-index: 9999; background: var(--void-black);
+        /* شاشة الإنترو الفائقة (INTRA ULTRA+) */
+        #intra-ultra {
+            position: fixed; inset: 0; z-index: 9999; background: #000;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s;
         }
-        .core-logo { font-family: 'Syncopate'; font-size: 2.5rem; letter-spacing: 12px; background: linear-gradient(90deg, #fff, var(--hyper-cyan), var(--hyper-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: glitch 1s infinite; }
-        @keyframes glitch { 0% { transform: skew(0deg); } 20% { transform: skew(3deg); } 40% { transform: skew(-3deg); } 100% { transform: skew(0deg); } }
+        .ultra-brand { font-family: 'Syncopate', sans-serif; font-size: 3rem; font-weight: 700; letter-spacing: 15px; background: linear-gradient(135deg, #fff 30%, var(--neon-blue), var(--neon-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 20px rgba(0,243,255,0.5)); animation: ultraPulse 2s infinite; }
+        .nano-load { width: 180px; height: 2px; background: rgba(255,255,255,0.05); border-radius: 10px; margin-top: 25px; overflow: hidden; position: relative; }
+        .nano-progress { width: 40%; height: 100%; background: linear-gradient(to right, var(--neon-blue), var(--neon-pink)); position: absolute; animation: nanoScan 1.2s infinite ease-in-out; box-shadow: 0 0 15px var(--neon-blue); }
 
-        /* مسرح الفيديوهات */
-        .master-viewport { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; }
-        .master-viewport::-webkit-scrollbar { display: none; }
-        .v-frame { height: 100vh; width: 100vw; scroll-snap-align: start; position: relative; background: #000; }
-        video { width: 100%; height: 100%; object-fit: cover; transition: 0.8s filter; }
+        @keyframes ultraPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(0.98); } }
+        @keyframes nanoScan { 0% { left: -100%; } 100% { left: 100%; } }
 
-        /* العلامة المائية الشبحية */
-        .phantom-mark { position: absolute; top: 15%; left: 5%; font-family: 'Syncopate'; font-size: 10px; opacity: 0.1; letter-spacing: 5px; transform: rotate(-90deg); pointer-events: none; }
+        /* محرك التصفح الكوني */
+        .nebula-viewport { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+        .nebula-viewport::-webkit-scrollbar { display: none; }
+        
+        .vid-card { height: 100vh; width: 100vw; scroll-snap-align: start; scroll-snap-stop: always; position: relative; overflow: hidden; background: #000; }
+        video { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.1) brightness(1.1); transition: opacity 0.5s; }
 
-        /* الهيدر الزجاجي */
-        header { position: fixed; top: 0; width: 100%; height: 70px; display: flex; align-items: center; justify-content: space-between; padding: 0 25px; z-index: 1000; pointer-events: none; }
-        .status-pill { background: rgba(255,255,255,0.05); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 50px; pointer-events: auto; font-size: 10px; font-family: 'Syncopate'; }
+        /* العلامة المائية الهولوغرافية (خفيفة جداً) */
+        .holo-mark { position: absolute; bottom: 20%; left: -30px; font-size: 6rem; font-weight: 900; opacity: 0.02; pointer-events: none; transform: rotate(-90deg); text-transform: uppercase; white-space: nowrap; font-family: 'Orbitron'; color: #fff; }
 
-        /* أزرار التفاعل الجانبية (نظام Gravity) */
-        .side-gravity { position: absolute; left: 20px; bottom: 120px; display: flex; flex-direction: column; gap: 20px; z-index: 500; }
-        .g-btn { width: 55px; height: 55px; border-radius: 20px; background: rgba(255,255,255,0.03); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.4s; }
-        .g-btn i { font-size: 1.3rem; color: #fff; }
-        .g-btn:active { transform: scale(0.7) translateY(-10px); background: var(--hyper-pink); }
+        /* واجهة التحكم العلوية */
+        .top-nav { position: fixed; top: 0; width: 100%; height: 80px; background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent); z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; pointer-events: none; }
+        .nebula-brand { font-family: 'Syncopate', sans-serif; font-weight: 700; letter-spacing: 5px; color: #fff; text-shadow: 0 0 10px var(--neon-blue); pointer-events: auto; }
+        
+        /* أزرار التفاعل الجانبية (الأيونيك المتطور) */
+        .action-orbit { position: absolute; left: 15px; bottom: 120px; display: flex; flex-direction: column; gap: 20px; z-index: 500; }
+        .orbit-btn { width: 55px; height: 55px; border-radius: 20px; background: rgba(0,243,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(0,243,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .orbit-btn i { font-size: 1.3rem; color: #fff; filter: drop-shadow(0 0 10px rgba(255,255,255,0.5)); }
+        .btn-val { font-size: 9px; margin-top: 4px; color: rgba(255,255,255,0.7); font-weight: bold; font-family: 'Orbitron'; }
+        .orbit-btn:active { transform: scale(0.8) rotate(15deg); background: rgba(255,0,127,0.1); border-color: var(--neon-pink); }
 
-        /* شريط التحكم السفلي */
-        nav { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 85%; max-width: 400px; height: 70px; background: rgba(255,255,255,0.02); backdrop-filter: blur(40px); border: 1px solid rgba(255,255,255,0.08); border-radius: 35px; display: flex; justify-content: space-around; align-items: center; z-index: 1000; }
-        .trigger-icon { font-size: 1.8rem; color: var(--hyper-cyan); filter: drop-shadow(0 0 10px var(--hyper-cyan)); cursor: pointer; }
-        .add-node { width: 55px; height: 55px; background: linear-gradient(45deg, var(--hyper-cyan), var(--hyper-pink)); border-radius: 20px; display: flex; align-items: center; justify-content: center; transform: translateY(-15px); border: 3px solid var(--void-black); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        /* شريط التحكم الكوانتي السريع */
+        .quantum-nav { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 85%; max-width: 380px; height: 75px; background: rgba(15,15,15,0.4); backdrop-filter: blur(40px); border: 1px solid rgba(255,255,255,0.08); border-radius: 25px; display: flex; justify-content: space-around; align-items: center; z-index: 1000; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+        .core-trigger { font-size: 2.2rem; color: var(--neon-pink); filter: drop-shadow(0 0 15px var(--neon-pink)); cursor: pointer; transition: 0.5s; animation: corePulse 2s infinite; }
+        .v-plus { width: 60px; height: 60px; background: linear-gradient(45deg, var(--neon-blue), var(--neon-pink)); border-radius: 22px; display: flex; align-items: center; justify-content: center; transform: translateY(-20px) rotate(45deg); box-shadow: 0 10px 30px rgba(0,243,255,0.3); border: 4px solid var(--bg-void); }
+        .v-plus i { transform: rotate(-45deg); font-size: 1.5rem; color: #fff; }
 
-        /* القوائم */
-        .singularity-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 2000; display: none; flex-direction: column; padding: 40px 30px; }
-        .radar-container { width: 220px; height: 220px; border-radius: 100%; border: 1px solid var(--hyper-cyan); margin: 0 auto 40px; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .radar-line { position: absolute; width: 50%; height: 2px; background: var(--hyper-cyan); top: 50%; left: 50%; transform-origin: left; animation: scan 3s linear infinite; box-shadow: 0 0 15px var(--hyper-cyan); }
-        @keyframes scan { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes corePulse { 0%, 100% { opacity: 1; filter: drop-shadow(0 0 15px var(--neon-pink)); } 50% { opacity: 0.6; filter: drop-shadow(0 0 5px var(--neon-pink)); } }
+
+        /* القوائم والطبقات */
+        .nebula-panel { position: fixed; inset: 0; background: rgba(0,1,5,0.99); z-index: 2000; display: none; flex-direction: column; padding: 40px 25px; backdrop-filter: blur(50px); animation: panelIn 0.4s ease-out; }
+        @keyframes panelIn { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .radar-stats { background: radial-gradient(circle, rgba(0,243,255,0.1) 0%, transparent 70%); border: 1px solid rgba(0,243,255,0.2); padding: 30px; border-radius: 100%; width: 200px; height: 200px; margin: 0 auto 30px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .radar-stats::before { content: ''; position: absolute; inset: 0; background: conic-gradient(from 0deg, var(--neon-blue), transparent); animation: radarScan 3s linear infinite; opacity: 0.3; }
+        @keyframes radarScan { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
-    <div id="singularity-intro">
-        <div class="core-logo">VØID_X</div>
-        <div class="mt-4 text-[8px] tracking-[8px] opacity-30 uppercase">Initializing Quantum Core</div>
+    <div id="intra-ultra">
+        <div class="ultra-brand">VØID_X</div>
+        <div class="nano-load"><div class="nano-progress"></div></div>
+        <div class="text-[9px] tracking-[10px] font-[Orbitron] text-white/20 mt-3">SYSTEM_SYNCING</div>
     </div>
 
-    <header>
-        <div class="status-pill text-cyan-400">VØID_X | <span class="text-white">SINGULARITY</span></div>
-        <div class="status-pill" id="live-time">00:00</div>
+    <header class="top-nav">
+        <div class="nebula-brand">VØID_X</div>
+        <div class="text-[10px] opacity-40 font-[Orbitron]" id="live-clock">00:00:00</div>
     </header>
 
-    <main class="master-viewport" id="v-stream"></main>
+    <main class="nebula-viewport" id="main-feed"></main>
 
-    <nav>
-        <div onclick="openAdmin()"><i class="fas fa-fingerprint trigger-icon"></i></div>
-        <div class="add-node" id="upload-trigger"><i class="fas fa-plus text-white text-xl"></i></div>
-        <div onclick="openNet()"><i class="fas fa-braille text-2xl opacity-30"></i></div>
+    <nav class="quantum-nav">
+        <div onclick="accessCore()"><i class="fas fa-fingerprint core-trigger"></i></div>
+        <div class="v-plus" id="nebula-upload"><i class="fas fa-plus"></i></div>
+        <div onclick="openDeepChat()"><i class="fas fa-atom text-2xl opacity-20"></i></div>
     </nav>
 
-    <div id="admin-menu" class="singularity-overlay">
+    <div id="admin-panel" class="nebula-panel">
         <div class="flex justify-between items-center mb-10">
-            <span class="font-[Syncopate] text-[10px] text-pink-500 tracking-[5px]">SYSTEM_RADAR</span>
-            <i class="fas fa-times text-2xl" onclick="closeAll()"></i>
+            <span class="text-xs tracking-[10px] font-[Syncopate] text-cyan-400">OBSERVER_CORE</span>
+            <i class="fas fa-times text-2xl" onclick="closePanel('admin-panel')"></i>
         </div>
-        <div class="radar-container">
-            <div class="radar-line"></div>
-            <div class="text-center z-10">
-                <div class="text-[10px] opacity-40">ACTIVE_VISITORS</div>
-                <div id="v-count" class="text-5xl font-bold">0</div>
-            </div>
+        <div class="radar-stats">
+            <div class="text-[10px] font-[Orbitron] opacity-50 mb-1">ACTIVE_SOULS</div>
+            <div id="soul-count" class="text-5xl font-black text-white font-[Orbitron]">0</div>
         </div>
-        <div id="mng-list" class="flex-1 overflow-y-auto space-y-3"></div>
+        <div id="vid-manage" class="flex-1 overflow-y-auto space-y-4 pr-2"></div>
     </div>
 
-    <div id="net-menu" class="singularity-overlay">
+    <div id="chat-panel" class="nebula-panel">
         <div class="flex justify-between items-center mb-8">
-            <span class="font-[Syncopate] text-[10px] text-cyan-400 tracking-[5px]">QUANTUM_NET</span>
-            <i class="fas fa-chevron-down text-2xl" onclick="closeAll()"></i>
+            <span class="text-xs tracking-[10px] font-[Syncopate] text-pink-500">DEEP_NETWORK</span>
+            <i class="fas fa-chevron-down text-2xl" onclick="closePanel('chat-panel')"></i>
         </div>
-        <div id="chat-box" class="flex-1 overflow-y-auto space-y-4"></div>
-        <div class="mt-4 flex gap-2">
-            <input type="text" id="m-in" class="bg-white/5 flex-1 rounded-2xl p-5 outline-none border border-white/5" placeholder="Connect...">
-            <button onclick="sendMsg()" class="bg-pink-600 px-8 rounded-2xl"><i class="fas fa-paper-plane"></i></button>
+        <div id="chat-stream" class="flex-1 overflow-y-auto space-y-4 pr-3"></div>
+        <div class="mt-6 flex gap-3">
+            <input type="text" id="msg-input" class="bg-white/5 flex-1 rounded-2xl p-5 outline-none border border-white/10" placeholder="Broadcast message...">
+            <button onclick="broadcast()" class="bg-cyan-600 px-8 rounded-2xl"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 
     <script>
-        const config = { databaseURL: "https://fokx-c135a-default-rtdb.firebaseio.com/" };
-        firebase.initializeApp(config);
+        // التكوينات التقنية (الروابط الجديدة)
+        const firebaseConfig = { databaseURL: "https://fokx-c135a-default-rtdb.firebaseio.com/" };
+        firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
-        const AD_URL = "https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default";
-        let isMuted = true;
+        const ADS = ["https://www.effectivegatecpm.com/bxwxuk2f39?key=566216691dc8b76a740840e94f68f44c", "https://www.effectivegatecpm.com/k60w64w4gk?key=564f3d8cc4ac85949f218179b742495e"];
+        let adIdx = 0;
+        let muted = true;
         const UID = "NODE-" + Math.random().toString(36).substr(2, 4).toUpperCase();
 
-        // تتبع الزوار (الرادار)
-        const presence = db.ref(`presence/${UID}`);
-        presence.onDisconnect().remove();
-        presence.set(true);
-        db.ref('presence').on('value', s => { document.getElementById('v-count').innerText = s.numChildren(); });
+        // نظام التواجد (Presence)
+        const pRef = db.ref(`presence/${UID}`);
+        pRef.onDisconnect().remove();
+        pRef.set(true);
+        db.ref('presence').on('value', s => { document.getElementById('soul-count').innerText = s.numChildren(); });
 
-        function triggerAd() { window.open(AD_URL, '_blank'); }
-        function openNet() { triggerAd(); document.getElementById('net-menu').style.display = 'flex'; }
-        function closeAll() { document.querySelectorAll('.singularity-overlay').forEach(o => o.style.display = 'none'); }
-        setInterval(() => { document.getElementById('live-time').innerText = new Date().toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'}); }, 1000);
+        function showAd() { window.open(ADS[adIdx], '_blank'); adIdx = (adIdx + 1) % ADS.length; }
+        function openDeepChat() { showAd(); document.getElementById('chat-panel').style.display = 'flex'; }
+        function closePanel(id) { document.getElementById(id).style.display = 'none'; }
+        setInterval(() => { document.getElementById('live-clock').innerText = new Date().toLocaleTimeString('en-GB'); }, 1000);
 
-        // محرك المحتوى
-        db.ref('videos').on('value', snap => {
-            const stream = document.getElementById('v-stream');
-            const mng = document.getElementById('mng-list');
+        // جلب البيانات الكونية
+        db.ref('videos').on('value', (snap) => {
+            const feed = document.getElementById('main-feed');
+            const manage = document.getElementById('vid-manage');
             const data = snap.val();
-            stream.innerHTML = ''; mng.innerHTML = '';
-            if(!data) { hideIntro(); return; }
+            feed.innerHTML = ''; manage.innerHTML = '';
+            if(!data) {
+                // إخفاء الإنترو إذا لم توجد فيديوهات
+                hideIntra();
+                return;
+            }
 
-            Object.keys(data).reverse().forEach((id, idx) => {
+            const keys = Object.keys(data).reverse();
+            keys.forEach((id, index) => {
                 const v = data[id];
                 const card = document.createElement('div');
-                card.className = 'v-frame';
+                card.className = 'vid-card';
                 card.innerHTML = `
-                    <div class="phantom-mark">VØID_X SINGULARITY</div>
+                    <div class="holo-mark">VØID_X SUPREME</div>
                     <video loop playsinline muted src="${v.url}" onclick="this.paused?this.play():this.pause()"></video>
-                    <div class="side-gravity">
-                        <div class="g-btn" onclick="toggleMute()"><i class="fas ${isMuted?'fa-volume-mute':'fa-volume-up'}"></i></div>
-                        <div class="g-btn" onclick="pulseLike('${id}')"><i class="fas fa-heart text-pink-500"></i><span class="text-[9px] mt-1 font-bold">${v.likes || 0}</span></div>
-                        <div class="g-btn" onclick="openNet()"><i class="fas fa-comment"></i></div>
-                        <div class="g-btn" onclick="shareNode()"><i class="fas fa-share text-cyan-400"></i></div>
+                    <div class="action-orbit">
+                        <div class="orbit-btn" onclick="toggleAudio()"><i class="fas ${muted?'fa-volume-mute':'fa-volume-up'} m-icon"></i></div>
+                        <div class="orbit-btn" onclick="pulseLike('${id}')"><i class="fas fa-bolt text-cyan-400"></i><span class="btn-val">${v.likes || 0}</span></div>
+                        <div class="orbit-btn" onclick="openDeepChat()"><i class="fas fa-comment-dots"></i></div>
+                        <div class="orbit-btn" onclick="shareNode()"><i class="fas fa-share-alt"></i></div>
                     </div>
                 `;
-                stream.appendChild(card);
-                mng.innerHTML += `<div class="bg-white/5 p-4 rounded-3xl flex items-center justify-between border border-white/5">
-                    <video src="${v.url}" class="w-10 h-10 rounded-lg object-cover"></video>
-                    <span class="text-[9px] font-mono opacity-20">${id}</span>
-                    <button onclick="deleteNode('${id}')" class="text-red-500 px-4"><i class="fas fa-trash-alt"></i></button>
+                feed.appendChild(card);
+                manage.innerHTML += `<div class="bg-white/5 p-4 rounded-3xl flex items-center justify-between border border-white/5">
+                    <video src="${v.url}" class="w-12 h-12 rounded-xl object-cover"></video>
+                    <span class="text-[9px] font-mono opacity-30">${id.substr(0,12)}</span>
+                    <button onclick="removeNode('${id}')" class="text-pink-500 px-4"><i class="fas fa-trash-alt text-xl"></i></button>
                 </div>`;
 
-                if(idx === 0) card.querySelector('video').onloadeddata = hideIntro;
+                // إخفاء الإنترو بمجرد تحميل أول فيديو
+                if(index === 0) {
+                    const firstVideo = card.querySelector('video');
+                    firstVideo.onloadeddata = () => {
+                        hideIntra();
+                    };
+                }
             });
-            initObserver();
+            initNebulaObserver();
         });
 
-        function hideIntro() { 
-            setTimeout(() => {
-                const intro = document.getElementById('singularity-intro');
-                intro.style.opacity = '0';
-                setTimeout(() => intro.style.display = 'none', 1000);
-            }, 1200);
+        function hideIntra() {
+            const intra = document.getElementById('intra-ultra');
+            if(intra.style.visibility !== 'hidden') {
+                setTimeout(() => {
+                    intra.style.opacity = '0';
+                    setTimeout(() => intra.style.visibility = 'hidden', 1000);
+                }, 1500); // إبقاء الإنترو فترة بسيطة لإعطاء طابع الفخامة
+            }
         }
 
-        function toggleMute() {
-            isMuted = !isMuted;
-            document.querySelectorAll('video').forEach(v => v.muted = isMuted);
+        function toggleAudio() {
+            muted = !muted;
+            document.querySelectorAll('video').forEach(v => v.muted = muted);
+            document.querySelectorAll('.m-icon').forEach(i => i.className = muted ? 'fas fa-volume-mute m-icon' : 'fas fa-volume-up m-icon');
         }
 
-        function pulseLike(id) { triggerAd(); db.ref(`videos/${id}/likes`).transaction(l => (l || 0) + 1); }
-        function shareNode() { triggerAd(); if(navigator.share) navigator.share({url: window.location.href}); }
-        function openAdmin() { if(prompt("MASTER CODE:") === "1234") document.getElementById('admin-menu').style.display = 'flex'; }
-        function deleteNode(id) { if(confirm("Erase?")) db.ref(`videos/${id}`).remove(); }
+        function pulseLike(id) { showAd(); db.ref(`videos/${id}/likes`).transaction(l => (l || 0) + 1); }
+        function shareNode() { showAd(); if(navigator.share) navigator.share({url: window.location.href}); }
+        function accessCore() { if(prompt("ACCESS CODE:") === "1234") document.getElementById('admin-panel').style.display = 'flex'; }
+        function removeNode(id) { if(confirm("Erase from existence?")) db.ref(`videos/${id}`).remove(); }
 
-        function sendMsg() {
-            const i = document.getElementById('m-in');
-            if(i.value.trim()) { db.ref('chat').push({u: UID, t: i.value}); i.value = ''; }
+        function broadcast() {
+            const i = document.getElementById('msg-input');
+            if(i.value.trim()) { db.ref('chat').push({u: UID, t: i.value, time: Date.now()}); i.value = ''; }
         }
-        db.ref('chat').limitToLast(20).on('value', s => {
-            const box = document.getElementById('chat-box'); box.innerHTML = '';
+        db.ref('chat').limitToLast(15).on('value', s => {
+            const stream = document.getElementById('chat-stream'); stream.innerHTML = '';
             s.forEach(m => {
                 const d = m.val();
-                box.innerHTML += `<div class="bg-white/5 p-4 rounded-2xl border-r-2 border-cyan-500/50">
-                    <div class="text-[8px] text-pink-500 font-bold mb-1">${d.u}</div>
-                    <div class="text-sm opacity-90">${d.t}</div>
+                stream.innerHTML += `<div class="bg-white/5 p-4 rounded-3xl border-l-2 border-cyan-500/50">
+                    <div class="text-[8px] text-cyan-400 font-black mb-1 font-[Syncopate]">${d.u}</div>
+                    <div class="text-sm opacity-90 font-sans">${d.t}</div>
                 </div>`;
             });
-            box.scrollTop = box.scrollHeight;
+            stream.scrollTop = stream.scrollHeight;
         });
 
-        // الرفع السحابي (Cloudinary)
+        // الرفع السحابي المتطور (Cloudinary dk5kas1gc)
         const widget = cloudinary.createUploadWidget({
             cloudName: "dk5kas1gc", uploadPreset: "go_kck",
-            styles: { palette: { window: "#010101", windowBorder: "#00f3ff", tabIcon: "#00f3ff", action: "#ff007f", textLight: "#fff" } }
-        }, (err, res) => { if(!err && res.event === "success") db.ref('videos').push({url: res.info.secure_url, likes: 0}); });
-        document.getElementById('upload-trigger').onclick = () => widget.open();
+            clientAllowedFormats: ["mp4", "mov"], maxFiles: 1,
+            styles: { palette: { window: "#000103", windowBorder: "#00f3ff", tabIcon: "#00f3ff", textLight: "#fff", link: "#00f3ff", action: "#ff007f" } }
+        }, (err, res) => { if(!err && res.event === "success") db.ref('videos').push({url: res.info.secure_url, likes: 0, timestamp: Date.now()}); });
+        document.getElementById('nebula-upload').onclick = () => widget.open();
 
-        function initObserver() {
-            const obs = new IntersectionObserver(es => {
-                es.forEach(e => {
-                    const v = e.target.querySelector('video');
-                    if(e.isIntersecting) { v.play().catch(()=>{}); v.style.filter = "none"; }
-                    else { v.pause(); v.currentTime = 0; v.style.filter = "blur(10px)"; }
+        function initNebulaObserver() {
+            const obs = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    const video = entry.target.querySelector('video');
+                    if(entry.isIntersecting) {
+                        video.play().catch(()=>{});
+                        // تأثير تلوين النيون المتغير عند التمرير
+                        document.documentElement.style.setProperty('--neon-blue', ['#00f3ff', '#00ff88', '#ff00ff'][Math.floor(Math.random()*3)]);
+                    } else { video.pause(); video.currentTime = 0; video.style.opacity = '0.5'; }
+                    
+                    video.onplay = () => video.style.opacity = '1';
                 });
             }, { threshold: 0.6 });
-            document.querySelectorAll('.v-frame').forEach(c => obs.observe(c));
+            document.querySelectorAll('.vid-card').forEach(c => obs.observe(c));
         }
     </script>
 </body>
