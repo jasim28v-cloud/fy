@@ -2,203 +2,111 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>VØID_X | HYPER ELITE v4.0</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VØID_X | HYPER ELITE v2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://upload-widget.cloudinary.com/global/all.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;900&family=Cairo:wght@400;700&display=swap');
         
-        :root { 
-            --neon: #ff007f; 
-            --bg: #050505; 
-            --ionic-blur: blur(25px);
-            --safe-area-inset-bottom: env(safe-area-inset-bottom);
-        }
+        :root { --neon: #ff007f; --bg: #020001; }
+        body, html { margin: 0; padding: 0; height: 100%; background: var(--bg); color: #fff; overflow: hidden; font-family: 'Cairo', sans-serif; user-select: none; }
 
-        body, html { 
-            margin: 0; padding: 0; height: 100%; 
-            background: var(--bg); color: #fff; 
-            overflow: hidden; font-family: 'Cairo', sans-serif; 
-            user-select: none; -webkit-tap-highlight-color: transparent;
-        }
-
-        .viewport { 
-            height: 100vh; overflow-y: scroll; 
-            scroll-snap-type: y mandatory; scrollbar-width: none; 
-            -webkit-overflow-scrolling: touch; 
-        }
+        .viewport { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
         .viewport::-webkit-scrollbar { display: none; }
-        
-        .card { 
-            height: 100vh; width: 100vw; 
-            scroll-snap-align: start; scroll-snap-stop: always; 
-            position: relative; background: #000; overflow: hidden;
-        }
-        
+        .card { height: 100vh; width: 100vw; scroll-snap-align: start; scroll-snap-stop: always; position: relative; background: #000; }
         video { width: 100%; height: 100%; object-fit: cover; }
 
-        /* العلامة المائية الشفافة والمتحركة */
-        .watermark-overlay {
-            position: absolute; inset: 0;
-            display: flex; justify-content: center; align-items: center;
-            pointer-events: none; z-index: 5; opacity: 0.08;
-            font-family: 'Orbitron'; font-size: 10vw; font-weight: 900;
-            color: white; transform: rotate(-25deg);
-            animation: drift 12s infinite alternate ease-in-out;
-            white-space: nowrap;
-        }
+        .smart-watermark { position: absolute; top: 20%; left: 5%; font-family: 'Orbitron'; font-size: 14px; font-weight: 900; color: rgba(255,255,255,0.08); z-index: 50; pointer-events: none; letter-spacing: 4px; transform: rotate(-45deg); text-transform: uppercase; }
 
-        @keyframes drift {
-            from { transform: rotate(-25deg) translateX(-15%); }
-            to { transform: rotate(-25deg) translateX(15%); }
-        }
+        header { position: fixed; top: 15px; width: 100%; padding: 0 20px; z-index: 1000; display: flex; justify-content: space-between; align-items: center; pointer-events: none; }
+        .glass-tag { background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); padding: 8px 18px; border-radius: 100px; pointer-events: auto; }
 
-        header { 
-            position: fixed; top: env(safe-area-inset-top, 15px); 
-            width: 100%; padding: 0 20px; z-index: 1000; 
-            display: flex; justify-content: space-between; align-items: center; 
-        }
+        .side-bar { position: absolute; left: 15px; bottom: 140px; display: flex; flex-direction: column; gap: 20px; z-index: 500; }
+        .btn-ionic { width: 54px; height: 54px; border-radius: 18px; background: rgba(255,255,255,0.07); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.3s; }
 
-        .glass-tag { 
-            background: rgba(255,255,255,0.05); 
-            backdrop-filter: var(--ionic-blur); -webkit-backdrop-filter: var(--ionic-blur);
-            border: 1px solid rgba(255,255,255,0.1); 
-            padding: 8px 18px; border-radius: 20px; 
-        }
+        nav { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 380px; height: 70px; background: rgba(10,10,10,0.6); backdrop-filter: blur(30px); border: 1px solid rgba(255,255,255,0.1); border-radius: 35px; display: flex; justify-content: space-around; align-items: center; z-index: 1000; }
+        .admin-trigger { font-size: 2rem; color: var(--neon); cursor: pointer; filter: drop-shadow(0 0 10px var(--neon)); }
+        .add-btn { width: 55px; height: 55px; background: var(--neon); border-radius: 20px; display: flex; align-items: center; justify-content: center; transform: translateY(-20px); border: 4px solid var(--bg); }
 
-        .side-bar { 
-            position: absolute; left: 15px; bottom: 160px; 
-            display: flex; flex-direction: column; gap: 22px; z-index: 500; 
-        }
-
-        /* أزرار أيونات ملونة وشفافة */
-        .btn-ionic { 
-            width: 52px; height: 52px; border-radius: 18px; 
-            background: rgba(255, 255, 255, 0.03); 
-            backdrop-filter: var(--ionic-blur); -webkit-backdrop-filter: var(--ionic-blur);
-            border: 1px solid rgba(255,255,255,0.1); 
-            display: flex; flex-direction: column; align-items: center; 
-            justify-content: center; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .btn-ionic i { font-size: 20px; transition: 0.4s; }
-        .btn-ionic:active { transform: scale(0.8); }
-
-        /* شريط التنقل السفلي الشفاف */
-        nav { 
-            position: fixed; bottom: calc(25px + var(--safe-area-inset-bottom)); 
-            left: 50%; transform: translateX(-50%); 
-            width: 85%; max-width: 380px; height: 70px; 
-            background: rgba(255, 255, 255, 0.03); 
-            backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(255,255,255,0.08); 
-            border-radius: 35px; display: flex; 
-            justify-content: space-around; align-items: center; z-index: 1000; 
-        }
-
-        .add-btn { 
-            width: 60px; height: 60px; background: #fff; color: #000;
-            border-radius: 50%; display: flex; align-items: center; 
-            justify-content: center; transform: translateY(-20px); 
-            border: 4px solid var(--bg); box-shadow: 0 10px 20px rgba(255,255,255,0.2);
-        }
-
-        .overlay { 
-            position: fixed; inset: 0; background: rgba(0,0,0,0.85); 
-            backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
-            z-index: 2000; display: none; flex-direction: column; padding: 25px; 
-        }
-
-        .stat-card {
-            background: rgba(255,255,255,0.03);
-            border-radius: 25px; padding: 20px; border: 1px solid rgba(255,255,255,0.1);
-            text-align: center; margin-bottom: 20px;
-        }
-
-        .vid-manager-item {
-            background: rgba(255,255,255,0.02);
-            border-radius: 15px; padding: 10px;
-            display: flex; align-items: center; gap: 15px;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.98); backdrop-filter: blur(40px); z-index: 2000; display: none; flex-direction: column; padding: 30px; }
+        
+        .stats-box { background: linear-gradient(135deg, rgba(255,0,127,0.1), rgba(0,243,255,0.05)); border-radius: 25px; padding: 20px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; text-align: center; }
+        .visitor-count { font-family: 'Orbitron'; font-size: 3rem; font-weight: 900; color: #fff; text-shadow: 0 0 20px var(--neon); }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="glass-tag"><span class="font-[Orbitron] font-black text-xs">VØID_X <span class="text-pink-500">SYSTEM</span></span></div>
-        <div class="glass-tag font-[Orbitron] text-[10px] text-pink-400" id="timer">00:00:00</div>
+        <div class="glass-tag"><span class="font-black italic">VØID_X <span class="text-pink-500">ELITE</span></span></div>
+        <div class="glass-tag font-[Orbitron] text-[10px]" id="timer">00:00:00</div>
     </header>
 
     <main class="viewport" id="feed"></main>
 
     <nav>
-        <div onclick="openAdmin()"><i class="fas fa-user-shield text-xl text-gray-500"></i></div>
-        <div class="add-btn" id="upload-btn"><i class="fas fa-plus text-2xl"></i></div>
-        <div onclick="triggerAd2(); toggleChat();"><i class="fas fa-comment-dots text-xl text-gray-500"></i></div>
+        <div onclick="openAdmin()"><i class="fas fa-fingerprint admin-trigger"></i></div>
+        <div class="add-btn" id="upload-btn"><i class="fas fa-plus text-2xl text-white"></i></div>
+        <div onclick="openChatWithAd()"><i class="fas fa-comment-alt text-2xl opacity-30"></i></div>
     </nav>
 
     <div id="admin-ui" class="overlay">
         <div class="flex justify-between items-center mb-6">
-            <h1 class="font-[Orbitron] text-xl text-pink-500 tracking-widest">DASHBOARD_v4</h1>
-            <button onclick="closeAdmin()" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"><i class="fas fa-times"></i></button>
+            <h1 class="font-[Orbitron] text-xl text-pink-500">SYSTEM_CONTROL</h1>
+            <i class="fas fa-times text-2xl" onclick="closeAdmin()"></i>
         </div>
-        <div class="stat-card">
-            <div class="text-[10px] font-[Orbitron] text-gray-500 mb-1">LIVE_NODES</div>
-            <div class="text-6xl font-black font-[Orbitron] text-white" id="visitor-count">1</div>
+        
+        <div class="stats-box">
+            <div class="text-[10px] font-[Orbitron] opacity-50 mb-1">LIVE VISITORS NOW</div>
+            <div class="visitor-count" id="live-visitors">0</div>
+            <div class="text-[10px] text-green-500 font-bold mt-2"><i class="fas fa-circle animate-pulse mr-1"></i> SERVER ACTIVE</div>
         </div>
-        <div id="admin-video-list" class="flex-1 overflow-y-auto space-y-3 px-1"></div>
+
+        <div id="admin-list" class="flex-1 overflow-y-auto space-y-3"></div>
     </div>
 
     <div id="chat-ui" class="overlay">
         <div class="flex justify-between items-center mb-6">
-            <h1 class="font-[Orbitron] text-xl text-cyan-400">SECURE_LINK</h1>
-            <i class="fas fa-times" onclick="toggleChat()"></i>
+            <h1 class="font-[Orbitron] text-xl text-pink-500">SECURE_CHAT</h1>
+            <i class="fas fa-chevron-down text-2xl" onclick="toggleChat()"></i>
         </div>
-        <div id="chat-msgs" class="flex-1 overflow-y-auto space-y-4 px-2"></div>
+        <div id="chat-msgs" class="flex-1 overflow-y-auto space-y-4"></div>
         <div class="mt-4 flex gap-2">
-            <input type="text" id="msg-input" class="bg-white/5 flex-1 rounded-2xl p-4 outline-none border border-white/10" placeholder="ارسل شفرة...">
-            <button onclick="sendMsg()" class="bg-white text-black px-6 rounded-2xl font-bold">ارسل</button>
+            <input type="text" id="msg-input" class="bg-white/5 flex-1 rounded-2xl p-4 outline-none border border-white/10" placeholder="Type message...">
+            <button onclick="sendMsg()" class="bg-pink-600 px-6 rounded-2xl"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 
     <script>
-        // الروابط الإعلانية المطلوبة
-        const AD_URL_1 = "https://www.effectivegatecpm.com/bxwxuk2f39?key=566216691dc8b76a740840e94f68f44c";
-        const AD_URL_2 = "https://www.effectivegatecpm.com/k60w64w4gk?key=564f3d8cc4ac85949f218179b742495e";
-
-        function triggerAd1() { window.open(AD_URL_1, '_blank'); }
-        function triggerAd2() { window.open(AD_URL_2, '_blank'); }
-
         const firebaseConfig = { databaseURL: "https://fokx-c135a-default-rtdb.firebaseio.com/" };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
-        const USR_ID = "NODE-" + Math.random().toString(36).substr(2, 4).toUpperCase();
 
+        // تم تضمين رابط الإعلان الخاص بك هنا كخيار أساسي
+        const AD_LINKS = ["https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default"];
+        let currentAd = 0;
         let isMuted = true;
+        const USR_ID = "ELITE-" + Math.random().toString(36).substr(2, 4).toUpperCase();
 
-        // تتبع الزوار
         const myPresenceRef = db.ref(`presence/${USR_ID}`);
         myPresenceRef.onDisconnect().remove();
-        myPresenceRef.set({status: "online"});
+        myPresenceRef.set(true);
+
         db.ref('presence').on('value', snap => {
-            document.getElementById('visitor-count').innerText = snap.numChildren();
+            const count = snap.numChildren();
+            document.getElementById('live-visitors').innerText = count;
         });
 
-        setInterval(() => { 
-            document.getElementById('timer').innerText = new Date().toLocaleTimeString('en-GB', { hour12: false }); 
-        }, 1000);
+        function triggerAd() { window.open(AD_LINKS[currentAd], '_blank'); }
+        function openChatWithAd() { triggerAd(); toggleChat(); }
+        setInterval(() => { document.getElementById('timer').innerText = new Date().toLocaleTimeString('en-GB'); }, 1000);
 
-        // جلب البيانات
         db.ref('videos').on('value', (snap) => {
             const feed = document.getElementById('feed');
-            const adminList = document.getElementById('admin-video-list');
+            const adminList = document.getElementById('admin-list');
             const data = snap.val();
             feed.innerHTML = ''; adminList.innerHTML = '';
             
@@ -208,29 +116,31 @@
                     const section = document.createElement('div');
                     section.className = 'card';
                     section.innerHTML = `
-                        <div class="watermark-overlay">VØID_X ELITE</div>
-                        <video loop playsinline muted src="${v.url}" onclick="this.paused?this.play():this.pause()"></video>
+                        <div class="smart-watermark">VØID_X ELITE</div>
+                        <video loop playsinline muted src="${v.url}" onclick="this.paused ? this.play() : this.pause()"></video>
                         <div class="side-bar">
-                            <div class="btn-ionic" onclick="toggleMute(this)"><i class="fas fa-volume-mute text-white/50"></i></div>
-                            <div class="btn-ionic" onclick="triggerAd1(); likeVid('${id}')">
-                                <i class="fas fa-heart text-pink-500"></i>
-                                <span class="text-[10px] font-bold mt-1 text-pink-400">${v.likes || 0}</span>
+                            <div class="btn-ionic" onclick="toggleMute()">
+                                <i class="fas ${isMuted ? 'fa-volume-mute' : 'fa-volume-up'} m-icon"></i>
                             </div>
-                            <div class="btn-ionic" onclick="triggerAd2(); toggleChat();">
-                                <i class="fas fa-terminal text-cyan-400"></i>
+                            <div class="btn-ionic" onclick="likeVid('${id}')">
+                                <i class="fas fa-bolt text-pink-500"></i>
+                                <span class="text-[9px] font-bold mt-1">${v.likes || 0}</span>
                             </div>
-                            <div class="btn-ionic" onclick="triggerAd1(); shareVid()">
-                                <i class="fas fa-share-nodes text-green-400"></i>
+                            <div class="btn-ionic" onclick="openChatWithAd()">
+                                <i class="fas fa-terminal text-blue-400"></i>
+                            </div>
+                            <div class="btn-ionic" onclick="shareVid()">
+                                <i class="fas fa-share-nodes"></i>
                             </div>
                         </div>
                     `;
                     feed.appendChild(section);
 
                     adminList.innerHTML += `
-                        <div class="vid-manager-item">
-                            <video src="${v.url}" class="w-12 h-12 object-cover rounded-lg"></video>
-                            <div class="flex-1 text-[10px] font-mono opacity-40">${id}</div>
-                            <button onclick="deleteVid('${id}')" class="text-red-500 p-2"><i class="fas fa-trash"></i></button>
+                        <div class="bg-white/5 p-3 rounded-2xl flex items-center justify-between border border-white/5">
+                            <video src="${v.url}" class="w-10 h-10 rounded-lg object-cover"></video>
+                            <span class="text-[9px] font-mono opacity-30">${id.substr(0,8)}</span>
+                            <button onclick="deleteVid('${id}')" class="text-red-500 px-3"><i class="fas fa-trash-alt"></i></button>
                         </div>
                     `;
                 });
@@ -238,64 +148,56 @@
             }
         });
 
-        function toggleMute(btn) {
+        function toggleMute() {
             isMuted = !isMuted;
             document.querySelectorAll('video').forEach(v => v.muted = isMuted);
-            btn.innerHTML = isMuted ? '<i class="fas fa-volume-mute text-white/50"></i>' : '<i class="fas fa-volume-up text-white"></i>';
+            document.querySelectorAll('.m-icon').forEach(i => i.className = isMuted ? 'fas fa-volume-mute m-icon' : 'fas fa-volume-up m-icon');
         }
 
-        function observeFeed() {
-            const colors = ['#ff007f', '#00f3ff', '#bd00ff', '#00ff88', '#ff8800'];
-            const obs = new IntersectionObserver(entries => {
-                entries.forEach(e => {
-                    const v = e.target.querySelector('video');
-                    const icons = e.target.querySelectorAll('.btn-ionic i');
-                    if(e.isIntersecting) {
-                        v.play().catch(()=>{});
-                        const randomColor = colors[Math.floor(Math.random()*colors.length)];
-                        icons.forEach(icon => {
-                            if(!icon.classList.contains('text-white')) {
-                                icon.style.filter = `drop-shadow(0 0 8px ${randomColor})`;
-                            }
-                        });
-                    } else { v.pause(); v.currentTime = 0; }
-                });
-            }, { threshold: 0.7 });
-            document.querySelectorAll('.card').forEach(c => obs.observe(c));
-        }
-
-        // الرفع (مباشر بدون إعلانات)
-        const widget = cloudinary.createUploadWidget({
-            cloudName: "dk5kas1gc", uploadPreset: "go_kck",
-            clientAllowedFormats: ["mp4", "mov"]
-        }, (err, res) => {
-            if(!err && res.event === "success") db.ref('videos').push({url: res.info.secure_url, likes: 0});
-        });
-        document.getElementById('upload-btn').onclick = () => widget.open();
-
-        function openAdmin() { if(prompt("ACCESS_CODE:") === "1234") document.getElementById('admin-ui').style.display = 'flex'; }
+        function likeVid(id) { triggerAd(); db.ref(`videos/${id}/likes`).transaction(l => (l || 0) + 1); }
+        function shareVid() { triggerAd(); if(navigator.share) navigator.share({url: window.location.href}); }
+        function openAdmin() { if(prompt("ACCESS CODE:") === "1234") document.getElementById('admin-ui').style.display = 'flex'; }
         function closeAdmin() { document.getElementById('admin-ui').style.display = 'none'; }
         function toggleChat() { const c = document.getElementById('chat-ui'); c.style.display = c.style.display==='flex'?'none':'flex'; }
-        function deleteVid(id) { if(confirm("حذف؟")) db.ref(`videos/${id}`).remove(); }
-        function likeVid(id) { db.ref(`videos/${id}/likes`).transaction(l => (l || 0) + 1); }
-        function shareVid() { if(navigator.share) navigator.share({url: window.location.href}); }
+        function deleteVid(id) { if(confirm("Confirm delete?")) db.ref(`videos/${id}`).remove(); }
 
         function sendMsg() {
             const i = document.getElementById('msg-input');
             if(i.value.trim()) { db.ref('chat').push({u: USR_ID, t: i.value}); i.value = ''; }
         }
-
         db.ref('chat').limitToLast(15).on('value', s => {
             const b = document.getElementById('chat-msgs'); b.innerHTML = '';
             s.forEach(m => {
                 const d = m.val();
-                b.innerHTML += `<div class="bg-white/5 p-3 rounded-xl border-r-2 border-cyan-500">
-                    <div class="text-[9px] text-cyan-400 font-black mb-1 uppercase">${d.u}</div>
+                b.innerHTML += `<div class="bg-white/5 p-3 rounded-2xl border-l-2 border-pink-500">
+                    <div class="text-[8px] text-pink-500 font-black mb-1">${d.u}</div>
                     <div class="text-sm">${d.t}</div>
                 </div>`;
             });
             b.scrollTop = b.scrollHeight;
         });
+
+        const widget = cloudinary.createUploadWidget({
+            cloudName: "dk5kas1gc", uploadPreset: "go_kck",
+            clientAllowedFormats: ["mp4", "mov"], maxFiles: 1,
+            styles: { palette: { window: "#000", windowBorder: "#ff007f", tabIcon: "#ff007f", menuIcons: "#ff007f", textLight: "#fff", link: "#ff007f", action: "#ff007f" } }
+        }, (err, res) => {
+            if(!err && res.event === "success") db.ref('videos').push({url: res.info.secure_url, likes: 0});
+        });
+        document.getElementById('upload-btn').onclick = () => widget.open();
+
+        function observeFeed() {
+            const obs = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    const v = e.target.querySelector('video');
+                    if(e.isIntersecting) {
+                        v.play().catch(()=>{});
+                        document.documentElement.style.setProperty('--neon', ['#ff007f', '#00f3ff', '#bd00ff', '#00ff88'][Math.floor(Math.random()*4)]);
+                    } else { v.pause(); v.currentTime = 0; }
+                });
+            }, { threshold: 0.7 });
+            document.querySelectorAll('.card').forEach(c => obs.observe(c));
+        }
     </script>
 </body>
 </html>
