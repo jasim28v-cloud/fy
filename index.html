@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>VØID_X | HYPER ELITE v3</title>
+    <title>VØID_X | HYPER ELITE v3.5</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://upload-widget.cloudinary.com/global/all.js"></script>
@@ -28,7 +28,6 @@
             user-select: none; -webkit-tap-highlight-color: transparent;
         }
 
-        /* تحسين سلاسة التمرير */
         .viewport { 
             height: 100vh; overflow-y: scroll; 
             scroll-snap-type: y mandatory; scrollbar-width: none; 
@@ -44,11 +43,10 @@
         
         video { width: 100%; height: 100%; object-fit: cover; }
 
-        /* العلامة المائية المتطورة */
         .watermark-overlay {
             position: absolute; inset: 0;
             display: flex; justify-content: center; align-items: center;
-            pointer-events: none; z-index: 5; opacity: 0.15;
+            pointer-events: none; z-index: 5; opacity: 0.12;
             font-family: 'Orbitron'; font-size: 8vw; font-weight: 900;
             color: white; transform: rotate(-25deg);
             animation: drift 10s infinite alternate ease-in-out;
@@ -71,10 +69,8 @@
             backdrop-filter: var(--ionic-blur); -webkit-backdrop-filter: var(--ionic-blur);
             border: 1px solid rgba(255,255,255,0.1); 
             padding: 8px 18px; border-radius: 20px; 
-            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
         }
 
-        /* أزرار جانبية ملونة بنمط نيون */
         .side-bar { 
             position: absolute; left: 15px; bottom: 160px; 
             display: flex; flex-direction: column; gap: 22px; z-index: 500; 
@@ -89,15 +85,11 @@
             justify-content: center; transition: all 0.3s;
         }
 
-        /* ألوان الأيقونات */
         .icon-mute { color: #ffffff; }
         .icon-like { color: #ff0055; filter: drop-shadow(0 0 5px #ff0055); }
         .icon-chat { color: #00f3ff; filter: drop-shadow(0 0 5px #00f3ff); }
         .icon-share { color: #00ff88; filter: drop-shadow(0 0 5px #00ff88); }
 
-        .btn-ionic:active { transform: scale(0.85) rotate(5deg); }
-
-        /* شريط التنقل السفلي */
         nav { 
             position: fixed; bottom: calc(25px + var(--safe-area-inset-bottom)); 
             left: 50%; transform: translateX(-50%); 
@@ -117,9 +109,22 @@
         }
 
         .overlay { 
-            position: fixed; inset: 0; background: rgba(0,0,0,0.95); 
-            backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-            z-index: 2000; display: none; flex-direction: column; padding: 30px; 
+            position: fixed; inset: 0; background: rgba(0,0,0,0.96); 
+            backdrop-filter: blur(35px); -webkit-backdrop-filter: blur(35px);
+            z-index: 2000; display: none; flex-direction: column; padding: 25px; 
+        }
+
+        .stat-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+            border-radius: 25px; padding: 20px; border: 1px solid rgba(255,255,255,0.1);
+            text-align: center; margin-bottom: 20px;
+        }
+
+        .vid-manager-item {
+            background: rgba(255,255,255,0.03);
+            border-radius: 15px; padding: 10px;
+            display: flex; align-items: center; gap: 15px;
+            border: 1px solid rgba(255,255,255,0.05);
         }
     </style>
 </head>
@@ -133,28 +138,38 @@
     <main class="viewport" id="feed"></main>
 
     <nav>
-        <div onclick="openAdmin()"><i class="fas fa-key text-xl text-gray-400"></i></div>
+        <div onclick="openAdmin()"><i class="fas fa-user-shield text-xl text-gray-400"></i></div>
         <div class="add-btn" id="upload-btn"><i class="fas fa-plus text-2xl text-white"></i></div>
-        <div onclick="openChatWithAd()"><i class="fas fa-ghost text-xl text-gray-400"></i></div>
+        <div onclick="toggleChat()"><i class="fas fa-ghost text-xl text-gray-400"></i></div>
     </nav>
 
     <div id="admin-ui" class="overlay">
-        <div class="flex justify-between items-center mb-8">
-            <h1 class="font-[Orbitron] text-xl text-pink-500">ROOT_ACCESS</h1>
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="font-[Orbitron] text-xl text-pink-500 tracking-widest">DASHBOARD_v3</h1>
             <button onclick="closeAdmin()" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"><i class="fas fa-times"></i></button>
         </div>
-        <div id="admin-list" class="flex-1 overflow-y-auto space-y-4"></div>
+
+        <div class="stat-card">
+            <div class="text-[10px] font-[Orbitron] text-gray-500 mb-1">LIVE_USERS_CONNECTED</div>
+            <div class="text-5xl font-black font-[Orbitron] text-white" id="visitor-count">1</div>
+            <div class="text-[9px] text-green-500 mt-2 font-bold"><i class="fas fa-circle animate-pulse mr-1"></i> SYSTEM_ONLINE</div>
+        </div>
+
+        <h2 class="font-bold text-sm mb-4 text-gray-400 px-2 italic">إدارة المحتوى المرفوع:</h2>
+        
+        <div id="admin-video-list" class="flex-1 overflow-y-auto space-y-3 px-1">
+            </div>
     </div>
 
     <div id="chat-ui" class="overlay">
         <div class="flex justify-between items-center mb-6">
-            <h1 class="font-[Orbitron] text-xl text-cyan-400">ENCRYPTED_FEED</h1>
-            <i class="fas fa-chevron-down" onclick="toggleChat()"></i>
+            <h1 class="font-[Orbitron] text-xl text-cyan-400">COMM_LINK</h1>
+            <i class="fas fa-times" onclick="toggleChat()"></i>
         </div>
         <div id="chat-msgs" class="flex-1 overflow-y-auto space-y-4"></div>
         <div class="mt-4 flex gap-2">
-            <input type="text" id="msg-input" class="bg-white/5 flex-1 rounded-2xl p-4 outline-none border border-white/10" placeholder="اكتب شيئاً...">
-            <button onclick="sendMsg()" class="bg-pink-600 px-6 rounded-2xl"><i class="fas fa-paper-plane"></i></button>
+            <input type="text" id="msg-input" class="bg-white/5 flex-1 rounded-2xl p-4 outline-none border border-white/10" placeholder="ارسل شفرة...">
+            <button onclick="sendMsg()" class="bg-cyan-600 px-6 rounded-2xl"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 
@@ -166,60 +181,80 @@
 
         let isMuted = true;
 
+        // نظام تتبع الزوار (Presence)
+        const myPresenceRef = db.ref(`presence/${USR_ID}`);
+        myPresenceRef.onDisconnect().remove();
+        myPresenceRef.set({status: "online", last_seen: Date.now()});
+
+        db.ref('presence').on('value', snap => {
+            const count = snap.numChildren();
+            document.getElementById('visitor-count').innerText = count;
+        });
+
         // تحديث الوقت
         setInterval(() => { 
             document.getElementById('timer').innerText = new Date().toLocaleTimeString('en-GB', { hour12: false }); 
         }, 1000);
 
-        // جلب الفيديوهات وتحديث الواجهة
+        // جلب البيانات وإدارة العرض والتحكم
         db.ref('videos').on('value', (snap) => {
             const feed = document.getElementById('feed');
+            const adminList = document.getElementById('admin-video-list');
             const data = snap.val();
+            
             feed.innerHTML = '';
+            adminList.innerHTML = '';
             
             if(data) {
                 Object.keys(data).reverse().forEach(id => {
                     const v = data[id];
+                    
+                    // إضافة للفيد الرئيسي
                     const section = document.createElement('div');
                     section.className = 'card';
                     section.innerHTML = `
                         <div class="watermark-overlay">VØID_X ELITE</div>
-                        
-                        <video loop playsinline muted src="${v.url}" onclick="togglePlay(this)"></video>
-                        
+                        <video loop playsinline muted src="${v.url}" onclick="this.paused?this.play():this.pause()"></video>
                         <div class="side-bar">
-                            <div class="btn-ionic" onclick="toggleMute()">
-                                <i class="fas ${isMuted ? 'fa-volume-mute' : 'fa-volume-up'} icon-mute"></i>
-                            </div>
-                            <div class="btn-ionic" onclick="likeVid('${id}')">
-                                <i class="fas fa-heart icon-like"></i>
-                                <span class="text-[10px] font-bold mt-1 text-pink-500">${v.likes || 0}</span>
-                            </div>
-                            <div class="btn-ionic" onclick="openChatWithAd()">
-                                <i class="fas fa-comment-dots icon-chat"></i>
-                            </div>
-                            <div class="btn-ionic" onclick="shareVid()">
-                                <i class="fas fa-share icon-share"></i>
-                            </div>
+                            <div class="btn-ionic" onclick="toggleMute()"><i class="fas ${isMuted ? 'fa-volume-mute' : 'fa-volume-up'} icon-mute"></i></div>
+                            <div class="btn-ionic" onclick="likeVid('${id}')"><i class="fas fa-heart icon-like"></i><span class="text-[10px] font-bold mt-1 text-pink-500">${v.likes || 0}</span></div>
+                            <div class="btn-ionic" onclick="toggleChat()"><i class="fas fa-comment-dots icon-chat"></i></div>
+                            <div class="btn-ionic" onclick="shareVid()"><i class="fas fa-share icon-share"></i></div>
                         </div>
-
                         <div class="absolute bottom-[100px] right-5 left-20 pointer-events-none">
                             <h3 class="font-[Orbitron] text-xs text-pink-500 mb-1">@SYSTEM_VØID</h3>
-                            <p class="text-[11px] opacity-60">HYPER_CORE_v3 // DATA_STREAM_STABLE</p>
+                            <p class="text-[11px] opacity-60">ID: ${id.substr(1,6)}</p>
                         </div>
                     `;
                     feed.appendChild(section);
+
+                    // إضافة للوحة التحكم
+                    adminList.innerHTML += `
+                        <div class="vid-manager-item">
+                            <video src="${v.url}" class="w-16 h-20 object-cover rounded-lg bg-black"></video>
+                            <div class="flex-1">
+                                <div class="text-[10px] font-mono text-gray-500">${id}</div>
+                                <div class="text-[11px] text-pink-500 font-bold">${v.likes || 0} LIKES</div>
+                            </div>
+                            <button onclick="deleteVid('${id}')" class="w-10 h-10 text-red-500 bg-red-500/10 rounded-full"><i class="fas fa-trash"></i></button>
+                        </div>
+                    `;
                 });
                 observeFeed();
             }
         });
 
-        function togglePlay(v) { v.paused ? v.play() : v.pause(); }
+        function deleteVid(id) {
+            if(confirm("هل أنت متأكد من حذف هذا الفيديو نهائياً من السيرفر؟")) {
+                db.ref(`videos/${id}`).remove()
+                .then(() => alert("تم الحذف بنجاح"))
+                .catch(e => alert("خطأ في الحذف"));
+            }
+        }
 
         function toggleMute() {
             isMuted = !isMuted;
             document.querySelectorAll('video').forEach(v => v.muted = isMuted);
-            // تحديث شكل الأيقونات
             document.querySelectorAll('.icon-mute').forEach(i => {
                 i.className = isMuted ? 'fas fa-volume-mute icon-mute' : 'fas fa-volume-up icon-mute';
             });
@@ -231,17 +266,14 @@
                     const v = e.target.querySelector('video');
                     if(e.isIntersecting) {
                         v.play().catch(()=>{});
-                        // تأثير تغيير ألوان النيون عشوائياً عند التمرير
-                        const colors = ['#ff007f', '#00f3ff', '#bd00ff', '#00ff88', '#ff8800'];
-                        const randomColor = colors[Math.floor(Math.random()*colors.length)];
-                        document.documentElement.style.setProperty('--neon', randomColor);
+                        const colors = ['#ff007f', '#00f3ff', '#bd00ff', '#00ff88'];
+                        document.documentElement.style.setProperty('--neon', colors[Math.floor(Math.random()*colors.length)]);
                     } else { v.pause(); v.currentTime = 0; }
                 });
             }, { threshold: 0.7 });
             document.querySelectorAll('.card').forEach(c => obs.observe(c));
         }
 
-        // باقي الوظائف (رفع، حذف، دردشة) تبقى كما هي مع الحفاظ على الكود البرمجي
         const widget = cloudinary.createUploadWidget({
             cloudName: "dk5kas1gc", uploadPreset: "go_kck",
             clientAllowedFormats: ["mp4", "mov"]
@@ -250,14 +282,12 @@
         });
         document.getElementById('upload-btn').onclick = () => widget.open();
 
-        function openAdmin() { if(prompt("ACCESS CODE:") === "1234") document.getElementById('admin-ui').style.display = 'flex'; }
+        function openAdmin() { if(prompt("أدخل رمز الدخول:") === "1234") document.getElementById('admin-ui').style.display = 'flex'; }
         function closeAdmin() { document.getElementById('admin-ui').style.display = 'none'; }
         function toggleChat() { const c = document.getElementById('chat-ui'); c.style.display = c.style.display==='flex'?'none':'flex'; }
-        function openChatWithAd() { toggleChat(); }
         function likeVid(id) { db.ref(`videos/${id}/likes`).transaction(l => (l || 0) + 1); }
         function shareVid() { if(navigator.share) navigator.share({url: window.location.href}); }
 
-        // نظام الدردشة المحسن
         function sendMsg() {
             const i = document.getElementById('msg-input');
             if(i.value.trim()) { db.ref('chat').push({u: USR_ID, t: i.value}); i.value = ''; }
@@ -267,8 +297,8 @@
             const b = document.getElementById('chat-msgs'); b.innerHTML = '';
             s.forEach(m => {
                 const d = m.val();
-                b.innerHTML += `<div class="bg-white/5 p-3 rounded-xl border-l-2 border-pink-500">
-                    <div class="text-[9px] text-pink-400 font-bold uppercase">${d.u}</div>
+                b.innerHTML += `<div class="bg-white/5 p-3 rounded-xl border-l-2 border-cyan-500">
+                    <div class="text-[9px] text-cyan-400 font-bold uppercase">${d.u}</div>
                     <div class="text-sm">${d.t}</div>
                 </div>`;
             });
