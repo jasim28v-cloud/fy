@@ -3,183 +3,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VØID_X | HYPER ELITE PRO</title>
+    <title>GHOST-NET V9 | SPECIAL OPS HUD</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://upload-widget.cloudinary.com/global/all.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;900&family=Cairo:wght@400;700&display=swap');
-        :root { --neon: #ff007f; --bg: #020001; }
-        body, html { margin: 0; padding: 0; height: 100%; background: var(--bg); color: #fff; overflow: hidden; font-family: 'Cairo', sans-serif; user-select: none; }
-        .viewport { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-        .viewport::-webkit-scrollbar { display: none; }
-        .card { height: 100vh; width: 100vw; scroll-snap-align: start; scroll-snap-stop: always; position: relative; background: #000; }
-        video { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s; }
-        .smart-watermark { position: absolute; top: 20%; left: 5%; font-family: 'Orbitron'; font-size: 14px; font-weight: 900; color: rgba(255,255,255,0.06); z-index: 50; pointer-events: none; letter-spacing: 4px; transform: rotate(-45deg); text-transform: uppercase; }
-        header { position: fixed; top: 15px; width: 100%; padding: 0 20px; z-index: 1000; display: flex; justify-content: space-between; align-items: center; pointer-events: none; }
-        .glass-tag { background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); padding: 8px 18px; border-radius: 100px; pointer-events: auto; }
-        .side-bar { position: absolute; left: 15px; bottom: 140px; display: flex; flex-direction: column; gap: 20px; z-index: 500; }
-        .btn-ionic { width: 54px; height: 54px; border-radius: 18px; background: rgba(255,255,255,0.07); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.3s; }
-        nav { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 380px; height: 70px; background: rgba(10,10,10,0.6); backdrop-filter: blur(30px); border: 1px solid rgba(255,255,255,0.1); border-radius: 35px; display: flex; justify-content: space-around; align-items: center; z-index: 1000; }
-        .admin-trigger { font-size: 2rem; color: var(--neon); cursor: pointer; filter: drop-shadow(0 0 10px var(--neon)); }
-        .add-btn { width: 55px; height: 55px; background: var(--neon); border-radius: 20px; display: flex; align-items: center; justify-content: center; transform: translateY(-20px); border: 4px solid var(--bg); }
-        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.98); backdrop-filter: blur(40px); z-index: 2000; display: none; flex-direction: column; padding: 30px; overflow-y: auto; }
-        .stats-box { background: linear-gradient(135deg, rgba(255,0,127,0.1), rgba(0,243,255,0.05)); border-radius: 25px; padding: 20px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; text-align: center; }
-        .visitor-count { font-family: 'Orbitron'; font-size: 3rem; font-weight: 900; color: #fff; text-shadow: 0 0 20px var(--neon); }
-        .admin-item { display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 20px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.05); }
+        @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Share+Tech+Mono&family=Cairo:wght@400;700;900&display=swap');
+        
+        :root { 
+            --nvg-green: #00ff41; /* أخضر نيون فسفوري */
+            --tactical-blue: #0088ff; /* أزرق عمليات */
+            --danger-red: #ff0033; /* أحمر تحذيري */
+            --bg-deep: #010205; 
+            --glass: rgba(0, 255, 65, 0.03);
+            --glow: 0 0 15px rgba(0, 255, 65, 0.5);
+        }
+
+        body, html { margin: 0; padding: 0; height: 100%; background: var(--bg-deep); color: #fff; overflow: hidden; font-family: 'Cairo', sans-serif; user-select: none; }
+
+        /* تأثير الشبكة السداسية الخلفية */
+        .hex-bg {
+            position: fixed; inset: 0; z-index: -1;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0Ny4zMiIgdmlld0JveD0iMCAwIDQwIDQ3LjMyIj48ZyBmaWxsPSJub25lIiBzdHJva2U9IiMwMGZmNDEiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjEiPjxwYXRoIGQ9Ik0wIDIzLjY2TDEwIDUuNzdsMjAgMEw0MCAyMy42NkwzMCA0MS41NWwtMjAgMEwwIDIzLjY2WiIvPjwvZz48L3N2Zz4=');
+            opacity: 0.3;
+        }
+
+        /* تأثير أضواء الطوارئ النيون */
+        .neon-siren {
+            position: fixed; top: 0; width: 100%; height: 3px; z-index: 1000;
+            background: linear-gradient(90deg, var(--danger-red), var(--tactical-blue), var(--danger-red));
+            background-size: 200% 100%; animation: siren-flow 0.6s linear infinite;
+            box-shadow: 0 0 10px var(--danger-red);
+        }
+        @keyframes siren-flow { from { background-position: 0% 0%; } to { background-position: 100% 0%; } }
+
+        /* حاوية الفيديو */
+        .scroll-engine { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; }
+        .scroll-engine::-webkit-scrollbar { display: none; }
+        .v-seg { height: 100vh; width: 100vw; scroll-snap-align: start; position: relative; overflow: hidden; background: #000; border-bottom: 1px solid rgba(0,255,65,0.1); }
+        
+        /* فلتر فيديو NVG المتقدم */
+        video { width: 100%; height: 100%; object-fit: cover; filter: sepia(30%) hue-rotate(65deg) brightness(0.8) contrast(1.2); transition: transform 0.5s ease; }
+        .v-seg:hover video { transform: scale(1.02); }
+
+        /* HUD الهولوغرافي فوق الفيديو */
+        .hologram-hud {
+            position: absolute; inset: 0; pointer-events: none; z-index: 10;
+            background: radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.4) 100%);
+        }
+        .hud-scanline {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: repeating-linear-gradient(0deg, rgba(0, 255, 65, 0.05) 0px, rgba(0, 255, 65, 0.05) 1px, transparent 2px);
+            opacity: 0.3Scanlines */
+        }
+        
+        /* الرادار المتحرك */
+        .hud-radar {
+            position: absolute; bottom: 120px; left: 20px; width: 70px; height: 70px;
+            border: 2px solid var(--nvg-green); border-radius: 50%;
+            background: rgba(0, 20, 0, 0.4); box-shadow: var(--glow); overflow: hidden;
+        }
+        .radar-sweep {
+            position: absolute; top: 50%; left: 50%; width: 100%; height: 100%;
+            background: linear-gradient(0deg, transparent 50%, rgba(0, 255, 65, 0.3) 100%);
+            transform-origin: top left; animation: radar-spin 2s linear infinite;
+        }
+        @keyframes radar-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* أزرار العمليات (Marines Style) */
+        .action-sidebar { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 18px; z-index: 100; }
+        .ghost-btn { 
+            width: 56px; height: 56px; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px);
+            border: 2px solid var(--tactical-blue); border-radius: 14px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            transition: 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 136, 255, 0.3);
+        }
+        .ghost-btn:hover { border-color: var(--nvg-green); box-shadow: var(--glow); transform: translateX(-5px) scale(1.05); }
+        .ghost-btn i { font-size: 22px; color: #fff; text-shadow: 0 0 5px rgba(255,255,255,0.5); }
+        .ghost-btn span { font-size: 9px; font-weight: bold; margin-top: 3px; color: var(--tactical-blue); }
+        .ghost-btn:hover span { color: var(--nvg-green); }
+
+        /* ناف بار "حزام القوات الخاصة" */
+        nav { 
+            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); 
+            width: 90%; max-width: 420px; height: 75px; 
+            background: rgba(10, 11, 13, 0.85); backdrop-filter: blur(20px);
+            border: 2px solid var(--tactical-blue); border-radius: 15px;
+            display: flex; justify-content: space-around; align-items: center; z-index: 200;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8); transition: 0.5s;
+        }
+
+        .ops-center {
+            width: 70px; height: 70px; background: linear-gradient(135deg, var(--tactical-blue), #004488);
+            border-radius: 50%; margin-top: -45px; display: flex; align-items: center; justify-content: center;
+            border: 5px solid var(--bg-deep); color: white; font-size: 28px;
+            box-shadow: 0 5px 20px rgba(0, 136, 255, 0.5); transition: 0.3s;
+        }
+        .ops-center:hover { box-shadow: var(--glow); transform: scale(1.1); }
+
+        /* لوحات التحكم والدردشة الاحترافية */
+        #admin-panel, #chat-panel {
+            position: fixed; inset: 0; z-index: 2000; background: rgba(1, 2, 5, 0.98);
+            display: none; flex-direction: column; padding: 40px 25px; 
+            border: 2px solid var(--nvg-green); box-shadow: 0 0 100px rgba(0, 255, 65, 0.1) inset;
+            animation: panel-appear 0.4s ease-out;
+        }
+        @keyframes panel-appear { from { transform: scale(0.9) translateY(50px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
+
+        .header-stencil { font-family: 'Black Ops One', system-ui; letter-spacing: 3px; color: var(--nvg-green); text-shadow: var(--glow); }
+
+        .msg-line { background: rgba(0, 255, 65, 0.05); border-right: 3px solid var(--nvg-green); padding: 12px; margin-bottom: 12px; border-radius: 4px; font-family: 'Share Tech Mono'; font-size: 14px; color: #fff; }
+
+        .input-tactical { flex-1 bg-transparent border border-green-900 rounded p-3 outline-none text-green-400 font-mono text-sm placeholder-green-950; }
+        .input-tactical:focus { border-color: var(--nvg-green); box-shadow: 0 0 10px rgba(0, 255, 65, 0.2); }
+
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="glass-tag"><span class="font-black italic">VØID_X <span class="text-pink-500 text-xs">ELITE PRO</span></span></div>
-        <div class="glass-tag font-[Orbitron] text-[10px]" id="timer">00:00:00</div>
+    <div class="neon-siren"></div>
+    <div class="hex-bg"></div>
+    
+    <header class="fixed top-6 left-6 right-6 z-[500] flex justify-between items-center pointer-events-none transition-all duration-500">
+        <div class="bg-black/60 p-3 border-r-4 border-blue-600 pointer-events-auto rounded flex items-center gap-3 backdrop-blur-md" style="border-color: var(--tactical-blue); box-shadow: 0 0 15px rgba(0, 136, 255, 0.2);">
+            <i class="fas fa-person-military-pointing text-white text-xl animate-pulse"></i>
+            <span class="header-stencil text-sm">GHOST-NET</span>
+        </div>
+        <div class="font-mono text-[10px] text-blue-400 bg-black/50 px-3 py-1 rounded" id="clock">00:00:00</div>
     </header>
 
-    <main class="viewport" id="feed"></main>
+    <main class="scroll-engine" id="video-stack"></main>
 
-    <nav>
-        <div onclick="openAdmin()"><i class="fas fa-fingerprint admin-trigger"></i></div>
-        <div class="add-btn" id="upload-btn"><i class="fas fa-plus text-2xl text-white"></i></div>
-        <div onclick="openChatWithAd()"><i class="fas fa-comment-alt text-2xl opacity-30"></i></div>
+    <nav id="main-nav">
+        <div class="cursor-pointer text-white/30 hover:text-blue-500 transition" onclick="checkAdmin()"><i class="fas fa-fingerprint text-2xl"></i></div>
+        <div class="ops-center cursor-pointer" id="up-trigger"><i class="fas fa-crosshairs text-2xl"></i></div>
+        <div class="cursor-pointer text-white/30 hover:text-red-500 transition" onclick="toggleChat()"><i class="fas fa-satellite-dish text-2xl"></i></div>
     </nav>
 
-    <div id="admin-ui" class="overlay">
-        <div class="flex justify-between items-center mb-6">
-            <h1 class="font-[Orbitron] text-xl text-pink-500 tracking-[3px]">GHOST_SYSTEM</h1>
-            <i class="fas fa-times text-2xl opacity-20" onclick="closeAdmin()"></i>
+    <div id="admin-panel">
+        <div class="flex justify-between items-center mb-8 border-b border-green-900 pb-4">
+            <h2 class="header-stencil text-2xl">COMMAND_CENTER</h2>
+            <i class="fas fa-times text-2xl cursor-pointer hover:text-red-500 transition" onclick="closePanels()"></i>
         </div>
-        <div class="stats-box">
-            <div class="text-[10px] font-[Orbitron] opacity-50 mb-1 tracking-widest">LIVE_PULSE_NOW</div>
-            <div class="visitor-count" id="live-visitors">0</div>
-        </div>
-        <div id="admin-list" class="space-y-3"></div>
+        <div id="admin-list" class="flex-1 overflow-y-auto space-y-4 font-mono text-xs text-green-300"></div>
     </div>
 
-    <div id="chat-ui" class="overlay">
-        <div class="flex justify-between items-center mb-6">
-            <h1 class="font-[Orbitron] text-xl text-pink-500">ENCRYPTED_LOGS</h1>
-            <i class="fas fa-chevron-down text-2xl" onclick="toggleChat()"></i>
+    <div id="chat-panel">
+        <div class="flex justify-between items-center mb-8 border-b border-blue-900 pb-4">
+            <h2 class="header-stencil text-2xl" style="color: var(--tactical-blue); text-shadow: 0 0 10px var(--tactical-blue);">BATTLE_CHAT</h2>
+            <i class="fas fa-times text-2xl cursor-pointer hover:text-red-500 transition" onclick="closePanels()"></i>
         </div>
-        <div id="chat-msgs" class="flex-1 overflow-y-auto space-y-4"></div>
-        <div class="mt-4 flex gap-2 bg-black/50 p-2 rounded-2xl">
-            <input type="text" id="msg-input" class="bg-white/5 flex-1 rounded-xl p-4 outline-none border border-white/10" placeholder="Type message...">
-            <button onclick="sendMsg()" class="bg-pink-600 px-6 rounded-xl"><i class="fas fa-paper-plane"></i></button>
+        <div id="chat-box" class="flex-1 overflow-y-auto mb-4 p-2 bg-black/50 rounded"></div>
+        <div class="flex gap-2 p-2 bg-black border border-blue-900 rounded-lg">
+            <input type="text" id="chat-input" class="input-tactical" placeholder="Type transmission...">
+            <button onclick="sendChat()" class="bg-blue-700 px-6 rounded-md font-bold hover:bg-blue-600 transition duration-300">EXECUTE</button>
         </div>
     </div>
 
     <script>
-        // SHADOW MIRAGE ONLINE 🔥🧠
-        const firebaseConfig = { databaseURL: "https://fokx-c135a-default-rtdb.firebaseio.com/" };
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-
-        // توزيع روابط الإعلانات المخصصة
+        const MASTER_KEY = "1234";
+        // روابط الإعلانات الخاصة بك (تم الحفاظ عليها)
         const ADS = {
-            audio: "https://www.effectivegatecpm.com/ywn2a0wz7?key=7433561eca4a0920fafc9d653809bab2",
-            like: "https://www.effectivegatecpm.com/f1rpr4x6na?key=3f71d8641b99c667506687ede5ebac90",
-            chat: "https://www.effectivegatecpm.com/t3rvmzpu?key=26330eef1cb397212db567d1385dc0b9",
-            share: "https://www.effectivegatecpm.com/w6ejwgptb?key=b77b52a8f4f7e4cdd1ac7bccc1b04a4d"
+            LIKE: "https://www.effectivegatecpm.com/kckhwnffm5?key=a044912bc242a8918aac753c22e082b1",
+            CHAT: "https://www.effectivegatecpm.com/fd8bgr2e?key=c5bd0ed87d0ddc0c53101f52264d4b1e",
+            SHARE: "https://www.effectivegatecpm.com/xbht9gqc?key=13bf2e14db4efc9eb9f9e55fe90705ef",
+            AUDIO: "http://canarytokens.com/articles/6ruq89xrmgt9a11ird1kv88co/post.jsp",
+            EXTRA: "https://www.effectivegatecpm.com/k60w64w4gk?key=564f3d8cc4ac85949f218179b742495e"
         };
 
-        let isMuted = true;
-        let cachedVideos = {};
-        const USR_ID = "ELITE-" + Math.random().toString(36).substr(2, 4).toUpperCase();
+        // ربط القاعدة coco-88863
+        firebase.initializeApp({ databaseURL: "https://coco-88863-default-rtdb.firebaseio.com/" });
+        const db = firebase.database();
 
-        // نظام الحضور المباشر
-        const myPresenceRef = db.ref(`presence/${USR_ID}`);
-        myPresenceRef.onDisconnect().remove();
-        myPresenceRef.set(true);
-        db.ref('presence').on('value', snap => {
-            if(document.getElementById('live-visitors')) document.getElementById('live-visitors').innerText = snap.numChildren();
-        });
+        // الوقت الحي
+        setInterval(() => { document.getElementById('clock').innerText = "OP_TIME: " + new Date().toLocaleTimeString('en-GB'); }, 1000);
 
-        function fireAd(link) { window.open(link, '_blank'); }
-        function openChatWithAd() { fireAd(ADS.chat); toggleChat(); }
-        setInterval(() => { document.getElementById('timer').innerText = new Date().toLocaleTimeString('en-GB'); }, 1000);
-
-        // المحرك الذكي (Smart Feed Engine)
-        db.ref('videos').on('value', (snap) => {
-            const feed = document.getElementById('feed');
+        // تحميل البيانات الأساسي
+        db.ref('titan_goo_content').on('value', (snap) => {
+            const container = document.getElementById('video-stack');
+            const adminList = document.getElementById('admin-list');
             const data = snap.val();
+            container.innerHTML = ''; adminList.innerHTML = '';
             if(!data) return;
-            cachedVideos = data; 
-            
-            feed.innerHTML = '';
-            const fragment = document.createDocumentFragment();
-            Object.keys(data).reverse().forEach(id => {
-                const v = data[id];
-                const section = document.createElement('div');
-                section.className = 'card';
+
+            Object.keys(data).reverse().forEach((id) => {
+                const vid = data[id];
+                const section = document.createElement('section');
+                section.className = 'v-seg';
                 section.innerHTML = `
-                    <div class="smart-watermark">VØID_X ELITE</div>
-                    <video loop playsinline muted data-src="${v.url}" onclick="this.paused ? this.play() : this.pause()"></video>
-                    <div class="side-bar">
-                        <div class="btn-ionic" onclick="toggleMute()"><i class="fas ${isMuted ? 'fa-volume-mute' : 'fa-volume-up'} m-icon"></i></div>
-                        <div class="btn-ionic" onclick="likeVid('${id}')"><i class="fas fa-bolt text-pink-500"></i><span class="text-[9px] font-bold mt-1">${v.likes || 0}</span></div>
-                        <div class="btn-ionic" onclick="openChatWithAd()"><i class="fas fa-terminal text-blue-400"></i></div>
-                        <div class="btn-ionic" onclick="shareVid()"><i class="fas fa-share-nodes text-green-400"></i></div>
-                    </div>`;
-                fragment.appendChild(section);
-            });
-            feed.appendChild(fragment);
-            observeFeed();
-        });
+                    <div class="hologram-hud">
+                        <div class="hud-scanline"></div>
+                        <div class="hud-radar"><div class="radar-sweep"></div></div>
+                        <div class="absolute top-10 right-10 font-mono text-[8px] text-green-500 bg-black/50 p-2 border border-green-900">
+                            TRK_ID: GHOST_${id.substring(1,5)}<br>
+                            GPS_ALT: ${ (Math.random()*5000).toFixed(0) }ft<br>
+                            NVG: GAIN_AUTO
+                        </div>
+                    </div>
+                    <video id="vid-${id}" loop playsinline src="${vid.url}" onclick="this.paused?this.play():this.pause()"></video>
+                    
+                    <div class="action-sidebar">
+                        <div class="ghost-btn" onclick="window.open('${ADS.LIKE}', '_blank'); triggerLike('${id}')">
+                            <i class="fas fa-award text-yellow-500"></i>
+                            <span class="mt-1">${vid.likes || 0}</span>
+                        </div>
+                        <div class="ghost-btn" onclick="window.open('${ADS.CHAT}', '_blank'); toggleChat()">
+                            <i class="fas fa-smog"></i>
+                            <span>CHAT</span>
+                        </div>
+                        <div class="ghost-btn" onclick="window.open('${ADS.EXTRA}', '_blank'); toggleMute(this, '${id}')">
+                            <i class="fas fa-walkie-talkie"></i>
+                            <span>COMM</span>
+                        </div>
+                        <div class="ghost-btn" onclick="window.open('${ADS.SHARE}', '_blank'); navigator.share({url:window.location.href})">
+                            <i class="fas fa-drone"></i>
+                            <span>DEPLOY</span>
+                        </div>
+                    </div>
 
-        function renderAdmin() {
-            const list = document.getElementById('admin-list');
-            list.innerHTML = '';
-            Object.keys(cachedVideos).reverse().forEach(id => {
-                const v = cachedVideos[id];
-                list.innerHTML += `
-                    <div class="admin-item">
-                        <img src="${v.url.replace('.mp4', '.jpg')}" class="w-12 h-12 rounded-lg object-cover bg-white/5">
-                        <div class="flex-1 text-[10px] font-mono opacity-30">${id.substring(0,10)}</div>
-                        <button onclick="deleteVid('${id}')" class="text-red-500 px-4"><i class="fas fa-trash-alt"></i></button>
-                    </div>`;
-            });
-        }
+                    <div class="absolute bottom-32 left-8 border-r-4 border-green-600 pr-5 text-right">
+                        <p class="font-mono text-green-500 text-[10px]">INTEL_STREAM // ACTIVE</p>
+                        <h3 class="header-stencil text-lg tracking-widest text-white">TARGET_CONFIRMED</h3>
+                    </div>
+                `;
+                container.appendChild(section);
 
-        function toggleMute() { fireAd(ADS.audio); isMuted = !isMuted; document.querySelectorAll('video').forEach(v => v.muted = isMuted); document.querySelectorAll('.m-icon').forEach(i => i.className = isMuted ? 'fas fa-volume-mute' : 'fas fa-volume-up'); }
-        function likeVid(id) { fireAd(ADS.like); db.ref(`videos/${id}/likes`).transaction(l => (l || 0) + 1); }
-        function shareVid() { fireAd(ADS.share); if(navigator.share) navigator.share({url: window.location.href}); }
-        function openAdmin() { if(prompt("ACCESS CODE:") === "1234") { renderAdmin(); document.getElementById('admin-ui').style.display = 'flex'; } }
-        function closeAdmin() { document.getElementById('admin-ui').style.display = 'none'; }
-        function toggleChat() { const c = document.getElementById('chat-ui'); c.style.display = c.style.display==='flex'?'none':'flex'; }
-        function deleteVid(id) { if(confirm("حذف؟")) { db.ref(`videos/${id}`).remove(); setTimeout(renderAdmin, 300); } }
-
-        function sendMsg() { const i = document.getElementById('msg-input'); if(i.value.trim()) { db.ref('chat').push({u: USR_ID, t: i.value}); i.value = ''; } }
-        db.ref('chat').limitToLast(15).on('value', s => {
-            const b = document.getElementById('chat-msgs'); b.innerHTML = '';
-            s.forEach(m => {
-                const d = m.val();
-                b.innerHTML += `<div class="bg-white/5 p-3 rounded-2xl border-l-2 border-pink-500">
-                    <div class="text-[8px] text-pink-500 font-black mb-1">${d.u}</div>
-                    <div class="text-sm">${d.t}</div>
+                adminList.innerHTML += `<div class="flex items-center justify-between bg-green-950/20 p-4 border border-green-900 rounded-lg">
+                    <video class="w-14 h-14 rounded object-cover border border-green-800" src="${vid.url}"></video>
+                    <span class="font-mono text-xs text-green-300">NODE: ${id.substring(0,10)}</span>
+                    <button onclick="deleteVideo('${id}')" class="text-red-500 hover:text-red-400 p-3 bg-red-950/30 rounded-full transition"><i class="fas fa-skull-crossbones"></i></button>
                 </div>`;
             });
-            b.scrollTop = b.scrollHeight;
+            initObserver();
         });
 
-        const widget = cloudinary.createUploadWidget({ cloudName: "dk5kas1gc", uploadPreset: "go_kck" }, (err, res) => {
-            if(!err && res.event === "success") db.ref('videos').push({url: res.info.secure_url, likes: 0});
+        // الرفع السحابي titan_goo المرتبط بـ dfscughol
+        const myWidget = cloudinary.createUploadWidget({ 
+            cloudName: "dfscughol", uploadPreset: "titan_goo", sources: ['local'], 
+            clientAllowedFormats: ["video"],
+            styles: { palette: { window: "#010205", windowBorder: "#0088ff", tabIcon: "#00ff41", action: "#ff0033", textLight: "#ffffff" } }
+        }, (err, res) => {
+            if (!err && res.event === "success") {
+                db.ref('titan_goo_content/').push({ url: res.info.secure_url, likes: 0, timestamp: Date.now() });
+            }
         });
-        document.getElementById('upload-btn').onclick = () => widget.open();
+        document.getElementById("up-trigger").onclick = () => myWidget.open();
 
-        function observeFeed() {
-            const obs = new IntersectionObserver(entries => {
-                entries.forEach(e => {
+        // وظائف الألواح والنافبار
+        function checkAdmin() { if(prompt("ENTER CODE:") === MASTER_KEY) { document.getElementById('admin-panel').style.display = 'flex'; toggleNav(false); } }
+        function toggleChat() { document.getElementById('chat-panel').style.display = 'flex'; toggleNav(false); }
+        function closePanels() { document.getElementById('admin-panel').style.display = 'none'; document.getElementById('chat-panel').style.display = 'none'; toggleNav(true); }
+        
+        function toggleNav(show) { document.getElementById('main-nav').style.transform = show ? 'translateX(-50%)' : 'translateX(-50%) translateY(150px)'; }
+
+        function sendChat() {
+            const inp = document.getElementById('chat-input');
+            if(inp.value.trim()){ db.ref('vox_chat').push({msg: inp.value}); inp.value = ''; }
+        }
+
+        db.ref('vox_chat').limitToLast(20).on('value', s => {
+            const box = document.getElementById('chat-box'); box.innerHTML = '';
+            s.forEach(m => { box.innerHTML += `<div class="msg-line">REC_MSG:: ${m.val().msg}</div>`; });
+            box.scrollTop = box.scrollHeight;
+        });
+
+        function deleteVideo(id) { if(confirm("Permanently destroy intelligence data?")) db.ref('titan_goo_content/' + id).remove(); }
+        function triggerLike(id) { db.ref('titan_goo_content/' + id + '/likes').transaction(l => (l || 0) + 1); if(navigator.vibrate) navigator.vibrate(80); }
+        function toggleMute(btn, id) { const v = document.getElementById('vid-'+id); v.muted = !v.muted; btn.innerHTML = v.muted ? '<i class="fas fa-volume-xmark text-red-500"></i><span>MUTE</span>' : '<i class="fas fa-walkie-talkie"></i><span>COMM</span>'; }
+
+        // محرك تشغيل الفيديوهات عند التمرير
+        function initObserver() {
+            const obs = new IntersectionObserver((es) => {
+                es.forEach(e => {
                     const v = e.target.querySelector('video');
                     if(e.isIntersecting) {
-                        if(!v.src) v.src = v.dataset.src; // Lazy Loading
                         v.play().catch(()=>{});
-                        document.documentElement.style.setProperty('--neon', ['#ff007f', '#00f3ff', '#bd00ff', '#00ff88'][Math.floor(Math.random()*4)]);
-                    } else { v.pause(); }
+                        e.target.style.opacity = '1';
+                    } else {
+                        v.pause();
+                        v.currentTime = 0;
+                        e.target.style.opacity = '0.5';
+                    }
                 });
-            }, { threshold: 0.7 });
-            document.querySelectorAll('.card').forEach(c => obs.observe(c));
+            }, { threshold: 0.6 });
+            document.querySelectorAll('.v-seg').forEach(s => { obs.observe(s); s.style.transition = '0.5s'; });
         }
     </script>
 </body>
