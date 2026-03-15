@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>QUANTUM-STRIKE V13 | NEXT-GEN HUD</title>
+    <title>VOID-STRIKE V14 | SWAT FROM THE VOID</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://upload-widget.cloudinary.com/global/all.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Cairo:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Share+Tech+Mono&family=Cairo:wght@300;700&display=swap');
         
         :root { 
-            --q-cyan: #00f2ff; 
-            --q-magenta: #ff00ff;
-            --q-blue: #0044ff;
-            --bg: #000; 
+            --v-red: #ff003c; 
+            --v-blue: #0084ff;
+            --bg: #000000;
+            --glow: 0 0 25px rgba(255, 0, 60, 0.4);
         }
 
-        body, html { margin: 0; padding: 0; height: 100%; background: var(--bg); color: #fff; overflow: hidden; font-family: 'Cairo', sans-serif; user-select: none; }
+        body, html { margin: 0; padding: 0; height: 100%; background: var(--bg); color: #fff; overflow: hidden; font-family: 'Cairo', sans-serif; }
 
-        /* محرك التمرير الكوانتي - فائق النعومة */
+        /* محرك التمرير الشبحي */
         .scroll-engine { 
             height: 100vh; overflow-y: scroll; 
             scroll-snap-type: y mandatory; scrollbar-width: none; 
@@ -31,97 +31,90 @@
 
         .v-seg { 
             height: 100vh; width: 100vw; scroll-snap-align: start; 
-            scroll-snap-stop: always; position: relative; 
-            overflow: hidden; background: #000;
+            scroll-snap-stop: always; position: relative; overflow: hidden; 
+            background: #000; display: flex; align-items: center; justify-content: center;
         }
 
         video { 
             width: 100%; height: 100%; object-fit: cover; 
-            filter: contrast(1.1) brightness(0.85); 
-            transition: transform 1s cubic-bezier(0.2, 1, 0.3, 1);
+            filter: contrast(1.2) brightness(0.8) grayscale(0.2);
+            mask-image: radial-gradient(circle, black 60%, transparent 100%); /* تأثير الثقب الأسود */
         }
 
-        /* واجهة HUD كوانتية متطورة */
-        .quantum-hud {
-            position: absolute; inset: 0; pointer-events: none; z-index: 20;
-            border: 1px solid rgba(0, 242, 255, 0.1);
-            background: linear-gradient(rgba(10, 10, 30, 0.2), transparent);
+        /* ليزر المسح الأحمر */
+        .spectral-laser {
+            position: absolute; width: 100%; height: 1px;
+            background: var(--v-red); box-shadow: 0 0 15px var(--v-red);
+            z-index: 30; opacity: 0.5; animation: laser-sweep 4s infinite cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .hud-corner { position: absolute; width: 40px; height: 40px; border: 2px solid var(--q-cyan); opacity: 0.5; }
-        .top-r { top: 20px; right: 20px; border-left: 0; border-bottom: 0; }
-        .bot-l { bottom: 120px; left: 20px; border-right: 0; border-top: 0; }
+        @keyframes laser-sweep { 0% { top: -10%; } 100% { top: 110%; } }
 
-        /* أزرار الطاقة (Power Cells) */
-        .action-sidebar { position: absolute; right: 15px; bottom: 130px; display: flex; flex-direction: column; gap: 20px; z-index: 100; }
-        .q-btn { 
-            width: 55px; height: 55px; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 242, 255, 0.3); border-radius: 50%;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;
-            box-shadow: 0 0 15px rgba(0, 242, 255, 0.1);
+        /* الأزرار العائمة (Anti-Gravity) */
+        .action-sidebar { position: absolute; right: 20px; bottom: 130px; display: flex; flex-direction: column; gap: 20px; z-index: 100; }
+        .void-btn { 
+            width: 54px; height: 54px; background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(20px); border: 1px solid rgba(255, 0, 60, 0.2); 
+            border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            animation: float 3s ease-in-out infinite; cursor: pointer; transition: 0.3s;
         }
-        .q-btn:hover { border-color: var(--q-cyan); transform: scale(1.1); box-shadow: 0 0 20px var(--q-cyan); }
-        .q-btn i { font-size: 20px; color: #fff; filter: drop-shadow(0 0 5px var(--q-cyan)); }
-        .q-btn span { font-size: 10px; font-family: 'Share Tech Mono'; color: var(--q-cyan); margin-top: 2px; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .void-btn i { font-size: 20px; color: #fff; filter: drop-shadow(0 0 8px var(--v-red)); }
+        .void-btn span { font-size: 9px; font-family: 'Share Tech Mono'; color: var(--v-red); margin-top: 4px; font-weight: bold; }
 
-        /* ناف بار "نواة البلازما" */
+        /* ناف بار "مركز المادة المظلمة" */
         nav { 
-            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); 
-            width: 90%; max-width: 420px; height: 70px; 
-            background: rgba(0, 5, 15, 0.8); backdrop-filter: blur(30px);
-            border: 1px solid rgba(0, 242, 255, 0.2); border-radius: 35px;
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); 
+            width: 88%; max-width: 400px; height: 70px; 
+            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 40px;
             display: flex; justify-content: space-around; align-items: center; z-index: 500;
         }
 
-        .plasma-core {
-            width: 70px; height: 70px; background: linear-gradient(135deg, var(--q-cyan), var(--q-blue));
-            border-radius: 50%; margin-top: -40px; display: flex; align-items: center; justify-content: center;
-            border: 4px solid var(--bg); color: white; font-size: 26px;
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.6); cursor: pointer;
-            animation: core-spin 4s linear infinite;
+        .void-core {
+            width: 70px; height: 70px; background: #fff;
+            border-radius: 50%; margin-top: -45px; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 40px #fff; color: #000; font-size: 26px; cursor: pointer;
+            transition: 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
-        @keyframes core-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .void-core:hover { transform: scale(1.1) rotate(180deg); box-shadow: 0 0 60px var(--v-blue); }
 
-        /* لوحات التحكم الهولوغرافية */
+        /* لوحة التحكم الشبحية */
         #admin-panel {
-            position: fixed; inset: 0; z-index: 2000; background: rgba(0, 0, 0, 0.96);
+            position: fixed; inset: 0; z-index: 2000; background: #000;
             display: none; flex-direction: column; padding: 40px 25px;
-            border-top: 4px solid var(--q-magenta); animation: q-reveal 0.5s ease;
+            border-top: 5px solid var(--v-red); animation: reveal 0.6s cubic-bezier(0.19, 1, 0.22, 1);
         }
-        @keyframes q-reveal { from { opacity: 0; transform: scale(1.1); } to { opacity: 1; transform: scale(1); } }
+        @keyframes reveal { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
-        .scan-line { position: absolute; top: 0; width: 100%; height: 2px; background: var(--q-cyan); opacity: 0.2; animation: scan 3s linear infinite; }
-        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
-
-        .q-badge { background: rgba(0, 242, 255, 0.1); border: 1px solid var(--q-cyan); padding: 2px 10px; border-radius: 4px; font-size: 10px; font-family: 'Share Tech Mono'; color: var(--q-cyan); }
+        .status-tag { background: rgba(255,0,60,0.1); border: 1px solid var(--v-red); padding: 4px 15px; border-radius: 2px; font-family: 'Share Tech Mono'; font-size: 11px; color: var(--v-red); }
     </style>
 </head>
 <body>
 
-    <div class="scan-line"></div>
+    <div class="spectral-laser"></div>
     
-    <header class="fixed top-6 left-6 right-6 z-[600] flex justify-between items-center pointer-events-none">
-        <div class="bg-black/40 p-3 border-r-4 border-magenta-500 pointer-events-auto rounded backdrop-blur-xl flex items-center gap-3 border-r-[#ff00ff]">
-            <i class="fas fa-satellite-dish text-cyan-400 animate-pulse"></i>
-            <span class="font-[Orbitron] text-xs font-black tracking-widest text-white">QUANTUM_V13</span>
+    <header class="fixed top-8 left-6 right-6 z-[600] flex justify-between items-center pointer-events-none">
+        <div class="bg-black/80 p-3 border-r-2 border-red-600 pointer-events-auto rounded flex items-center gap-4">
+            <i class="fas fa-ghost text-red-600 animate-pulse"></i>
+            <span class="font-[Orbitron] text-xs font-black tracking-[4px] text-white">VOID_STRIKE_V14</span>
         </div>
-        <div class="q-badge" id="clock">00:00:00</div>
+        <div class="status-tag" id="clock">00:00:00</div>
     </header>
 
     <main class="scroll-engine" id="video-stack"></main>
 
     <nav>
-        <div class="cursor-pointer text-white/40" onclick="checkAdmin()"><i class="fas fa-fingerprint text-2xl"></i></div>
-        <div class="plasma-core" id="core-upload-trigger"><i class="fas fa-plus"></i></div>
-        <div class="cursor-pointer text-white/40" onclick="toggleChat()"><i class="fas fa-terminal text-2xl"></i></div>
+        <div class="cursor-pointer text-white/20 hover:text-red-600 transition" onclick="checkAdmin()"><i class="fas fa-fingerprint text-2xl"></i></div>
+        <div class="void-core" id="core-upload-trigger"><i class="fas fa-plus"></i></div>
+        <div class="cursor-pointer text-white/20 hover:text-blue-500 transition" onclick="toggleChat()"><i class="fas fa-satellite text-2xl"></i></div>
     </nav>
 
     <div id="admin-panel">
-        <div class="flex justify-between items-center mb-10">
-            <h2 class="font-[Orbitron] text-magenta-500 text-xl font-bold tracking-widest">ADMIN_OVERRIDE</h2>
-            <i class="fas fa-times text-2xl cursor-pointer" onclick="closeAdmin()"></i>
+        <div class="flex justify-between items-center mb-12">
+            <h2 class="font-[Orbitron] text-red-600 text-2xl font-black">PURGE_CONTROL</h2>
+            <i class="fas fa-xmark text-2xl cursor-pointer" onclick="closeAdmin()"></i>
         </div>
-        <div id="admin-list" class="flex-1 overflow-y-auto space-y-4"></div>
+        <div id="admin-list" class="flex-1 overflow-y-auto space-y-6"></div>
     </div>
 
     <script>
@@ -136,11 +129,11 @@
         firebase.initializeApp({ databaseURL: "https://goks-e0cba-default-rtdb.firebaseio.com/" });
         const db = firebase.database();
 
-        // محرك الرفع الكوانتي
+        // الرفع من عالم آخر
         const widget = cloudinary.createUploadWidget({ 
             cloudName: "dhdg9gu88", uploadPreset: "go_2go", sources: ['local'],
             clientAllowedFormats: ["video"],
-            styles: { palette: { window: "#000", windowBorder: "#00f2ff", tabIcon: "#00f2ff", action: "#ff00ff", textLight: "#fff" } }
+            styles: { palette: { window: "#000", windowBorder: "#ff003c", tabIcon: "#ff003c", action: "#fff", textLight: "#fff" } }
         }, (err, res) => {
             if (!err && res.event === "success") {
                 db.ref('go_2go_content/').push({ url: res.info.secure_url, likes: 0, timestamp: Date.now() });
@@ -162,67 +155,66 @@
                 const section = document.createElement('section');
                 section.className = 'v-seg';
                 section.innerHTML = `
-                    <div class="quantum-hud">
-                        <div class="hud-corner top-r"></div>
-                        <div class="bot-l hud-corner"></div>
-                    </div>
                     <video id="vid-${id}" loop playsinline src="${vid.url}" preload="auto"></video>
                     
                     <div class="action-sidebar">
-                        <div class="q-btn" onclick="window.open('${ADS.LIKE}', '_blank'); triggerLike('${id}')">
+                        <div class="void-btn" onclick="window.open('${ADS.LIKE}', '_blank'); triggerLike('${id}')">
                             <i class="fas fa-shield-halved"></i>
-                            <span>${vid.likes || 0}</span>
+                            <span>SECURE</span>
                         </div>
-                        <div class="q-btn" onclick="window.open('${ADS.CHAT}', '_blank'); toggleChat()">
-                            <i class="fas fa-comment-medical"></i>
+                        <div class="void-btn" onclick="window.open('${ADS.CHAT}', '_blank'); toggleChat()">
+                            <i class="fas fa-mask"></i>
+                            <span>SQUAD</span>
                         </div>
-                        <div class="q-btn" onclick="window.open('${ADS.EXTRA}', '_blank'); toggleMute(this, '${id}')">
-                            <i class="fas fa-wave-square"></i>
+                        <div class="void-btn" onclick="window.open('${ADS.EXTRA}', '_blank'); toggleMute(this, '${id}')">
+                            <i class="fas fa-headset"></i>
                         </div>
-                        <div class="q-btn" onclick="window.open('${ADS.SHARE}', '_blank'); navigator.share({url:window.location.href})">
-                            <i class="fas fa-share-nodes"></i>
+                        <div class="void-btn" onclick="window.open('${ADS.SHARE}', '_blank'); navigator.share({url:window.location.href})">
+                            <i class="fas fa-location-arrow"></i>
                         </div>
                     </div>
 
-                    <div class="absolute bottom-32 left-8 border-l-2 border-cyan-400 pl-4">
-                        <p class="font-mono text-[9px] text-cyan-400 opacity-70 tracking-tighter">DATA_STREAM::LIVE</p>
-                        <h3 class="font-[Orbitron] text-white text-lg tracking-widest font-black">NEO_SIGNAL_0${id.substring(1,2)}</h3>
+                    <div class="absolute bottom-32 left-10 border-r-2 border-red-600 pr-5 text-right">
+                        <p class="font-mono text-[9px] text-red-600 tracking-tighter">DATA_STREAM::VOID_LINK</p>
+                        <h3 class="font-[Orbitron] text-white text-xl font-black">PHANTOM_ID_0${id.substring(1,2)}</h3>
                     </div>
                 `;
                 container.appendChild(section);
 
-                adminList.innerHTML += `<div class="flex items-center justify-between bg-white/5 p-4 rounded-xl border border-white/10">
-                    <video class="w-14 h-14 rounded-lg object-cover" src="${vid.url}"></video>
-                    <span class="font-mono text-[10px] text-magenta-400">${id.substring(0,10)}</span>
-                    <button onclick="deleteVideo('${id}')" class="text-red-500 bg-red-500/10 p-3 rounded-full"><i class="fas fa-trash"></i></button>
+                adminList.innerHTML += `<div class="flex items-center justify-between bg-red-950/10 p-5 rounded-lg border border-red-900">
+                    <video class="w-16 h-16 rounded-md object-cover" src="${vid.url}"></video>
+                    <span class="font-mono text-[10px] text-red-400">DATA_NODE: ${id.substring(0,10)}</span>
+                    <button onclick="deleteVideo('${id}')" class="text-red-600 p-4 bg-red-600/10 rounded-full"><i class="fas fa-skull"></i></button>
                 </div>`;
             });
-            initQuantumObserver();
+            initVoidObserver();
         });
 
-        function initQuantumObserver() {
+        function initVoidObserver() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     const video = entry.target.querySelector('video');
                     if (entry.isIntersecting) {
                         video.play().catch(() => {});
-                        entry.target.querySelector('video').style.transform = "scale(1)";
+                        video.style.transform = "scale(1)";
+                        video.style.opacity = "1";
                     } else {
                         video.pause();
                         video.currentTime = 0;
-                        entry.target.querySelector('video').style.transform = "scale(1.1)";
+                        video.style.transform = "scale(0.9)";
+                        video.style.opacity = "0.3";
                     }
                 });
             }, { threshold: 0.8 });
             document.querySelectorAll('.v-seg').forEach(s => observer.observe(s));
         }
 
-        function checkAdmin() { if(prompt("SCAN ID:") === MASTER_KEY) document.getElementById('admin-panel').style.display = 'flex'; }
+        function checkAdmin() { if(prompt("SCAN GENETIC CODE:") === MASTER_KEY) document.getElementById('admin-panel').style.display = 'flex'; }
         function closeAdmin() { document.getElementById('admin-panel').style.display = 'none'; }
-        function deleteVideo(id) { if(confirm("Purge Intel?")) db.ref('go_2go_content/' + id).remove(); }
-        function triggerLike(id) { db.ref('go_2go_content/' + id + '/likes').transaction(l => (l || 0) + 1); if(navigator.vibrate) navigator.vibrate(30); }
-        function toggleMute(btn, id) { const v = document.getElementById('vid-'+id); v.muted = !v.muted; btn.innerHTML = v.muted ? '<i class="fas fa-volume-mute text-red-500"></i>' : '<i class="fas fa-wave-square"></i>'; }
-        function toggleChat() { alert("CONNECTED_TO_QUANTUM_NETWORK"); }
+        function deleteVideo(id) { if(confirm("Permanently erase this data from the void?")) db.ref('go_2go_content/' + id).remove(); }
+        function triggerLike(id) { db.ref('go_2go_content/' + id + '/likes').transaction(l => (l || 0) + 1); if(navigator.vibrate) navigator.vibrate([20, 50, 20]); }
+        function toggleMute(btn, id) { const v = document.getElementById('vid-'+id); v.muted = !v.muted; btn.innerHTML = v.muted ? '<i class="fas fa-volume-mute text-red-600"></i>' : '<i class="fas fa-headset"></i>'; }
+        function toggleChat() { alert("VOID_CHAT_UNLOCKED"); }
     </script>
 </body>
 </html>
