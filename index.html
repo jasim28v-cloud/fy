@@ -3,227 +3,864 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VOID-OPERATOR V18 | THE FINAL ASSET</title>
+    <title>OMNI-OPERATOR V24 | NEO-QUANTUM ASSET</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://upload-widget.cloudinary.com/global/all.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Share+Tech+Mono&family=Cairo:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Share+Tech+Mono&family=Cairo:wght@400;700;900&family=Rajdhani:wght@300;600&display=swap');
         
         :root { 
-            --void-cyan: #00f2ff; 
-            --void-glow: rgba(0, 242, 255, 0.5);
-            --bg-deep: #000;
+            --q-blue: #00f2ff; 
+            --q-gold: #ffd700;
+            --q-pink: #ff2b9e;
+            --q-purple: #9b4dff;
+            --bg: #000;
+            --neon-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
         }
 
-        body, html { margin: 0; padding: 0; height: 100%; background: #000; color: #fff; overflow: hidden; font-family: 'Cairo', sans-serif; user-select: none; }
-
-        /* محرك التصفح (Void-Engine) - انسيابية من عالم آخر */
-        .void-engine { 
-            height: 100vh; overflow-y: scroll; 
-            scroll-snap-type: y mandatory; /* جذب مغناطيسي للتمرير */
-            scrollbar-width: none; -webkit-overflow-scrolling: touch;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .void-engine::-webkit-scrollbar { display: none; }
+
+        body, html { 
+            height: 100%; 
+            background: #000; 
+            color: #fff; 
+            overflow: hidden; 
+            font-family: 'Cairo', sans-serif; 
+            user-select: none; 
+        }
+
+        /* محرك التمرير الكوانتي المتطور */
+        .scroll-engine { 
+            height: 100vh; 
+            overflow-y: scroll; 
+            scroll-snap-type: y mandatory; 
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            position: relative;
+        }
 
         .v-seg { 
-            height: 100vh; width: 100vw; scroll-snap-align: start; 
-            scroll-snap-stop: always; /* توقف إجباري لكل فيديو */
-            position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
+            height: 100vh; 
+            width: 100vw; 
+            scroll-snap-align: start; 
+            position: relative; 
+            overflow: hidden; 
+            background: #000;
         }
 
-        /* تأثير الثقب الأسود (Black Hole Effect) - تلاشي الأطراف العميق */
+        /* تأثيرات الفيديو المتقدمة */
+        .video-wrapper {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
         video { 
-            width: 100%; height: 100%; object-fit: cover; 
-            filter: brightness(0.6) contrast(1.3);
-            -webkit-mask-image: radial-gradient(circle, black 30%, transparent 100%);
-            mask-image: radial-gradient(circle, black 30%, transparent 100%);
-            transition: transform 0.8s cubic-bezier(0.15, 0.85, 0.35, 1);
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            filter: brightness(0.85) contrast(1.15) saturate(1.2);
+            transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1), filter 0.8s ease;
         }
 
-        /* كتابات تقنية حديثة فوق الفيديو */
-        .video-overlay { position: absolute; inset: 0; z-index: 25; pointer-events: none; }
-        .scan-line {
-            position: absolute; width: 100%; height: 2px; 
-            background: linear-gradient(to right, transparent, var(--void-cyan), transparent);
-            top: 0; animation: scan 4s linear infinite; opacity: 0.2;
+        .v-seg:hover video {
+            filter: brightness(1) contrast(1.2) saturate(1.4);
         }
-        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
 
-        .tech-data { position: absolute; font-family: 'Share Tech Mono'; font-size: 8px; color: var(--void-cyan); text-shadow: 0 0 5px var(--void-cyan); opacity: 0.7; }
-        .data-tr { top: 110px; right: 25px; text-align: right; line-height: 1.5; }
-        .data-bl { bottom: 160px; left: 25px; border-left: 2px solid var(--void-cyan); padding-left: 10px; }
+        /* طبقات التكتيك المتقدمة */
+        .hud-layer { 
+            position: absolute; 
+            inset: 0; 
+            pointer-events: none; 
+            z-index: 20; 
+            background: radial-gradient(circle at 50% 50%, transparent 50%, rgba(0,242,255,0.03) 100%);
+        }
 
-        /* الأزرار الجانبية */
+        .hud-grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(0,242,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,242,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 15;
+        }
+
+        /* العلامات التكتيكية */
+        .tactical-label {
+            position: absolute; 
+            font-family: 'Share Tech Mono'; 
+            font-size: 10px;
+            color: var(--q-blue); 
+            text-shadow: 0 0 15px var(--q-blue);
+            z-index: 30; 
+            opacity: 0.8;
+            background: rgba(0,0,0,0.6);
+            padding: 4px 12px;
+            border-left: 3px solid var(--q-blue);
+            backdrop-filter: blur(10px);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .label-tl { 
+            top: 90px; 
+            left: 0; 
+            animation: slide-in 0.5s ease;
+        }
+
+        .label-br { 
+            bottom: 130px; 
+            right: 0; 
+            text-align: right; 
+            border-left: none;
+            border-right: 3px solid var(--q-pink);
+            color: var(--q-pink);
+            text-shadow: 0 0 15px var(--q-pink);
+            border-radius: 8px 0 0 8px;
+        }
+
+        @keyframes slide-in {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 0.8; }
+        }
+
+        /* الأزرار الجانبية المتطورة */
         .sidebar-ops { 
-            position: absolute; left: 15px; top: 50%; transform: translateY(-50%); 
-            display: flex; flex-direction: column; gap: 20px; z-index: 100; 
+            position: absolute; 
+            left: 20px; 
+            top: 50%; 
+            transform: translateY(-50%); 
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
+            z-index: 100; 
         }
+        
         .op-btn { 
-            width: 50px; height: 50px; background: rgba(0, 242, 255, 0.05); 
-            backdrop-filter: blur(15px); border: 1.5px solid rgba(0, 242, 255, 0.2); 
-            border-radius: 12px; display: flex; flex-direction: column; 
-            align-items: center; justify-content: center; cursor: pointer; transition: 0.3s;
+            width: 60px; 
+            height: 60px; 
+            background: rgba(0, 10, 20, 0.7); 
+            backdrop-filter: blur(20px); 
+            border: 1.5px solid rgba(0, 242, 255, 0.3); 
+            border-radius: 18px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer; 
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.5);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
         }
-        .op-btn:active { transform: scale(0.85); border-color: #fff; }
-        .op-btn i { font-size: 18px; color: #fff; filter: drop-shadow(0 0 5px var(--void-cyan)); }
-        .op-btn span { font-size: 8px; color: var(--void-cyan); font-family: 'Share Tech Mono'; margin-top: 4px; }
 
-        /* مركز التحكم (Control Hub) */
-        .control-hub {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            z-index: 500; display: flex; align-items: center; gap: 30px;
-            background: rgba(0,5,15,0.85); padding: 12px 35px; border-radius: 50px;
-            border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(25px);
+        .op-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s ease;
         }
-        .main-dial {
-            width: 65px; height: 65px; background: linear-gradient(135deg, var(--void-cyan), #0044ff);
-            border-radius: 50%; border: 4px solid #000; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 25px var(--void-cyan); transition: 0.4s;
-        }
-        .main-dial:active { transform: scale(0.8) rotate(45deg); }
 
-        /* نافذة الدردشة */
-        #chat-panel {
-            position: fixed; inset: 0; z-index: 2000; background: rgba(0, 0, 0, 0.97);
-            display: none; flex-direction: column; padding: 40px 25px; border-top: 4px solid var(--void-cyan);
+        .op-btn:hover::before {
+            left: 100%;
         }
-        .chat-area { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
-        .msg-node { background: rgba(0, 242, 255, 0.06); border-right: 3px solid var(--void-cyan); padding: 12px; font-size: 12px; font-family: 'Share Tech Mono'; color: #fff; }
+
+        .op-btn:hover { 
+            transform: scale(1.1); 
+            border-color: var(--q-gold);
+            box-shadow: 0 0 25px var(--q-blue);
+        }
+
+        .op-btn:active { 
+            transform: scale(0.9); 
+        }
+
+        .op-btn i { 
+            font-size: 22px; 
+            color: #fff; 
+            filter: drop-shadow(0 0 8px var(--q-blue)); 
+        }
+
+        .op-btn .fa-medal { 
+            color: var(--q-gold); 
+            filter: drop-shadow(0 0 10px var(--q-gold)); 
+        }
+
+        .op-btn span { 
+            font-size: 10px; 
+            font-family: 'Share Tech Mono'; 
+            color: var(--q-blue); 
+            margin-top: 3px; 
+            font-weight: bold; 
+        }
+
+        /* الناف بار المتطور */
+        nav { 
+            position: fixed; 
+            bottom: 30px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            width: 90%; 
+            max-width: 500px; 
+            height: 80px; 
+            background: rgba(0, 10, 20, 0.85); 
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(0, 242, 255, 0.2); 
+            border-radius: 50px;
+            display: flex; 
+            justify-content: space-around; 
+            align-items: center; 
+            z-index: 500;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(0,242,255,0.2);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: rgba(255,255,255,0.4);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 12px;
+            font-family: 'Share Tech Mono';
+        }
+
+        .nav-item i {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .nav-item:hover {
+            color: var(--q-blue);
+            transform: translateY(-5px);
+        }
+
+        .nav-item.active {
+            color: var(--q-blue);
+        }
+
+        .omni-core {
+            width: 80px; 
+            height: 80px; 
+            background: linear-gradient(135deg, var(--q-blue), var(--q-purple));
+            border-radius: 50%; 
+            margin-top: -40px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            border: 4px solid #000; 
+            color: white; 
+            font-size: 30px; 
+            cursor: pointer;
+            box-shadow: 0 0 30px var(--q-blue); 
+            animation: core-glow 3s infinite alternate;
+            transition: transform 0.3s ease;
+        }
+
+        .omni-core:hover {
+            transform: scale(1.1) rotate(90deg);
+        }
+
+        @keyframes core-glow { 
+            0% { box-shadow: 0 0 20px var(--q-blue); } 
+            100% { box-shadow: 0 0 60px var(--q-blue), 0 0 100px var(--q-purple); } 
+        }
+
+        /* لوحة التحكم المتكاملة المتطورة */
+        #core-panel {
+            position: fixed; 
+            inset: 0; 
+            z-index: 2000; 
+            background: rgba(0, 0, 0, 0.98);
+            display: none; 
+            flex-direction: column; 
+            padding: 30px 20px; 
+            border: 1px solid var(--q-blue);
+            backdrop-filter: blur(20px);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(0,242,255,0.2);
+            padding-bottom: 15px;
+        }
+
+        .chat-area { 
+            flex: 1; 
+            overflow-y: auto; 
+            padding: 15px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px; 
+            background: rgba(0,242,255,0.02);
+            border-radius: 15px;
+        }
+
+        .msg-node { 
+            background: rgba(0, 242, 255, 0.05); 
+            border-right: 3px solid var(--q-blue); 
+            padding: 15px; 
+            border-radius: 8px; 
+            font-size: 14px; 
+            font-family: 'Share Tech Mono'; 
+            color: #fff; 
+            animation: msg-pop 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .msg-node.system {
+            border-right-color: var(--q-gold);
+            background: rgba(255,215,0,0.05);
+        }
+
+        @keyframes msg-pop {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .input-hub { 
+            display: flex; 
+            gap: 10px; 
+            background: rgba(255,255,255,0.03); 
+            padding: 15px; 
+            border-radius: 25px; 
+            border: 1px solid rgba(0,242,255,0.2);
+            margin-top: 15px;
+        }
+
+        .input-hub input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--q-blue);
+            font-family: 'Share Tech Mono';
+            font-size: 14px;
+            width: 100%;
+        }
+
+        .input-hub button {
+            background: rgba(0,242,255,0.1);
+            border: none;
+            color: var(--q-blue);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .input-hub button:hover {
+            background: var(--q-blue);
+            color: #000;
+            transform: scale(1.1);
+        }
+
+        /* مؤشرات الحالة */
+        .status-bar {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 600;
+            display: flex;
+            gap: 10px;
+        }
+
+        .status-item {
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            padding: 8px 15px;
+            border-radius: 30px;
+            border: 1px solid var(--q-blue);
+            font-family: 'Share Tech Mono';
+            font-size: 12px;
+            color: var(--q-blue);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-item i {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* شريط التمرير السريع */
+        .quick-scroll {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .scroll-dot {
+            width: 8px;
+            height: 8px;
+            background: rgba(0,242,255,0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .scroll-dot.active {
+            width: 12px;
+            height: 12px;
+            background: var(--q-blue);
+            box-shadow: 0 0 15px var(--q-blue);
+        }
+
+        /* تأثيرات التحميل */
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s ease;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid transparent;
+            border-top-color: var(--q-blue);
+            border-right-color: var(--q-pink);
+            border-bottom-color: var(--q-purple);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
 
-    <header class="fixed top-8 left-8 right-8 z-[600] flex justify-between items-center pointer-events-none">
-        <div class="bg-black/40 p-3 border-l-4 border-cyan-400 pointer-events-auto rounded backdrop-blur-xl flex items-center gap-3">
-            <i class="fas fa-atom text-cyan-400 animate-spin"></i>
-            <span class="font-[Orbitron] text-[10px] tracking-[4px]">VOID_SYSTEM_V18</span>
-        </div>
-        <div id="clock" class="font-mono text-cyan-400 text-[11px] bg-black/50 px-4 py-1 rounded-full border border-cyan-900">00:00:00</div>
-    </header>
-
-    <main class="void-engine" id="video-stack"></main>
-
-    <div class="control-hub">
-        <div class="cursor-pointer text-white/30" onclick="toggleChat()"><i class="fas fa-terminal text-xl"></i></div>
-        <div class="main-dial" onclick="openUpload()">
-            <i class="fas fa-plus text-white text-2xl"></i>
-        </div>
-        <div class="cursor-pointer text-white/30" onclick="window.open('https://www.effectivegatecpm.com/xbht9gqc?key=13bf2e14db4efc9eb9f9e55fe90705ef', '_blank')"><i class="fas fa-satellite-dish text-xl"></i></div>
+    <!-- شاشة التحميل -->
+    <div class="loading-overlay" id="loading">
+        <div class="loading-spinner"></div>
     </div>
 
-    <div id="chat-panel">
-        <div class="flex justify-between items-center mb-8 border-b border-cyan-900/50 pb-4">
-            <h2 class="font-[Orbitron] text-cyan-400 text-lg tracking-[5px]">COMMS_FEED</h2>
-            <i class="fas fa-times text-xl text-red-500 cursor-pointer" onclick="toggleChat()"></i>
+    <!-- شريط الحالة -->
+    <div class="status-bar">
+        <div class="status-item">
+            <i class="fas fa-shield-halved"></i>
+            <span>QUANTUM SECURE</span>
+        </div>
+        <div class="status-item">
+            <i class="fas fa-users"></i>
+            <span id="online-count">42</span>
+        </div>
+    </div>
+
+    <!-- الهيدر المتطور -->
+    <header class="fixed top-6 left-6 z-[600]">
+        <div class="bg-black/70 p-4 border-l-4 border-cyan-400 rounded-xl backdrop-blur-xl flex items-center gap-4">
+            <i class="fas fa-microchip text-cyan-400 text-2xl animate-pulse"></i>
+            <div>
+                <span class="font-[Orbitron] text-xs font-black tracking-[6px]">OMNI_V24</span>
+                <span class="font-mono text-[8px] text-cyan-400 block">NEO-QUANTUM</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- محتوى الفيديو الرئيسي -->
+    <main class="scroll-engine" id="video-stack"></main>
+
+    <!-- شريط التمرير السريع -->
+    <div class="quick-scroll" id="scrollDots"></div>
+
+    <!-- الناف بار المتطور -->
+    <nav>
+        <div class="nav-item" onclick="checkAdmin()">
+            <i class="fas fa-fingerprint"></i>
+            <span>ACCESS</span>
+        </div>
+        <div class="nav-item" onclick="window.open(ADS.SHARE, '_blank')">
+            <i class="fas fa-share-nodes"></i>
+            <span>SHARE</span>
+        </div>
+        <div class="omni-core" onclick="toggleCore()">
+            <i class="fas fa-comment-dots"></i>
+        </div>
+        <div class="nav-item" onclick="openUpload()">
+            <i class="fas fa-cloud-arrow-up"></i>
+            <span>UPLOAD</span>
+        </div>
+        <div class="nav-item" onclick="window.open(ADS.EXTRA, '_blank')">
+            <i class="fas fa-crown"></i>
+            <span>VIP</span>
+        </div>
+    </nav>
+
+    <!-- لوحة التحكم المتكاملة -->
+    <div id="core-panel">
+        <div class="panel-header">
+            <h2 class="font-[Orbitron] text-cyan-400 text-2xl font-bold tracking-widest">
+                TACTICAL_HUB <span class="text-xs text-pink-400">v24.0</span>
+            </h2>
+            <div class="flex gap-6">
+                <i class="fas fa-cloud-arrow-up text-2xl text-white cursor-pointer hover:text-cyan-400 transition" onclick="openUpload()"></i>
+                <i class="fas fa-times text-2xl text-red-500 cursor-pointer hover:text-red-400 transition" onclick="toggleCore()"></i>
+            </div>
         </div>
         <div class="chat-area" id="chat-box"></div>
-        <div class="mt-6 flex gap-3 bg-white/5 p-4 rounded-2xl border border-cyan-500/20">
-            <input type="text" id="msg-input" class="flex-1 bg-transparent outline-none text-cyan-400 font-mono text-sm" placeholder="TYPE SIGNAL...">
-            <button onclick="sendSignal()" class="text-cyan-400"><i class="fas fa-paper-plane text-xl"></i></button>
+        <div class="input-hub">
+            <input type="text" id="msg-input" placeholder="اكتب رسالتك التكتيكية...">
+            <button onclick="sendSignal()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
         </div>
     </div>
 
     <script>
+        // الإعدادات المتطورة
+        const MASTER_KEY = "1234";
         const ADS = {
             LIKE: "https://www.effectivegatecpm.com/kckhwnffm5?key=a044912bc242a8918aac753c22e082b1",
-            CHAT: "https://www.effectivegatecpm.com/fd8bgr2e?key=c5bd0ed87d0ddc0c53101f52264d4b1e",
-            AUDIO: "https://www.effectivegatecpm.com/k60w64w4gk?key=564f3d8cc4ac85949f218179b742495e"
+            CHAT: "https://www.effectivegatecpm.com/fd8bgr2?key=c5bd0ed87d0ddc0c53101f52264d4b1e",
+            SHARE: "https://www.effectivegatecpm.com/xbht9gqc?key=13bf2e14db4efc9eb9f9e55fe90705ef",
+            EXTRA: "https://www.effectivegatecpm.com/k60w64w4gk?key=564f3d8cc4ac85949f218179b742495e"
         };
 
-        firebase.initializeApp({ databaseURL: "https://goks-e0cba-default-rtdb.firebaseio.com/" });
+        // تهيئة Firebase
+        firebase.initializeApp({ 
+            databaseURL: "https://goks-e0cba-default-rtdb.firebaseio.com/",
+            storageBucket: "goks-e0cba.appspot.com"
+        });
         const db = firebase.database();
+        const storage = firebase.storage();
 
-        // نظام الرفع المباشر (استوديو + كاميرا)
+        // إخفاء شاشة التحميل
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loading').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loading').style.display = 'none';
+                }, 1000);
+            }, 1500);
+        });
+
+        // نظام الرفع المتطور
         const widget = cloudinary.createUploadWidget({ 
-            cloudName: "dhdg9gu88", uploadPreset: "go_2go",
-            sources: ['local', 'camera'], clientAllowedFormats: ["video"]
+            cloudName: "dhdg9gu88", 
+            uploadPreset: "go_2go", 
+            sources: ['local', 'url', 'camera'],
+            clientAllowedFormats: ["video"],
+            maxFileSize: 100000000, // 100MB
+            multiple: true,
+            styles: {
+                palette: {
+                    window: "#000000",
+                    windowBorder: "#00f2ff",
+                    tabIcon: "#00f2ff",
+                    menuIcons: "#00f2ff",
+                    textDark: "#000000",
+                    textLight: "#FFFFFF",
+                    link: "#00f2ff",
+                    action: "#ff2b9e"
+                }
+            }
         }, (err, res) => {
             if (!err && res.event === "success") {
-                db.ref('go_2go_content/').push({ url: res.info.secure_url, likes: 0, timestamp: Date.now() });
+                db.ref('go_2go_content/').push({ 
+                    url: res.info.secure_url, 
+                    likes: 0, 
+                    timestamp: Date.now(),
+                    views: 0,
+                    uploadedBy: "OMNI_USER"
+                });
+                showNotification("تم رفع الفيديو بنجاح!", "success");
             }
         });
+
         function openUpload() { widget.open(); }
 
-        function toggleChat() {
-            const p = document.getElementById('chat-panel');
-            const isOff = p.style.display === 'none' || p.style.display === '';
-            p.style.display = isOff ? 'flex' : 'none';
-            if(isOff) window.open(ADS.CHAT, '_blank');
+        // نظام الإشعارات
+        function showNotification(msg, type = "info") {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-20 right-5 z-[3000] bg-black/90 border-${type === 'success' ? 'green' : 'cyan'}-400 border p-4 rounded-xl backdrop-blur-xl font-mono text-sm animate-bounce`;
+            notification.innerHTML = msg;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
         }
 
-        function sendSignal() {
-            const i = document.getElementById('msg-input');
-            if(i.value.trim()){ db.ref('vox_chat').push({ msg: i.value, time: Date.now() }); i.value = ''; }
-        }
-
-        db.ref('vox_chat').limitToLast(20).on('value', s => {
-            const b = document.getElementById('chat-box'); b.innerHTML = '';
-            s.forEach(m => { b.innerHTML += `<div class="msg-node">DATA_LINK:: ${m.val().msg}</div>`; });
-            b.scrollTop = b.scrollHeight;
-        });
-
+        // تحميل الفيديوهات
         db.ref('go_2go_content').on('value', (snap) => {
             const container = document.getElementById('video-stack');
-            const data = snap.val(); container.innerHTML = '';
-            if(!data) return;
-            Object.keys(data).reverse().forEach((id) => {
-                const vid = data[id];
+            const scrollDots = document.getElementById('scrollDots');
+            const data = snap.val();
+            
+            if (!data) {
+                container.innerHTML = `
+                    <section class="v-seg flex items-center justify-center">
+                        <div class="text-center">
+                            <i class="fas fa-video text-6xl text-cyan-400 mb-4"></i>
+                            <p class="font-mono text-cyan-400">لا توجد فيديوهات بعد</p>
+                            <button onclick="openUpload()" class="mt-4 bg-cyan-400 text-black px-6 py-3 rounded-full font-mono">رفع أول فيديو</button>
+                        </div>
+                    </section>
+                `;
+                return;
+            }
+
+            container.innerHTML = '';
+            scrollDots.innerHTML = '';
+            
+            const videos = Object.entries(data).reverse();
+            
+            videos.forEach(([id, vid], index) => {
+                // إنشاء عنصر الفيديو
                 const section = document.createElement('section');
                 section.className = 'v-seg';
+                section.dataset.index = index;
+                
                 section.innerHTML = `
-                    <div class="video-overlay">
-                        <div class="scan-line"></div>
-                        <div class="tech-data data-tr">UNIT_ID: VOID_${id.substring(1,5)}<br>SIG_STRENGTH: 98%<br>ENCRYPT: ON</div>
-                        <div class="tech-data data-bl">COORDS: ${(Math.random()*90).toFixed(4)}N<br>BITRATE: 45.2 Mbps</div>
+                    <div class="video-wrapper">
+                        <video id="vid-${id}" loop playsinline src="${vid.url}" preload="auto" poster="https://via.placeholder.com/1080x1920?text=OMNI+LOADING"></video>
                     </div>
-                    <video id="vid-${id}" loop playsinline src="${vid.url}"></video>
+                    <div class="hud-grid"></div>
+                    <div class="hud-layer"></div>
+                    
+                    <div class="tactical-label label-tl">
+                        <i class="fas fa-satellite-dish text-[8px] ml-2"></i>
+                        REC_SYNC: ACTIVE<br>
+                        UNIT_ID: OMNI_${id.substring(0,4)}<br>
+                        TIME: ${new Date(vid.timestamp).toLocaleTimeString()}
+                    </div>
+                    
+                    <div class="tactical-label label-br">
+                        <i class="fas fa-eye ml-2"></i> VIEWS: ${vid.views || 0}<br>
+                        <i class="fas fa-signal ml-2"></i> SIGNAL: ${Math.floor(Math.random() * 100)}%
+                    </div>
+                    
                     <div class="sidebar-ops">
-                        <div class="op-btn" onclick="window.open(ADS.LIKE, '_blank'); triggerLike('${id}')">
-                            <i class="fas fa-bolt text-cyan-400"></i>
-                            <span>${vid.likes || 0}</span>
+                        <div class="op-btn" onclick="triggerLike('${id}')">
+                            <i class="fas fa-medal"></i>
+                            <span class="likes-count" data-id="${id}">${vid.likes || 0}</span>
                         </div>
-                        <div class="op-btn" onclick="toggleChat()">
-                            <i class="fas fa-comment-dots"></i>
-                            <span>CHAT</span>
+                        
+                        <div class="op-btn" onclick="window.open('${ADS.CHAT}', '_blank'); toggleCore()">
+                            <i class="fas fa-helmet-safety"></i>
+                            <span>SQUAD</span>
                         </div>
-                        <div class="op-btn" onclick="window.open(ADS.AUDIO, '_blank'); toggleMute(this, '${id}')">
+                        
+                        <div class="op-btn" onclick="toggleMute(this, '${id}')">
                             <i class="fas fa-walkie-talkie"></i>
+                        </div>
+                        
+                        <div class="op-btn" onclick="shareVideo('${vid.url}')">
+                            <i class="fas fa-satellite"></i>
+                        </div>
+                        
+                        <div class="op-btn" onclick="addToFavorites('${id}')">
+                            <i class="fas fa-star text-yellow-400"></i>
                         </div>
                     </div>
                 `;
+                
                 container.appendChild(section);
+                
+                // إنشاء نقاط التمرير السريع
+                const dot = document.createElement('div');
+                dot.className = `scroll-dot ${index === 0 ? 'active' : ''}`;
+                dot.onclick = () => {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                };
+                scrollDots.appendChild(dot);
             });
-            initObserver();
+
+            initVideoObserver();
+            updateScrollDots();
         });
 
-        function triggerLike(id) { db.ref('go_2go_content/' + id + '/likes').transaction(l => (l || 0) + 1); }
-        function toggleMute(btn, id) { 
-            const v = document.getElementById('vid-'+id); v.muted = !v.muted;
-            btn.innerHTML = v.muted ? '<i class="fas fa-volume-mute text-red-500"></i>' : '<i class="fas fa-walkie-talkie"></i>';
-        }
-
-        function initObserver() {
+        // مراقب الفيديو المتطور
+        function initVideoObserver() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     const video = entry.target.querySelector('video');
+                    const index = entry.target.dataset.index;
+                    
                     if (entry.isIntersecting) {
+                        // تشغيل الفيديو
                         video.play().catch(() => {});
                         video.style.transform = "scale(1)";
+                        
+                        // تحديث النقاط النشطة
+                        document.querySelectorAll('.scroll-dot').forEach((dot, i) => {
+                            dot.classList.toggle('active', i == index);
+                        });
+                        
+                        // تحديث عدد المشاهدات
+                        const videoId = video.id.replace('vid-', '');
+                        db.ref('go_2go_content/' + videoId + '/views').transaction(v => (v || 0) + 1);
+                        
                     } else {
                         video.pause();
                         video.currentTime = 0;
-                        video.style.transform = "scale(1.15)"; /* تكبير خفيف عند الخروج لتعزيز تأثير الثقب */
+                        video.style.transform = "scale(1.1)";
                     }
                 });
-            }, { threshold: 0.8 });
+            }, { 
+                threshold: 0.7,
+                rootMargin: "0px"
+            });
+
             document.querySelectorAll('.v-seg').forEach(s => observer.observe(s));
         }
 
-        setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString('en-GB'); }, 1000);
+        // تحديث نقاط التمرير
+        function updateScrollDots() {
+            const scrollEngine = document.querySelector('.scroll-engine');
+            scrollEngine.addEventListener('scroll', () => {
+                const sections = document.querySelectorAll('.v-seg');
+                const scrollPosition = scrollEngine.scrollTop;
+                const viewportHeight = window.innerHeight;
+                
+                sections.forEach((section, index) => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top >= -100 && rect.top <= 100) {
+                        document.querySelectorAll('.scroll-dot').forEach((dot, i) => {
+                            dot.classList.toggle('active', i === index);
+                        });
+                    }
+                });
+            });
+        }
+
+        // نظام الدردشة المتطور
+        function sendSignal() { 
+            const input = document.getElementById('msg-input'); 
+            if(input.value.trim()) { 
+                db.ref('vox_chat').push({
+                    msg: input.value, 
+                    time: Date.now(),
+                    id: Math.random().toString(36).substring(7)
+                }); 
+                input.value = ''; 
+            } 
+        }
+        
+        db.ref('vox_chat').limitToLast(30).on('value', s => {
+            const box = document.getElementById('chat-box'); 
+            box.innerHTML = ''; 
+            s.forEach(m => { 
+                const msg = m.val();
+                box.innerHTML += `
+                    <div class="msg-node">
+                        <i class="fas fa-user-astronaut text-cyan-400 ml-2"></i>
+                        ${msg.msg}
+                        <span class="text-[8px] text-cyan-600 block mt-1">
+                            ${new Date(msg.time).toLocaleTimeString()}
+                        </span>
+                    </div>
+                `; 
+            });
+            box.scrollTop = box.scrollHeight;
+        });
+
+        // وظائف متطورة
+        function triggerLike(id) { 
+            db.ref('go_2go_content/' + id + '/likes').transaction(l => (l || 0) + 1); 
+            if(navigator.vibrate) navigator.vibrate([30, 20, 30]);
+            
+            // تحديث العداد مباشرة
+            const likeSpan = document.querySelector(`.likes-count[data-id="${id}"]`);
+            if(likeSpan) {
+                let current = parseInt(likeSpan.textContent) || 0;
+                likeSpan.textContent = current + 1;
+            }
+        }
+        
+        function toggleMute(btn, id) { 
+            const v = document.getElementById('vid-'+id); 
+            if(v) {
+                v.muted = !v.muted; 
+                btn.innerHTML = v.muted ? '<i class="fas fa-volume-mute text-red-500"></i>' : '<i class="fas fa-walkie-talkie"></i>';
+                
+                if(!v.muted) {
+                    v.volume = 0.5;
+                }
+            }
+        }
+        
+        function shareVideo(url) {
+            if(navigator.share) {
+                navigator.share({
+                    title: 'OMNI Video',
+                    text: 'شاهد هذا الفيديو على OMNI',
+                    url: url
+                });
+            } else {
+                navigator.clipboard.writeText(url);
+                showNotification("تم نسخ الرابط!", "success");
+            }
+        }
+        
+        function addToFavorites(id) {
+            let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+            if(!favorites.includes(id)) {
+                favorites.push(id);
+                localStorage.setItem('favorites', JSON.stringify(favorites));
+                showNotification("تمت الإضافة إلى المفضلة", "success");
+            } else {
+                showNotification("موجود بالفعل في المفضلة", "info");
+            }
+        }
+
+        function toggleCore() { 
+            const p = document.getElementById('core-panel'); 
+            p.style.display = (p.style.display === 'flex') ? 'none' : 'flex'; 
+        }
+        
+        function checkAdmin() { 
+            if(prompt("SCAN ID:") === MASTER_KEY) {
+                alert("ACCESS_GRANTED");
+                showNotification("مرحباً أيها القائد!", "success");
+            } else {
+                showNotification("وصول غير مصرح به!", "info");
+            }
+        }
+
+        // تحديث الساعة وعدد المستخدمين
+        setInterval(() => { 
+            document.querySelector('.status-item:last-child span').textContent = Math.floor(Math.random() * 100) + 50;
+        }, 5000);
+
+        // منع القائمة اليمنى
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        
+        // معالجة الأخطاء
+        window.onerror = function(msg, url, line) {
+            console.log('Error:', msg);
+            return true;
+        };
     </script>
 </body>
 </html>
