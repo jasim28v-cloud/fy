@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>OMNI-OPERATOR V18 | THE ULTIMATE ASSET</title>
+    <title>OMNI-OPERATOR V18.1 | THE FINAL MASTERPIECE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://upload-widget.cloudinary.com/global/all.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
@@ -11,122 +11,73 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Share+Tech+Mono&family=Cairo:wght@400;700;900&display=swap');
-        
-        :root { 
-            --q-blue: #00f2ff; 
-            --q-gold: #ffd700;
-            --bg: #000;
-        }
-
+        :root { --v-cyan: #00f2ff; --v-gold: #ffd700; --v-red: #ff003c; --bg: #000; }
         body, html { margin: 0; padding: 0; height: 100%; background: #000; color: #fff; overflow: hidden; font-family: 'Cairo', sans-serif; user-select: none; }
 
-        /* محرك التمرير الكوانتي - سلاسة مطلقة */
-        .scroll-engine { 
-            height: 100vh; overflow-y: scroll; 
-            scroll-snap-type: y mandatory; scrollbar-width: none; 
-            -webkit-overflow-scrolling: touch;
-        }
+        /* محرك الجيل 14 المطور */
+        .scroll-engine { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
         .scroll-engine::-webkit-scrollbar { display: none; }
+        .v-seg { height: 100vh; width: 100vw; scroll-snap-align: start; scroll-snap-stop: always; position: relative; overflow: hidden; background: #000; display: flex; align-items: center; justify-content: center; }
+        video { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.85) contrast(1.15); mask-image: radial-gradient(circle, black 55%, transparent 95%); -webkit-mask-image: radial-gradient(circle, black 55%, transparent 95%); transition: 0.8s cubic-bezier(0.2, 1, 0.3, 1); }
 
-        .v-seg { 
-            height: 100vh; width: 100vw; scroll-snap-align: start; 
-            scroll-snap-stop: always; position: relative; overflow: hidden; 
-            background: #000; display: flex; align-items: center; justify-content: center;
-        }
+        /* الأزرار اليسارية الموسطة */
+        .sidebar-left { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 18px; z-index: 100; }
+        .ion-btn { width: 52px; height: 52px; background: rgba(0, 242, 255, 0.04); backdrop-filter: blur(15px); border: 1px solid rgba(0, 242, 255, 0.15); border-radius: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; }
+        .ion-btn i { font-size: 19px; color: #fff; filter: drop-shadow(0 0 8px var(--v-cyan)); }
+        .ion-btn .fa-medal { color: var(--v-gold); }
 
-        video { 
-            width: 100%; height: 100%; object-fit: cover; 
-            filter: brightness(0.9) contrast(1.1);
-            mask-image: radial-gradient(circle, black 65%, transparent 100%);
-            transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
-        }
+        /* ناف بار الصحن */
+        nav { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 410px; height: 70px; background: rgba(0, 5, 12, 0.85); backdrop-filter: blur(35px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 35px; display: flex; justify-content: space-around; align-items: center; z-index: 500; }
+        .void-core { width: 70px; height: 70px; background: linear-gradient(135deg, var(--v-cyan), #0044ff); border-radius: 50%; margin-top: -45px; display: flex; align-items: center; justify-content: center; border: 5px solid #000; box-shadow: 0 0 35px var(--v-cyan); cursor: pointer; transition: 0.4s; }
 
-        /* الطبقات التكتيكية */
-        .hud-layer { position: absolute; inset: 0; pointer-events: none; z-index: 20; border: 1px solid rgba(0, 242, 255, 0.03); }
+        /* لوحات الإدارة والدردشة */
+        #core-panel, #admin-panel { position: fixed; inset: 0; z-index: 2000; background: rgba(0, 0, 0, 0.98); display: none; flex-direction: column; padding: 40px 25px; border-top: 5px solid var(--v-cyan); }
+        .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(0,242,255,0.2); padding-bottom: 15px; }
+        .admin-item { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.05); p: 4; border-radius: 10px; border: 1px solid rgba(0,242,255,0.1); margin-bottom: 10px; }
         
-        .tactical-label {
-            position: absolute; font-family: 'Share Tech Mono'; font-size: 8px;
-            color: var(--q-blue); text-shadow: 0 0 10px var(--q-blue);
-            z-index: 30; opacity: 0.6;
-        }
-        .label-tl { top: 90px; left: 20px; }
-        .label-br { bottom: 130px; right: 20px; text-align: right; animation: pulse-node 2s infinite; }
-        @keyframes pulse-node { 0%, 100% { opacity: 0.6; } 50% { opacity: 0.1; } }
-
-        /* الأزرار الجانبية - اليسار الموسط */
-        .sidebar-ops { 
-            position: absolute; left: 15px; top: 50%; transform: translateY(-50%); 
-            display: flex; flex-direction: column; gap: 20px; z-index: 100; 
-        }
-        
-        .op-btn { 
-            width: 54px; height: 54px; background: rgba(0, 242, 255, 0.05); 
-            backdrop-filter: blur(20px); border: 1.5px solid rgba(0, 242, 255, 0.2); 
-            border-radius: 12px; display: flex; flex-direction: column; 
-            align-items: center; justify-content: center; cursor: pointer; 
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .op-btn:active { transform: scale(0.8); border-color: #fff; }
-        .op-btn i { font-size: 19px; color: #fff; filter: drop-shadow(0 0 8px var(--q-blue)); }
-        .op-btn .fa-medal { color: var(--q-gold); filter: drop-shadow(0 0 10px var(--q-gold)); }
-        .op-btn span { font-size: 9px; font-family: 'Share Tech Mono'; color: var(--q-blue); margin-top: 3px; font-weight: bold; }
-
-        /* ناف بار "الصحن المركزي" */
-        nav { 
-            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); 
-            width: 90%; max-width: 410px; height: 70px; 
-            background: rgba(0, 5, 15, 0.85); backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 35px;
-            display: flex; justify-content: space-around; align-items: center; z-index: 500;
-        }
-
-        .omni-core {
-            width: 70px; height: 70px; background: linear-gradient(135deg, var(--q-blue), #0044ff);
-            border-radius: 50%; margin-top: -45px; display: flex; align-items: center; justify-content: center;
-            border: 4px solid #000; color: white; font-size: 26px; cursor: pointer;
-            box-shadow: 0 0 30px var(--q-blue); animation: core-glow 3s infinite alternate;
-        }
-        @keyframes core-glow { from { box-shadow: 0 0 20px var(--q-blue); } to { box-shadow: 0 0 45px var(--q-blue); } }
-
-        /* لوحة التحكم والدردشة المتكاملة */
-        #core-panel {
-            position: fixed; inset: 0; z-index: 2000; background: rgba(0, 0, 0, 0.98);
-            display: none; flex-direction: column; padding: 30px 20px; border-top: 5px solid var(--q-blue);
-        }
-        .chat-area { flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 12px; }
-        .msg-node { background: rgba(0, 242, 255, 0.08); border-right: 3px solid var(--q-blue); padding: 12px; border-radius: 4px; font-size: 13px; font-family: 'Share Tech Mono'; color: #fff; }
-        .input-hub { display: flex; gap: 10px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 20px; border: 1px solid rgba(0,242,255,0.2); }
+        .chat-view { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .msg-node { background: rgba(0, 242, 255, 0.1); border-right: 3px solid var(--v-cyan); padding: 10px; border-radius: 5px; font-size: 13px; font-family: 'Share Tech Mono'; }
+        .input-bar { display: flex; gap: 10px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 20px; margin-top: 15px; }
     </style>
 </head>
 <body>
 
-    <header class="fixed top-6 left-6 right-6 z-[600] flex justify-between items-center pointer-events-none">
-        <div class="bg-black/60 p-3 border-l-4 border-cyan-400 pointer-events-auto rounded backdrop-blur-xl flex items-center gap-3">
-            <i class="fas fa-microchip text-cyan-400 animate-pulse"></i>
-            <span class="font-[Orbitron] text-[10px] font-black tracking-[4px]">OMNI_V18</span>
+    <header class="fixed top-8 left-6 right-6 z-[600] flex justify-between items-center pointer-events-none">
+        <div class="bg-black/70 p-3 border-l-4 border-cyan-400 pointer-events-auto rounded flex items-center gap-3 backdrop-blur-md">
+            <i class="fas fa-microchip text-cyan-400"></i>
+            <span class="font-[Orbitron] text-[10px] font-black tracking-[4px]">OMNI_OPERATOR_V18.1</span>
         </div>
-        <div class="font-mono text-[9px] text-cyan-400 bg-black/70 px-4 py-1 rounded-full border border-cyan-900" id="clock">00:00:00</div>
+        <div class="font-mono text-[9px] text-cyan-400 bg-black/60 px-4 py-1 rounded-full border border-cyan-900" id="clock">00:00:00</div>
     </header>
 
     <main class="scroll-engine" id="video-stack"></main>
 
     <nav>
-        <div class="cursor-pointer text-white/20 hover:text-cyan-400" onclick="checkAdmin()"><i class="fas fa-fingerprint text-2xl"></i></div>
-        <div class="omni-core" onclick="toggleCore()"><i class="fas fa-comment-dots text-white text-2xl"></i></div>
-        <div class="cursor-pointer text-white/20" onclick="window.open(ADS.SHARE, '_blank')"><i class="fas fa-share-nodes text-2xl"></i></div>
+        <div class="cursor-pointer text-white/20 hover:text-cyan-400 transition" onclick="checkAdmin()"><i class="fas fa-fingerprint text-2xl"></i></div>
+        <div class="void-core" onclick="toggleCore()"><i class="fas fa-comment-dots text-white text-2xl"></i></div>
+        <div class="cursor-pointer text-white/20 hover:text-blue-500 transition" onclick="window.open(ADS.SHARE, '_blank')"><i class="fas fa-share-nodes text-2xl"></i></div>
     </nav>
 
+    <div id="admin-panel">
+        <div class="panel-header">
+            <h2 class="font-[Orbitron] text-red-500 text-xl font-bold tracking-widest">PURGE_CONTROL</h2>
+            <i class="fas fa-times text-2xl cursor-pointer" onclick="closeAdmin()"></i>
+        </div>
+        <div id="admin-list" class="flex-1 overflow-y-auto">
+            </div>
+    </div>
+
     <div id="core-panel">
-        <div class="flex justify-between items-center mb-6">
+        <div class="panel-header">
             <h2 class="font-[Orbitron] text-cyan-400 text-xl font-bold tracking-widest">TACTICAL_HUB</h2>
             <div class="flex gap-6">
                 <i class="fas fa-cloud-arrow-up text-xl text-white cursor-pointer" onclick="openUpload()"></i>
                 <i class="fas fa-times text-xl text-red-500 cursor-pointer" onclick="toggleCore()"></i>
             </div>
         </div>
-        <div class="chat-area" id="chat-box"></div>
-        <div class="input-hub mt-4">
-            <input type="text" id="msg-input" class="flex-1 bg-transparent border-none outline-none text-cyan-400 font-mono text-sm" placeholder="Send tactical data...">
+        <div class="chat-view" id="chat-box"></div>
+        <div class="input-bar">
+            <input type="text" id="msg-input" class="flex-1 bg-transparent border-none outline-none text-cyan-400 font-mono text-sm" placeholder="Send tactical signal...">
             <button onclick="sendSignal()" class="text-cyan-400"><i class="fas fa-paper-plane text-xl"></i></button>
         </div>
     </div>
@@ -143,7 +94,6 @@
         firebase.initializeApp({ databaseURL: "https://goks-e0cba-default-rtdb.firebaseio.com/" });
         const db = firebase.database();
 
-        // نظام الرفع
         const widget = cloudinary.createUploadWidget({ 
             cloudName: "dhdg9gu88", uploadPreset: "go_2go", sources: ['local'],
             clientAllowedFormats: ["video"]
@@ -154,74 +104,61 @@
         });
         function openUpload() { widget.open(); }
 
-        // تحميل الفيديوهات
         db.ref('go_2go_content').on('value', (snap) => {
             const container = document.getElementById('video-stack');
-            const data = snap.val(); container.innerHTML = '';
+            const adminList = document.getElementById('admin-list');
+            const data = snap.val(); 
+            container.innerHTML = ''; adminList.innerHTML = '';
             if(!data) return;
             Object.keys(data).reverse().forEach((id) => {
                 const vid = data[id];
                 const section = document.createElement('section');
                 section.className = 'v-seg';
                 section.innerHTML = `
-                    <div class="hud-layer"></div>
-                    <div class="tactical-label label-tl">REC_SYNC: ACTIVE<br>UNIT_ID: OMNI_${id.substring(1,3)}</div>
-                    <div class="tactical-label label-br">COORD: ${(Math.random()*100).toFixed(4)}N<br>SIGNAL_SECURE</div>
                     <video id="vid-${id}" loop playsinline src="${vid.url}" preload="auto"></video>
-                    
-                    <div class="sidebar-ops">
-                        <div class="op-btn" onclick="window.open('${ADS.LIKE}', '_blank'); triggerLike('${id}')">
-                            <i class="fas fa-medal"></i>
-                            <span>${vid.likes || 0}</span>
-                        </div>
-                        <div class="op-btn" onclick="window.open('${ADS.CHAT}', '_blank'); toggleCore()">
-                            <i class="fas fa-helmet-safety"></i>
-                            <span>SQUAD</span>
-                        </div>
-                        <div class="op-btn" onclick="window.open('${ADS.EXTRA}', '_blank'); toggleMute(this, '${id}')">
-                            <i class="fas fa-walkie-talkie"></i>
-                        </div>
-                        <div class="op-btn" onclick="window.open('${ADS.SHARE}', '_blank'); navigator.share({url:window.location.href})">
-                            <i class="fas fa-satellite"></i>
-                        </div>
+                    <div class="sidebar-left">
+                        <div class="ion-btn" onclick="window.open('${ADS.LIKE}', '_blank'); triggerLike('${id}')"><i class="fas fa-medal"></i><span>${vid.likes || 0}</span></div>
+                        <div class="ion-btn" onclick="window.open('${ADS.CHAT}', '_blank'); toggleCore()"><i class="fas fa-helmet-safety"></i><span>SQUAD</span></div>
+                        <div class="ion-btn" onclick="window.open('${ADS.EXTRA}', '_blank'); toggleMute(this, '${id}')"><i class="fas fa-walkie-talkie"></i></div>
+                        <div class="ion-btn" onclick="window.open('${ADS.SHARE}', '_blank'); navigator.share({url:window.location.href})"><i class="fas fa-satellite"></i></div>
                     </div>
                 `;
                 container.appendChild(section);
+
+                // إضافة العناصر للوحة التحكم
+                adminList.innerHTML += `
+                    <div class="admin-item p-4">
+                        <video class="w-12 h-12 rounded object-cover" src="${vid.url}"></video>
+                        <span class="font-mono text-[10px] text-cyan-400">NODE_${id.substring(1,6)}</span>
+                        <button onclick="deleteVideo('${id}')" class="text-red-500 bg-red-500/10 p-3 rounded-full"><i class="fas fa-skull"></i></button>
+                    </div>`;
             });
             initObserver();
         });
 
         function toggleCore() { const p = document.getElementById('core-panel'); p.style.display = (p.style.display==='flex')?'none':'flex'; }
         function sendSignal() { const i = document.getElementById('msg-input'); if(i.value.trim()){ db.ref('vox_chat').push({msg: i.value, time: Date.now()}); i.value=''; } }
-        
         db.ref('vox_chat').limitToLast(20).on('value', s => {
             const b = document.getElementById('chat-box'); b.innerHTML = '';
-            s.forEach(m => { b.innerHTML += `<div class="msg-node">SIGNAL_REC:: ${m.val().msg}</div>`; });
+            s.forEach(m => { b.innerHTML += `<div class="msg-node">REC_MSG:: ${m.val().msg}</div>`; });
             b.scrollTop = b.scrollHeight;
         });
 
-        function triggerLike(id) { db.ref('go_2go_content/' + id + '/likes').transaction(l => (l || 0) + 1); if(navigator.vibrate) navigator.vibrate(30); }
-        function toggleMute(btn, id) { const v = document.getElementById('vid-'+id); v.muted = !v.muted; btn.innerHTML = v.muted ? '<i class="fas fa-volume-mute text-red-500"></i>' : '<i class="fas fa-walkie-talkie"></i>'; }
+        function deleteVideo(id) { if(confirm("Permanently destroy node data?")) db.ref('go_2go_content/' + id).remove(); }
+        function checkAdmin() { if(prompt("SCAN BIOMETRIC KEY:") === MASTER_KEY) document.getElementById('admin-panel').style.display = 'flex'; }
+        function closeAdmin() { document.getElementById('admin-panel').style.display = 'none'; }
         
         function initObserver() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    const video = entry.target.querySelector('video');
-                    if (entry.isIntersecting) {
-                        video.play().catch(() => {});
-                        video.style.transform = "scale(1)";
-                    } else {
-                        video.pause();
-                        video.currentTime = 0;
-                        video.style.transform = "scale(1.1)";
-                    }
+            const obs = new IntersectionObserver((es) => {
+                es.forEach(e => {
+                    const v = e.target.querySelector('video');
+                    if (e.isIntersecting) v.play().catch(() => {});
+                    else { v.pause(); v.currentTime = 0; }
                 });
             }, { threshold: 0.8 });
-            document.querySelectorAll('.v-seg').forEach(s => observer.observe(s));
+            document.querySelectorAll('.v-seg').forEach(s => obs.observe(s));
         }
-
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString('en-GB'); }, 1000);
-        function checkAdmin() { if(prompt("SCAN ID:") === MASTER_KEY) alert("ACCESS_GRANTED"); }
     </script>
 </body>
 </html>
