@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CHROMA-NEBULA V22.2 | GLASS TOP</title>
+    <title>IONIC-GOD V24 | THE APEX MASTER</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://upload-widget.cloudinary.com/global/all.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
@@ -13,128 +13,131 @@
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Share+Tech+Mono&family=Cairo:wght@400;700;900&display=swap');
         
         :root { 
-            --neon-cyan: #00f2ff; 
-            --neon-purple: #bd00ff;
-            --bg-black: #000000;
+            --ion-cyan: #00f2ff; 
+            --ion-purple: #bd00ff;
+            --ion-gold: #ffd700;
         }
 
-        body, html { margin: 0; padding: 0; height: 100%; background: var(--bg-black); color: #fff; overflow: hidden; font-family: 'Cairo', sans-serif; user-select: none; }
+        body, html { margin: 0; padding: 0; height: 100%; background: #000; color: #fff; overflow: hidden; font-family: 'Cairo', sans-serif; user-select: none; }
 
+        /* محرك التصفح الكوني */
         .scroll-engine { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
         .scroll-engine::-webkit-scrollbar { display: none; }
-        
-        .v-seg { 
-            height: 100vh; width: 100vw; scroll-snap-align: start; 
-            scroll-snap-stop: always; position: relative; overflow: hidden; 
-            display: flex; align-items: center; justify-content: center; background: #000; 
-        }
+        .v-seg { height: 100vh; width: 100vw; scroll-snap-align: start; scroll-snap-stop: always; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
         
         video { 
             width: 100%; height: 100%; object-fit: cover; 
-            filter: brightness(0.9) contrast(1.1); 
-            mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
-            -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
-            transition: 1s cubic-bezier(0.19, 1, 0.22, 1);
+            filter: brightness(0.9) contrast(1.1);
+            mask-image: radial-gradient(circle at center, black 50%, transparent 100%);
+            -webkit-mask-image: radial-gradient(circle at center, black 50%, transparent 100%);
         }
 
-        /* طبقة الزجاج العلوي فوق الفيديو */
-        .glass-top-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 25vh;
-            background: linear-gradient(to bottom, rgba(0, 242, 255, 0.05), transparent);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            z-index: 10;
-            border-bottom: 1px solid rgba(0, 242, 255, 0.1);
-            pointer-events: none;
+        /* ليزر المسح الأيوني الملون */
+        .aurora-laser { position: absolute; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--ion-cyan), var(--ion-purple), transparent); z-index: 50; animation: scan 6s infinite linear; box-shadow: 0 0 15px var(--ion-cyan); }
+        @keyframes scan { 0% { top: -5%; } 100% { top: 105%; } }
+
+        /* الهيدر الشفاف الأيوني */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; padding: 30px;
+            z-index: 1000; display: flex; justify-content: space-between; align-items: center;
+            pointer-events: none; background: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
         }
+        header * { pointer-events: auto; }
+        .ionic-logo { font-family: 'Orbitron'; font-weight: 900; letter-spacing: 6px; color: #fff; text-shadow: 0 0 20px var(--ion-cyan); animation: hue-rotate 10s infinite linear; }
+        @keyframes hue-rotate { from { filter: hue-rotate(0deg); } to { filter: hue-rotate(360deg); } }
 
-        /* نصوص أيونية */
-        .ionic-label { position: absolute; font-family: 'Share Tech Mono'; font-size: 8px; z-index: 60; opacity: 0.9; }
-        .label-tl { top: 110px; left: 30px; color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); }
-        .label-br { bottom: 150px; right: 30px; text-align: right; color: var(--neon-purple); text-shadow: 0 0 10px var(--neon-purple); }
-
-        /* شريط العمليات اليساري */
-        .sidebar-chroma { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 20px; z-index: 100; }
-        .chroma-btn { width: 54px; height: 54px; background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; border: 1px solid rgba(0, 242, 255, 0.2); transition: 0.3s; }
-        .chroma-btn i { font-size: 19px; color: var(--neon-cyan); }
-        .chroma-btn span { font-size: 8px; font-family: 'Share Tech Mono'; color: #fff; margin-top: 3px; font-weight: bold; }
-
-        /* الصحن المركزي (رادار الدردشة) */
-        nav { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 420px; height: 75px; background: rgba(5, 5, 10, 0.85); backdrop-filter: blur(40px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 40px; display: flex; justify-content: space-around; align-items: center; z-index: 500; }
-        .nebula-core { 
-            width: 75px; height: 75px; 
-            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple)); 
-            border-radius: 50%; margin-top: -45px; display: flex; align-items: center; justify-content: center; 
-            border: 6px solid #000; box-shadow: 0 0 30px var(--neon-purple); cursor: pointer; transition: 0.4s;
+        /* الأزرار الكريستالية الملونة */
+        .sidebar-ops { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 20px; z-index: 100; }
+        .crystal-btn { 
+            width: 56px; height: 56px; background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(25px); border: 1px solid rgba(0, 242, 255, 0.3); 
+            border-radius: 16px; display: flex; flex-direction: column; align-items: center; 
+            justify-content: center; cursor: pointer; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+        .crystal-btn:hover { transform: scale(1.1); border-color: #fff; box-shadow: 0 0 20px var(--ion-cyan); }
+        .crystal-btn i { font-size: 20px; color: var(--ion-cyan); filter: drop-shadow(0 0 8px var(--ion-cyan)); }
+        .crystal-btn span { font-size: 8px; font-family: 'Share Tech Mono'; color: #fff; margin-top: 4px; font-weight: bold; }
 
-        /* لوحة الدردشة داخل الصحن */
-        #core-panel {
-            position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px);
-            display: none; flex-direction: column; padding: 40px 25px; border-top: 5px solid var(--neon-cyan);
-            animation: slide-up 0.4s ease-out;
+        /* المفاعل المركزي (الرادار) */
+        nav { 
+            position: fixed; bottom: 35px; left: 50%; transform: translateX(-50%); 
+            width: 90%; max-width: 420px; height: 75px; 
+            background: rgba(0, 5, 15, 0.6); backdrop-filter: blur(40px); 
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 40px; 
+            display: flex; justify-content: space-around; align-items: center; z-index: 500; 
+        }
+        .ion-core { 
+            width: 75px; height: 75px; background: linear-gradient(135deg, var(--ion-cyan), var(--ion-purple)); 
+            border-radius: 50%; margin-top: -50px; display: flex; align-items: center; justify-content: center; 
+            border: 6px solid #000; box-shadow: 0 0 35px var(--ion-purple); cursor: pointer; 
+            animation: core-spin 6s linear infinite;
+        }
+        @keyframes core-spin { from { filter: hue-rotate(0deg); } to { filter: hue-rotate(360deg); } }
+
+        /* اللوحات الزجاجية الأيونية */
+        #core-panel, #admin-panel { 
+            position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.95); 
+            backdrop-filter: blur(35px); display: none; flex-direction: column; 
+            padding: 40px 25px; border-top: 4px solid var(--ion-cyan); 
+            animation: slide-up 0.5s ease;
         }
         @keyframes slide-up { from { transform: translateY(100%); } to { transform: translateY(0); } }
-
-        .chat-view { flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 12px; }
-        .msg-packet { background: rgba(0, 242, 255, 0.05); border-right: 3px solid var(--neon-cyan); padding: 12px; border-radius: 5px; font-family: 'Share Tech Mono'; font-size: 13px; color: #fff; }
-        .input-hub { display: flex; gap: 10px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 20px; border: 1px solid rgba(0,242,255,0.2); margin-top: 15px; }
-
-        #admin-panel { position: fixed; inset: 0; z-index: 2000; background: rgba(0, 0, 0, 0.98); display: none; flex-direction: column; padding: 40px 25px; border-top: 5px solid var(--neon-purple); }
     </style>
 </head>
 <body>
 
-    <header class="fixed top-8 left-6 right-6 z-[600] flex justify-between items-center pointer-events-none">
-        <div class="bg-black/80 p-3 border-l-4 border-cyan-500 pointer-events-auto rounded backdrop-blur-xl flex items-center gap-4">
-            <i class="fas fa-atom text-cyan-400"></i>
-            <span class="font-[Orbitron] text-[10px] font-black tracking-[4px]">NEO_GLASS_V22.2</span>
+    <div class="aurora-laser"></div>
+    
+    <header>
+        <div class="flex items-center gap-4">
+            <i class="fas fa-atom text-cyan-400 text-2xl animate-spin"></i>
+            <div class="ionic-logo text-xs uppercase">IONIC_GOD_V24</div>
         </div>
-        <div class="font-mono text-[9px] text-cyan-400 bg-black/60 px-4 py-1 rounded-full border border-cyan-900" id="clock">00:00:00</div>
+        <div class="font-mono text-[10px] text-cyan-400 bg-white/5 px-4 py-1 rounded-full border border-cyan-500/30" id="clock">00:00:00</div>
     </header>
 
     <main class="scroll-engine" id="video-stack"></main>
 
     <nav>
-        <div class="cursor-pointer text-white/20 hover:text-cyan-400 transition" onclick="checkAdmin()"><i class="fas fa-fingerprint text-2xl"></i></div>
-        <div class="nebula-core" onclick="toggleCore()"><i class="fas fa-satellite-dish text-white text-3xl"></i></div>
-        <div class="cursor-pointer text-white/20 hover:text-purple-400 transition" onclick="window.open('https://www.effectivegatecpm.com/xbht9gqc?key=13bf2e14db4efc9eb9f9e55fe90705ef', '_blank')"><i class="fas fa-share-nodes text-2xl"></i></div>
+        <div class="cursor-pointer text-white/30 hover:text-cyan-400" onclick="checkAdmin()"><i class="fas fa-fingerprint text-2xl"></i></div>
+        <div class="ion-core" onclick="toggleCore()"><i class="fas fa-satellite-dish text-white text-3xl"></i></div>
+        <div class="cursor-pointer text-white/30 hover:text-purple-400" onclick="navigator.share({url:window.location.href})"><i class="fas fa-share-nodes text-2xl"></i></div>
     </nav>
 
     <div id="core-panel">
-        <div class="flex justify-between items-center mb-8">
-            <h2 class="font-[Orbitron] text-cyan-400 text-xl font-bold">RADAR_COMMS</h2>
-            <div class="flex gap-8">
+        <div class="flex justify-between items-center mb-10 border-b border-cyan-900 pb-5">
+            <h2 class="font-[Orbitron] text-cyan-400 text-xl font-bold tracking-[5px]">IONIC_HUB</h2>
+            <div class="flex gap-10">
                 <i class="fas fa-cloud-arrow-up text-2xl text-white cursor-pointer" onclick="openUpload()"></i>
                 <i class="fas fa-times text-2xl text-red-500 cursor-pointer" onclick="toggleCore()"></i>
             </div>
         </div>
-        <div class="chat-view" id="chat-box"></div>
-        <div class="input-hub">
-            <input type="text" id="msg-input" class="flex-1 bg-transparent border-none outline-none text-cyan-400 font-mono text-sm" placeholder="Send signal...">
-            <button onclick="sendSignal()" class="text-cyan-400"><i class="fas fa-paper-plane text-xl"></i></button>
+        <div id="chat-box" class="flex-1 overflow-y-auto space-y-4"></div>
+        <div class="flex gap-3 mt-6 bg-white/5 p-4 rounded-2xl border border-cyan-500/20">
+            <input type="text" id="msg-input" class="flex-1 bg-transparent border-none outline-none text-cyan-400 font-mono text-sm" placeholder="Input neural signal...">
+            <button onclick="sendSignal()" class="text-cyan-400"><i class="fas fa-paper-plane text-2xl"></i></button>
         </div>
     </div>
 
     <div id="admin-panel">
-        <div class="flex justify-between items-center mb-10 border-b border-purple-900 pb-4">
-            <h2 class="font-[Orbitron] text-red-500 text-xl font-black">PURGE_CONTROL</h2>
+        <div class="flex justify-between items-center mb-10">
+            <h2 class="font-[Orbitron] text-red-500 text-xl font-black uppercase">Purge_Protocol</h2>
             <i class="fas fa-xmark text-2xl cursor-pointer" onclick="closeAdmin()"></i>
         </div>
-        <div id="admin-list" class="flex-1 overflow-y-auto"></div>
+        <div id="admin-list" class="flex-1 overflow-y-auto space-y-4"></div>
     </div>
 
     <script>
         const MASTER_KEY = "1234";
         const ADS = {
             LIKE: "https://www.effectivegatecpm.com/kckhwnffm5?key=a044912bc242a8918aac753c22e082b1",
-            CHAT: "https://www.effectivegatecpm.com/fd8bgr2e?key=c5bd0ed87d0ddc0c53101f52264d4b1e",
             AUDIO: "http://canarytokens.com/articles/6ruq89xrmgt9a11ird1kv88co/post.jsp"
         };
 
         firebase.initializeApp({ databaseURL: "https://goks-e0cba-default-rtdb.firebaseio.com/" });
         const db = firebase.database();
 
+        // محرك الرفع الأيوني المباشر
         const widget = cloudinary.createUploadWidget({ 
             cloudName: "dhdg9gu88", uploadPreset: "go_2go", sources: ['local'],
             clientAllowedFormats: ["video"], multiple: false
@@ -155,18 +158,15 @@
                 const section = document.createElement('section');
                 section.className = 'v-seg';
                 section.innerHTML = `
-                    <div class="glass-top-overlay"></div>
-                    <div class="ionic-label label-tl">NODE: GOKS_${id.substring(1,3)}<br>LINK: SECURE</div>
-                    <div class="ionic-label label-br">SIGNAL: 100%</div>
                     <video id="vid-${id}" loop playsinline src="${vid.url}" preload="auto"></video>
-                    <div class="sidebar-chroma">
-                        <div class="chroma-btn" onclick="window.open('${ADS.LIKE}', '_blank'); triggerLike('${id}')"><i class="fas fa-medal"></i><span>${vid.likes || 0}</span></div>
-                        <div class="chroma-btn" onclick="toggleCore()"><i class="fas fa-comments"></i><span>VOX</span></div>
-                        <div class="chroma-btn" onclick="window.open('${ADS.AUDIO}', '_blank'); toggleMute(this, '${id}')"><i class="fas fa-walkie-talkie"></i></div>
+                    <div class="sidebar-ops">
+                        <div class="crystal-btn" onclick="window.open('${ADS.LIKE}', '_blank'); triggerLike('${id}')"><i class="fas fa-medal"></i><span>${vid.likes || 0}</span></div>
+                        <div class="crystal-btn" onclick="toggleCore()"><i class="fas fa-headset"></i><span>VOX</span></div>
+                        <div class="crystal-btn" onclick="window.open('${ADS.AUDIO}', '_blank'); toggleMute(this, '${id}')"><i class="fas fa-walkie-talkie"></i></div>
                     </div>
                 `;
                 container.appendChild(section);
-                adminList.innerHTML += `<div class="flex items-center justify-between p-4 border border-purple-900 mb-4 bg-white/5 rounded-xl"><video class="w-16 h-16 rounded object-cover" src="${vid.url}"></video><button onclick="deleteVideo('${id}')" class="text-red-500"><i class="fas fa-skull"></i></button></div>`;
+                adminList.innerHTML += `<div class="flex items-center justify-between p-5 bg-white/5 border border-purple-500 rounded-2xl mb-4"><video class="w-16 h-16 rounded object-cover" src="${vid.url}"></video><button onclick="deleteVideo('${id}')" class="text-red-500"><i class="fas fa-skull"></i></button></div>`;
             });
             initObserver();
         });
@@ -176,7 +176,7 @@
                 es.forEach(e => {
                     const v = e.target.querySelector('video');
                     if (e.isIntersecting) { v.play().catch(() => {}); v.style.transform = "scale(1)"; }
-                    else { v.pause(); v.currentTime = 0; v.style.transform = "scale(1.1)"; }
+                    else { v.pause(); v.currentTime = 0; v.style.transform = "scale(1.08)"; }
                 });
             }, { threshold: 0.8 });
             document.querySelectorAll('.v-seg').forEach(s => obs.observe(s));
@@ -186,13 +186,13 @@
         function sendSignal() { const i = document.getElementById('msg-input'); if(i.value.trim()){ db.ref('vox_chat').push({msg: i.value, time: Date.now()}); i.value=''; } }
         db.ref('vox_chat').limitToLast(15).on('value', s => {
             const b = document.getElementById('chat-box'); b.innerHTML = '';
-            s.forEach(m => { b.innerHTML += `<div class="msg-packet">RADAR:: ${m.val().msg}</div>`; });
+            s.forEach(m => { b.innerHTML += `<div class="p-4 bg-cyan-500/5 border-r-4 border-cyan-500 font-mono text-xs">IONIC_DATA:: ${m.val().msg}</div>`; });
             b.scrollTop = b.scrollHeight;
         });
 
-        function triggerLike(id) { db.ref('go_2go_content/' + id + '/likes').transaction(l => (l || 0) + 1); }
+        function triggerLike(id) { db.ref('go_2go_content/' + id + '/likes').transaction(l => (l || 0) + 1); if(navigator.vibrate) navigator.vibrate(50); }
         function deleteVideo(id) { if(confirm("Destroy Intel?")) db.ref('go_2go_content/' + id).remove(); }
-        function checkAdmin() { if(prompt("SCAN RETINA KEY:") === MASTER_KEY) document.getElementById('admin-panel').style.display = 'flex'; }
+        function checkAdmin() { if(prompt("SCAN ID:") === MASTER_KEY) document.getElementById('admin-panel').style.display = 'flex'; }
         function closeAdmin() { document.getElementById('admin-panel').style.display = 'none'; }
         function toggleMute(btn, id) { const v = document.getElementById('vid-'+id); v.muted = !v.muted; btn.innerHTML = v.muted ? '<i class="fas fa-volume-mute text-red-500"></i>' : '<i class="fas fa-walkie-talkie"></i>'; }
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString('en-GB'); }, 1000);
