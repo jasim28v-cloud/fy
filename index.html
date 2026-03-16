@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VOID-OPERATOR V18 | DIRECT_SYNC</title>
+    <title>VOID-OPERATOR V18 | THE FINAL ASSET</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://upload-widget.cloudinary.com/global/all.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
@@ -11,90 +11,136 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Share+Tech+Mono&family=Cairo:wght@400;700;900&display=swap');
-        :root { --void-glow: #00f2ff; --bg-deep: #000; }
-        body, html { margin: 0; padding: 0; height: 100%; background: #000; color: #fff; overflow: hidden; font-family: 'Cairo', sans-serif; }
         
-        /* محرك التصفح وتأثير الثقب الأسود */
-        .void-engine { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; }
-        .void-engine::-webkit-scrollbar { display: none; }
-        .v-seg { height: 100vh; width: 100vw; scroll-snap-align: start; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #000; }
-        
-        video { 
-            width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7) contrast(1.2);
-            -webkit-mask-image: radial-gradient(circle, black 35%, transparent 100%);
-            mask-image: radial-gradient(circle, black 35%, transparent 100%);
-            transition: transform 0.4s ease;
+        :root { 
+            --void-cyan: #00f2ff; 
+            --void-glow: rgba(0, 242, 255, 0.5);
+            --bg-deep: #000;
         }
 
-        /* نافذة الدردشة التكتيكية */
-        #core-panel {
-            position: fixed; inset: 0; z-index: 2000; background: rgba(0, 0, 0, 0.96);
-            display: none; flex-direction: column; padding: 30px 20px; border-top: 3px solid var(--void-glow);
-            backdrop-filter: blur(25px);
+        body, html { margin: 0; padding: 0; height: 100%; background: #000; color: #fff; overflow: hidden; font-family: 'Cairo', sans-serif; user-select: none; }
+
+        /* محرك التصفح (Void-Engine) */
+        .void-engine { 
+            height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; 
+            scrollbar-width: none; -webkit-overflow-scrolling: touch;
         }
-        .chat-area { flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
-        .msg-node { background: rgba(0, 242, 255, 0.05); border-left: 2px solid var(--void-glow); padding: 8px 12px; border-radius: 4px; font-size: 11px; font-family: 'Share Tech Mono'; color: #00f2ff; }
+        .void-engine::-webkit-scrollbar { display: none; }
+
+        .v-seg { 
+            height: 100vh; width: 100vw; scroll-snap-align: start; 
+            position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
+        }
+
+        /* تأثير الثقب الأسود (Black Hole Effect) */
+        video { 
+            width: 100%; height: 100%; object-fit: cover; 
+            filter: brightness(0.6) contrast(1.3);
+            -webkit-mask-image: radial-gradient(circle, black 30%, transparent 100%);
+            mask-image: radial-gradient(circle, black 30%, transparent 100%);
+            transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        /* كتابات تقنية حديثة فوق الفيديو */
+        .video-overlay { position: absolute; inset: 0; z-index: 25; pointer-events: none; }
+        .scan-line {
+            position: absolute; width: 100%; height: 2px; 
+            background: linear-gradient(to right, transparent, var(--void-cyan), transparent);
+            top: 0; animation: scan 4s linear infinite; opacity: 0.2;
+        }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+
+        .tech-data { position: absolute; font-family: 'Share Tech Mono'; font-size: 8px; color: var(--void-cyan); text-shadow: 0 0 5px var(--void-cyan); opacity: 0.7; }
+        .data-tr { top: 110px; right: 25px; text-align: right; }
+        .data-bl { bottom: 160px; left: 25px; border-left: 2px solid var(--void-cyan); padding-left: 10px; }
 
         /* الأزرار الجانبية */
-        .sidebar-ops { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 18px; z-index: 100; }
-        .op-btn { width: 48px; height: 48px; background: rgba(255,255,255,0.03); backdrop-filter: blur(10px); border: 1px solid rgba(0,242,255,0.2); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; }
-        .op-btn:active { transform: scale(0.9); border-color: var(--void-glow); }
-        .op-btn span { font-size: 8px; color: var(--void-glow); font-family: 'Share Tech Mono'; margin-top: 2px; }
+        .sidebar-ops { 
+            position: absolute; left: 15px; top: 50%; transform: translateY(-50%); 
+            display: flex; flex-direction: column; gap: 20px; z-index: 100; 
+        }
+        .op-btn { 
+            width: 50px; height: 50px; background: rgba(0, 242, 255, 0.03); 
+            backdrop-filter: blur(15px); border: 1.5px solid rgba(0, 242, 255, 0.2); 
+            border-radius: 12px; display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; cursor: pointer; transition: 0.3s;
+        }
+        .op-btn:active { transform: scale(0.85); border-color: #fff; }
+        .op-btn i { font-size: 18px; color: #fff; filter: drop-shadow(0 0 5px var(--void-cyan)); }
+        .op-btn span { font-size: 8px; color: var(--void-cyan); font-family: 'Share Tech Mono'; margin-top: 4px; }
+
+        /* مركز التحكم (Control Hub) */
+        .control-hub {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            z-index: 500; display: flex; align-items: center; gap: 30px;
+            background: rgba(0,5,15,0.85); padding: 12px 35px; border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(25px);
+        }
+        .main-dial {
+            width: 65px; height: 65px; background: linear-gradient(135deg, var(--void-cyan), #0044ff);
+            border-radius: 50%; border: 4px solid #000; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 25px var(--void-cyan); transition: 0.4s;
+        }
+        .main-dial:active { transform: scale(0.8) rotate(45deg); }
+
+        /* نافذة الدردشة */
+        #chat-panel {
+            position: fixed; inset: 0; z-index: 2000; background: rgba(0, 0, 0, 0.97);
+            display: none; flex-direction: column; padding: 40px 25px; border-top: 4px solid var(--void-cyan);
+        }
+        .chat-area { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+        .msg-node { background: rgba(0, 242, 255, 0.06); border-right: 3px solid var(--void-cyan); padding: 12px; font-size: 12px; font-family: 'Share Tech Mono'; color: #fff; }
     </style>
 </head>
 <body>
 
-    <header class="fixed top-6 left-6 right-6 z-[600] flex justify-between items-center pointer-events-none">
-        <div class="bg-black/60 p-3 border-l-4 border-cyan-400 pointer-events-auto rounded backdrop-blur-xl flex items-center gap-3">
-            <i class="fas fa-microchip animate-pulse text-cyan-400"></i>
-            <span class="font-[Orbitron] text-[10px] tracking-[3px]">VOID_DIRECT_V18</span>
+    <header class="fixed top-8 left-8 right-8 z-[600] flex justify-between items-center pointer-events-none">
+        <div class="bg-black/40 p-3 border-l-4 border-cyan-400 pointer-events-auto rounded backdrop-blur-xl flex items-center gap-3">
+            <i class="fas fa-atom text-cyan-400 animate-spin-slow"></i>
+            <span class="font-[Orbitron] text-[10px] tracking-[4px]">VOID_SYSTEM_V18</span>
         </div>
-        <div id="clock" class="font-mono text-cyan-400 text-[10px]">00:00:00</div>
+        <div id="clock" class="font-mono text-cyan-400 text-[11px] bg-black/50 px-4 py-1 rounded-full border border-cyan-900">00:00:00</div>
     </header>
 
     <main class="void-engine" id="video-stack"></main>
 
-    <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-w-[420px] h-[75px] bg-black/90 backdrop-blur-3xl border border-white/10 rounded-full flex justify-around items-center z-[500] shadow-[0_0_30px_rgba(0,0,0,0.5)]">
-        <div class="cursor-pointer text-white/20" onclick="toggleCore()"><i class="fas fa-comment-slash text-2xl"></i></div>
-        
-        <div class="w-16 h-16 bg-cyan-500 rounded-full mt-[-45px] border-[6px] border-black flex items-center justify-center shadow-[0_0_25px_#00f2ff] cursor-pointer" onclick="openUpload()">
-            <i class="fas fa-camera-retro text-white text-2xl"></i>
+    <div class="control-hub">
+        <div class="cursor-pointer text-white/30" onclick="toggleChat()"><i class="fas fa-terminal text-xl"></i></div>
+        <div class="main-dial" onclick="openUpload()">
+            <i class="fas fa-plus text-white text-2xl"></i>
         </div>
-        
-        <div class="cursor-pointer text-white/20" onclick="checkAdmin()"><i class="fas fa-shield-halved text-2xl"></i></div>
-    </nav>
+        <div class="cursor-pointer text-white/30" onclick="window.open('https://www.effectivegatecpm.com/xbht9gqc?key=13bf2e14db4efc9eb9f9e55fe90705ef', '_blank')">
+            <i class="fas fa-satellite-dish text-xl"></i>
+        </div>
+    </div>
 
-    <div id="core-panel">
-        <div class="flex justify-between items-center mb-6 border-b border-cyan-900 pb-4">
-            <h2 class="font-[Orbitron] text-cyan-400 text-sm tracking-[4px]">COMMS_LINK</h2>
-            <i class="fas fa-chevron-down text-cyan-400 cursor-pointer" onclick="toggleCore()"></i>
+    <div id="chat-panel">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="font-[Orbitron] text-cyan-400 text-lg tracking-[5px]">COMMS_FEED</h2>
+            <i class="fas fa-times text-xl text-red-500" onclick="toggleChat()"></i>
         </div>
         <div class="chat-area" id="chat-box"></div>
-        <div class="mt-4 flex gap-2 bg-white/5 p-4 rounded-2xl border border-cyan-500/20">
-            <input type="text" id="msg-input" class="flex-1 bg-transparent outline-none text-cyan-400 font-mono text-sm" placeholder="إرسال إشارة...">
-            <button onclick="sendSignal()" class="text-cyan-400 px-2"><i class="fas fa-paper-plane"></i></button>
+        <div class="mt-6 flex gap-3 bg-white/5 p-4 rounded-2xl border border-cyan-500/20">
+            <input type="text" id="msg-input" class="flex-1 bg-transparent outline-none text-cyan-400 font-mono text-sm" placeholder="TYPE SIGNAL...">
+            <button onclick="sendSignal()" class="text-cyan-400"><i class="fas fa-paper-plane text-xl"></i></button>
         </div>
     </div>
 
     <script>
-        // الروابط الإعلانية والقواعد
         const ADS = {
             LIKE: "https://www.effectivegatecpm.com/kckhwnffm5?key=a044912bc242a8918aac753c22e082b1",
             CHAT: "https://www.effectivegatecpm.com/fd8bgr2e?key=c5bd0ed87d0ddc0c53101f52264d4b1e",
-            SHARE: "https://www.effectivegatecpm.com/xbht9gqc?key=13bf2e14db4efc9eb9f9e55fe90705ef",
             AUDIO: "https://www.effectivegatecpm.com/k60w64w4gk?key=564f3d8cc4ac85949f218179b742495e"
         };
 
         firebase.initializeApp({ databaseURL: "https://goks-e0cba-default-rtdb.firebaseio.com/" });
         const db = firebase.database();
 
-        // إعداد الرفع المباشر (Cloudinary)
+        // نظام الرفع المباشر
         const widget = cloudinary.createUploadWidget({ 
-            cloudName: "dhdg9gu88", 
-            uploadPreset: "go_2go",
-            sources: ['local', 'camera'], // يفتح الاستوديو والكاميرا مباشرة
-            multiple: false,
-            clientAllowedFormats: ["video", "mp4"]
+            cloudName: "dhdg9gu88", uploadPreset: "go_2go",
+            sources: ['local', 'camera'], clientAllowedFormats: ["video"]
         }, (err, res) => {
             if (!err && res.event === "success") {
                 db.ref('go_2go_content/').push({ url: res.info.secure_url, likes: 0, timestamp: Date.now() });
@@ -102,29 +148,26 @@
         });
         function openUpload() { widget.open(); }
 
-        // نظام الدردشة
-        function toggleCore() { 
-            const p = document.getElementById('core-panel');
-            const isHidden = p.style.display === 'none' || p.style.display === '';
-            p.style.display = isHidden ? 'flex' : 'none';
-            if(isHidden) window.open(ADS.CHAT, '_blank');
+        // محرك الدردشة
+        function toggleChat() {
+            const p = document.getElementById('chat-panel');
+            const isOff = p.style.display === 'none' || p.style.display === '';
+            p.style.display = isOff ? 'flex' : 'none';
+            if(isOff) window.open(ADS.CHAT, '_blank');
         }
 
         function sendSignal() {
             const i = document.getElementById('msg-input');
-            if(i.value.trim()){
-                db.ref('vox_chat').push({ msg: i.value, time: Date.now() });
-                i.value = '';
-            }
+            if(i.value.trim()){ db.ref('vox_chat').push({ msg: i.value, time: Date.now() }); i.value = ''; }
         }
 
         db.ref('vox_chat').limitToLast(20).on('value', s => {
             const b = document.getElementById('chat-box'); b.innerHTML = '';
-            s.forEach(m => { b.innerHTML += `<div class="msg-node">DATA_RCV:: ${m.val().msg}</div>`; });
+            s.forEach(m => { b.innerHTML += `<div class="msg-node">RECEIVED_DATA:: ${m.val().msg}</div>`; });
             b.scrollTop = b.scrollHeight;
         });
 
-        // محرك الفيديو
+        // بناء المحتوى المباشر
         db.ref('go_2go_content').on('value', (snap) => {
             const container = document.getElementById('video-stack');
             const data = snap.val(); container.innerHTML = '';
@@ -134,21 +177,23 @@
                 const section = document.createElement('section');
                 section.className = 'v-seg';
                 section.innerHTML = `
-                    <video id="vid-${id}" loop playsinline src="${vid.url}" preload="auto"></video>
+                    <div class="video-overlay">
+                        <div class="scan-line"></div>
+                        <div class="tech-data data-tr">UNIT_ID: VOID_${id.substring(1,5)}<br>SIG_STRENGTH: 98%<br>ENCRYPT: ON</div>
+                        <div class="tech-data data-bl">COORDS: ${(Math.random()*90).toFixed(4)}N<br>STATUS: STREAMING</div>
+                    </div>
+                    <video id="vid-${id}" loop playsinline src="${vid.url}"></video>
                     <div class="sidebar-ops">
                         <div class="op-btn" onclick="window.open(ADS.LIKE, '_blank'); triggerLike('${id}')">
                             <i class="fas fa-bolt text-cyan-400"></i>
                             <span>${vid.likes || 0}</span>
                         </div>
-                        <div class="op-btn" onclick="toggleCore()">
+                        <div class="op-btn" onclick="toggleChat()">
                             <i class="fas fa-comment-dots"></i>
                             <span>CHAT</span>
                         </div>
                         <div class="op-btn" onclick="window.open(ADS.AUDIO, '_blank'); toggleMute(this, '${id}')">
                             <i class="fas fa-walkie-talkie"></i>
-                        </div>
-                        <div class="op-btn" onclick="window.open(ADS.SHARE, '_blank')">
-                            <i class="fas fa-satellite-dish"></i>
                         </div>
                     </div>
                 `;
@@ -175,7 +220,6 @@
         }
 
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString('en-GB'); }, 1000);
-        function checkAdmin() { if(prompt("ID_SCAN:") === "1234") alert("ACCESS_GRANTED"); }
     </script>
 </body>
 </html>
