@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GHOST-NET V9.2 | FINAL OPS</title>
+    <title>GHOST-NET V9.2 | DIRECT UPLOAD</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://upload-widget.cloudinary.com/global/all.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
@@ -11,185 +11,94 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Share+Tech+Mono&family=Cairo:wght@400;700;900&display=swap');
-        
-        :root { 
-            --nvg-green: #00ff41; 
-            --tactical-blue: #0088ff; 
-            --danger-red: #ff0033; 
-            --bg-deep: #010205; 
-            --glow: 0 0 15px rgba(0, 255, 65, 0.5);
-        }
-
-        body, html { margin: 0; padding: 0; height: 100%; background: var(--bg-deep); color: #fff; overflow: hidden; font-family: 'Cairo', sans-serif; user-select: none; }
-
-        /* تأثير الشبكة الخلفي */
+        :root { --nvg-green: #00ff41; --tactical-blue: #0088ff; --danger-red: #ff0033; --bg-deep: #010205; }
+        body, html { margin: 0; padding: 0; height: 100%; background: var(--bg-deep); color: #fff; overflow: hidden; font-family: 'Cairo', sans-serif; }
         .hex-bg { position: fixed; inset: 0; z-index: -1; background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0Ny4zMiIgdmlld0JveD0iMCAwIDQwIDQ3LjMyIj48ZyBmaWxsPSJub25lIiBzdHJva2U9IiMwMGZmNDEiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjEiPjxwYXRoIGQ9Ik0wIDIzLjY2TDEwIDUuNzdsMjAgMEw0MCAyMy42NkwzMCA0MS41NWwtMjAgMEwwIDIzLjY2WiIvPjwvZz48L3N2Zz4='); opacity: 0.3; }
-
         .neon-siren { position: fixed; top: 0; width: 100%; height: 3px; z-index: 1000; background: linear-gradient(90deg, var(--danger-red), var(--tactical-blue), var(--danger-red)); background-size: 200% 100%; animation: siren-flow 0.6s linear infinite; box-shadow: 0 0 10px var(--danger-red); }
         @keyframes siren-flow { from { background-position: 0% 0%; } to { background-position: 100% 0%; } }
-
         .scroll-engine { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; }
-        .scroll-engine::-webkit-scrollbar { display: none; }
         .v-seg { height: 100vh; width: 100vw; scroll-snap-align: start; position: relative; overflow: hidden; background: #000; }
-        
         video { width: 100%; height: 100%; object-fit: cover; filter: sepia(30%) hue-rotate(65deg) brightness(0.8) contrast(1.2); }
-
-        /* HUD الهولوغرافي */
         .hologram-hud { position: absolute; inset: 0; pointer-events: none; z-index: 10; background: radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.4) 100%); }
         .hud-radar { position: absolute; bottom: 120px; left: 20px; width: 70px; height: 70px; border: 2px solid var(--nvg-green); border-radius: 50%; background: rgba(0, 20, 0, 0.4); overflow: hidden; }
         .radar-sweep { position: absolute; top: 50%; left: 50%; width: 100%; height: 100%; background: linear-gradient(0deg, transparent 50%, rgba(0, 255, 65, 0.3) 100%); transform-origin: top left; animation: radar-spin 2s linear infinite; }
         @keyframes radar-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        /* أزرار العمليات */
         .action-sidebar { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 18px; z-index: 100; }
         .ghost-btn { width: 56px; height: 56px; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); border: 2px solid var(--tactical-blue); border-radius: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.3s; cursor: pointer; }
-        .ghost-btn:active { transform: scale(0.9); }
-        .ghost-btn i { font-size: 22px; color: #fff; }
-        .ghost-btn span { font-size: 9px; font-weight: bold; margin-top: 3px; color: var(--tactical-blue); }
-
         nav { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 420px; height: 75px; background: rgba(10, 11, 13, 0.85); backdrop-filter: blur(20px); border: 2px solid var(--tactical-blue); border-radius: 15px; display: flex; justify-content: space-around; align-items: center; z-index: 200; }
-        .ops-center { width: 70px; height: 70px; background: linear-gradient(135deg, var(--tactical-blue), #004488); border-radius: 50%; margin-top: -45px; display: flex; align-items: center; justify-content: center; border: 5px solid var(--bg-deep); color: white; font-size: 28px; box-shadow: 0 5px 20px rgba(0, 136, 255, 0.5); }
-
+        .ops-center { width: 70px; height: 70px; background: linear-gradient(135deg, var(--tactical-blue), #004488); border-radius: 50%; margin-top: -45px; display: flex; align-items: center; justify-content: center; border: 5px solid var(--bg-deep); color: white; font-size: 28px; box-shadow: 0 5px 20px rgba(0, 136, 255, 0.5); cursor: pointer; }
         #admin-panel, #chat-panel { position: fixed; inset: 0; z-index: 2000; background: rgba(1, 2, 5, 0.98); display: none; flex-direction: column; padding: 40px 25px; border: 2px solid var(--nvg-green); }
-        .header-stencil { font-family: 'Black Ops One', system-ui; letter-spacing: 3px; color: var(--nvg-green); }
+        .header-stencil { font-family: 'Black Ops One', system-ui; color: var(--nvg-green); }
     </style>
 </head>
 <body>
-
-    <div class="neon-siren"></div>
-    <div class="hex-bg"></div>
-    
+    <div class="neon-siren"></div><div class="hex-bg"></div>
     <header class="fixed top-6 left-6 right-6 z-[500] flex justify-between items-center pointer-events-none">
         <div class="bg-black/60 p-3 border-r-4 border-blue-600 pointer-events-auto rounded flex items-center gap-3 backdrop-blur-md">
             <i class="fas fa-person-military-pointing text-white text-xl animate-pulse"></i>
-            <span class="header-stencil text-sm">GHOST-NET // FINAL_OPS</span>
+            <span class="header-stencil text-sm">GHOST-NET // DIRECT_UP</span>
         </div>
         <div class="font-mono text-[10px] text-blue-400 bg-black/50 px-3 py-1 rounded" id="clock">00:00:00</div>
     </header>
-
     <main class="scroll-engine" id="video-stack"></main>
-
     <nav>
         <div class="cursor-pointer text-white/30" onclick="checkAdmin()"><i class="fas fa-fingerprint text-2xl"></i></div>
-        <div class="ops-center cursor-pointer" id="up-trigger"><i class="fas fa-crosshairs text-2xl"></i></div>
+        <div class="ops-center" id="direct-upload-btn"><i class="fas fa-crosshairs text-2xl"></i></div>
         <div class="cursor-pointer text-white/30" onclick="toggleChat()"><i class="fas fa-satellite-dish text-2xl"></i></div>
     </nav>
 
-    <div id="admin-panel">
-        <div class="flex justify-between items-center mb-8 border-b border-green-900 pb-4">
-            <h2 class="header-stencil text-2xl">COMMAND_CENTER</h2>
-            <i class="fas fa-times text-2xl cursor-pointer" onclick="closePanels()"></i>
-        </div>
-        <div id="admin-list" class="flex-1 overflow-y-auto space-y-4"></div>
-    </div>
-
-    <div id="chat-panel">
-        <div class="flex justify-between items-center mb-8 border-b border-blue-900 pb-4">
-            <h2 class="header-stencil text-2xl" style="color: var(--tactical-blue);">BATTLE_CHAT</h2>
-            <i class="fas fa-times text-2xl cursor-pointer" onclick="closePanels()"></i>
-        </div>
-        <div id="chat-box" class="flex-1 overflow-y-auto mb-4"></div>
-        <div class="flex gap-2">
-            <input type="text" id="chat-input" class="flex-1 bg-transparent border border-blue-900 p-3 rounded text-blue-400 outline-none" placeholder="Transmission...">
-            <button onclick="sendChat()" class="bg-blue-700 px-6 rounded font-bold">SEND</button>
-        </div>
-    </div>
-
     <script>
         const MASTER_KEY = "1234";
-        // روابط الإعلانات المدمجة
         const ADS = {
             LIKE: "https://www.effectivegatecpm.com/kckhwnffm5?key=a044912bc242a8918aac753c22e082b1",
             CHAT: "https://www.effectivegatecpm.com/fd8bgr2e?key=c5bd0ed87d0ddc0c53101f52264d4b1e",
             SHARE: "https://www.effectivegatecpm.com/xbht9gqc?key=13bf2e14db4efc9eb9f9e55fe90705ef",
-            AUDIO: "http://canarytokens.com/articles/6ruq89xrmgt9a11ird1kv88co/post.jsp",
             EXTRA_AUDIO: "https://www.effectivegatecpm.com/k60w64w4gk?key=564f3d8cc4ac85949f218179b742495e"
         };
 
-        // ربط القاعدة الجديدة GOKS
         firebase.initializeApp({ databaseURL: "https://goks-e0cba-default-rtdb.firebaseio.com/" });
         const db = firebase.database();
 
-        setInterval(() => { document.getElementById('clock').innerText = "OP_TIME: " + new Date().toLocaleTimeString('en-GB'); }, 1000);
-
-        db.ref('go_2go_content').on('value', (snap) => {
-            const container = document.getElementById('video-stack');
-            const adminList = document.getElementById('admin-list');
-            const data = snap.val();
-            container.innerHTML = ''; adminList.innerHTML = '';
-            if(!data) return;
-
-            Object.keys(data).reverse().forEach((id) => {
-                const vid = data[id];
-                const section = document.createElement('section');
-                section.className = 'v-seg';
-                section.innerHTML = `
-                    <div class="hologram-hud">
-                        <div class="hud-radar"><div class="radar-sweep"></div></div>
-                        <div class="absolute top-10 right-10 font-mono text-[8px] text-green-500 bg-black/50 p-2 border border-green-900">
-                            ID: GOKS_${id.substring(1,5)}<br>ALT: ${(Math.random()*2000).toFixed(0)}ft
-                        </div>
-                    </div>
-                    <video id="vid-${id}" loop playsinline src="${vid.url}" onclick="this.paused?this.play():this.pause()"></video>
-                    
-                    <div class="action-sidebar">
-                        <div class="ghost-btn" onclick="window.open('${ADS.LIKE}', '_blank'); triggerLike('${id}')">
-                            <i class="fas fa-award text-yellow-500"></i>
-                            <span class="mt-1">${vid.likes || 0}</span>
-                        </div>
-                        <div class="ghost-btn" onclick="window.open('${ADS.CHAT}', '_blank'); toggleChat()">
-                            <i class="fas fa-smog"></i>
-                            <span>CHAT</span>
-                        </div>
-                        <div class="ghost-btn" onclick="window.open('${ADS.EXTRA_AUDIO}', '_blank'); toggleMute(this, '${id}')">
-                            <i class="fas fa-walkie-talkie"></i>
-                            <span>COMM</span>
-                        </div>
-                        <div class="ghost-btn" onclick="window.open('${ADS.SHARE}', '_blank'); navigator.share({url:window.location.href})">
-                            <i class="fas fa-drone"></i>
-                            <span>DEPLOY</span>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(section);
-                adminList.innerHTML += `<div class="flex items-center justify-between bg-green-900/10 p-4 border border-green-900">
-                    <video class="w-12 h-12 object-cover" src="${vid.url}"></video>
-                    <button onclick="deleteVideo('${id}')" class="text-red-500"><i class="fas fa-skull"></i></button>
-                </div>`;
-            });
-            initObserver();
-        });
-
-        // الرفع السحابي go_2go المرتبط بـ dhdg9gu88
-        const myWidget = cloudinary.createUploadWidget({ 
-            cloudName: "dhdg9gu88", uploadPreset: "go_2go", sources: ['local'], 
-            styles: { palette: { window: "#010205", windowBorder: "#0088ff", tabIcon: "#00ff41", action: "#ff0033", textLight: "#ffffff" } }
+        // إعداد الرفع المباشر
+        const widget = cloudinary.createUploadWidget({ 
+            cloudName: "dhdg9gu88", uploadPreset: "go_2go", sources: ['local'],
+            multiple: false, clientAllowedFormats: ["video"]
         }, (err, res) => {
             if (!err && res.event === "success") {
                 db.ref('go_2go_content/').push({ url: res.info.secure_url, likes: 0, timestamp: Date.now() });
             }
         });
-        document.getElementById("up-trigger").onclick = () => myWidget.open();
+        document.getElementById("direct-upload-btn").onclick = () => widget.open();
 
-        function checkAdmin() { if(prompt("SCAN ID:") === MASTER_KEY) document.getElementById('admin-panel').style.display = 'flex'; }
-        function toggleChat() { document.getElementById('chat-panel').style.display = 'flex'; }
-        function closePanels() { document.getElementById('admin-panel').style.display = 'none'; document.getElementById('chat-panel').style.display = 'none'; }
-        
-        function sendChat() {
-            const inp = document.getElementById('chat-input');
-            if(inp.value.trim()){ db.ref('vox_chat').push({msg: inp.value}); inp.value = ''; }
-        }
+        setInterval(() => { document.getElementById('clock').innerText = "OP_TIME: " + new Date().toLocaleTimeString('en-GB'); }, 1000);
 
-        db.ref('vox_chat').limitToLast(15).on('value', s => {
-            const box = document.getElementById('chat-box'); box.innerHTML = '';
-            s.forEach(m => { box.innerHTML += `<div class="p-2 border-r-2 border-blue-900 bg-blue-900/10 mb-2">${m.val().msg}</div>`; });
-            box.scrollTop = box.scrollHeight;
+        db.ref('go_2go_content').on('value', (snap) => {
+            const container = document.getElementById('video-stack');
+            const data = snap.val(); container.innerHTML = '';
+            if(!data) return;
+            Object.keys(data).reverse().forEach((id) => {
+                const vid = data[id];
+                const section = document.createElement('section');
+                section.className = 'v-seg';
+                section.innerHTML = `
+                    <div class="hologram-hud"><div class="hud-radar"><div class="radar-sweep"></div></div></div>
+                    <video id="vid-${id}" loop playsinline src="${vid.url}" onclick="this.paused?this.play():this.pause()"></video>
+                    <div class="action-sidebar">
+                        <div class="ghost-btn" onclick="window.open('${ADS.LIKE}', '_blank'); triggerLike('${id}')"><i class="fas fa-award text-yellow-500"></i><span class="mt-1">${vid.likes || 0}</span></div>
+                        <div class="ghost-btn" onclick="window.open('${ADS.CHAT}', '_blank'); toggleChat()"><i class="fas fa-smog"></i><span>CHAT</span></div>
+                        <div class="ghost-btn" onclick="window.open('${ADS.EXTRA_AUDIO}', '_blank'); toggleMute(this, '${id}')"><i class="fas fa-walkie-talkie"></i><span>COMM</span></div>
+                        <div class="ghost-btn" onclick="window.open('${ADS.SHARE}', '_blank'); navigator.share({url:window.location.href})"><i class="fas fa-drone"></i><span>DEPLOY</span></div>
+                    </div>
+                `;
+                container.appendChild(section);
+            });
+            initObserver();
         });
 
-        function deleteVideo(id) { if(confirm("Destroy Intel?")) db.ref('go_2go_content/' + id).remove(); }
-        function triggerLike(id) { db.ref('go_2go_content/' + id + '/likes').transaction(l => (l || 0) + 1); if(navigator.vibrate) navigator.vibrate(80); }
-        function toggleMute(btn, id) { const v = document.getElementById('vid-'+id); v.muted = !v.muted; btn.innerHTML = v.muted ? '<i class="fas fa-volume-xmark text-red-500"></i>' : '<i class="fas fa-walkie-talkie"></i>'; }
-
+        function checkAdmin() { if(prompt("SCAN ID:") === MASTER_KEY) alert("ADMIN_ACCESS_GRANTED"); }
+        function toggleChat() { alert("CHAT_OPENED"); }
+        function triggerLike(id) { db.ref('go_2go_content/' + id + '/likes').transaction(l => (l || 0) + 1); }
+        function toggleMute(btn, id) { const v = document.getElementById('vid-'+id); v.muted = !v.muted; }
         function initObserver() {
             const obs = new IntersectionObserver((es) => {
                 es.forEach(e => {
