@@ -3,151 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>WAR-ROOM V10 | TACTICAL COMMAND</title>
+    <title>CENTRAL COMMAND V17 | FINAL ASSET</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://upload-widget.cloudinary.com/global/all.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Share+Tech+Mono&family=Cairo:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Share+Tech+Mono&family=Cairo:wght@400;700;900&display=swap');
         
         :root { 
-            --nvg-green: #00ff41; 
-            --tactical-blue: #0088ff; 
-            --danger-red: #ff0033; 
-            --bg-deep: #020308; 
-            --glow: 0 0 20px rgba(0, 255, 65, 0.4);
+            --q-blue: #00f2ff; 
+            --q-gold: #ffd700;
+            --q-red: #ff003c;
+            --bg: #000;
         }
 
-        body, html { margin: 0; padding: 0; height: 100%; background: var(--bg-deep); color: #fff; overflow: hidden; font-family: 'Cairo', sans-serif; user-select: none; }
+        body, html { margin: 0; padding: 0; height: 100%; background: #000; color: #fff; overflow: hidden; font-family: 'Cairo', sans-serif; }
 
-        /* تأثير الشبكة العسكرية العميقة */
-        .mil-grid {
-            position: fixed; inset: 0; z-index: -1;
-            background-image: linear-gradient(rgba(0, 255, 65, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 65, 0.05) 1px, transparent 1px);
-            background-size: 40px 40px;
+        /* محرك التمرير النهائي - انسيابية مطلقة */
+        .scroll-engine { 
+            height: 100vh; overflow-y: scroll; 
+            scroll-snap-type: y mandatory; scrollbar-width: none; 
+            -webkit-overflow-scrolling: touch;
         }
-
-        /* أضواء المهمات القتالية */
-        .combat-lights {
-            position: fixed; top: 0; width: 100%; height: 4px; z-index: 1000;
-            background: linear-gradient(90deg, var(--danger-red), var(--tactical-blue), var(--danger-red));
-            background-size: 200% 100%; animation: pulse-light 0.8s linear infinite;
-        }
-        @keyframes pulse-light { from { background-position: 0% 0%; } to { background-position: 100% 0%; } }
-
-        /* محرك الفيديوهات */
-        .scroll-engine { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; }
         .scroll-engine::-webkit-scrollbar { display: none; }
-        .v-seg { height: 100vh; width: 100vw; scroll-snap-align: start; position: relative; overflow: hidden; border-bottom: 2px solid rgba(0,255,65,0.1); }
+
+        .v-seg { 
+            height: 100vh; width: 100vw; scroll-snap-align: start; 
+            scroll-snap-stop: always; position: relative; overflow: hidden; 
+            background: #000;
+        }
+
+        video { 
+            width: 100%; height: 100%; object-fit: cover; 
+            filter: brightness(0.9) contrast(1.1);
+            transition: transform 0.8s ease;
+        }
+
+        /* الطبقات الأيونية الختامية */
+        .hud-overlay {
+            position: absolute; inset: 0; pointer-events: none; z-index: 20;
+            background: radial-gradient(circle, transparent 30%, rgba(0,0,0,0.5) 100%);
+            border: 1px solid rgba(0, 242, 255, 0.05);
+        }
+
+        .data-stream {
+            position: absolute; font-family: 'Share Tech Mono'; font-size: 8px;
+            color: var(--q-blue); text-shadow: 0 0 10px var(--q-blue);
+            z-index: 30; opacity: 0.6;
+        }
+        .stream-tl { top: 90px; left: 20px; }
+        .stream-br { bottom: 130px; right: 20px; text-align: right; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 0.1; } }
+
+        /* أزرار العمليات - اليسار الموسط */
+        .sidebar-tactical { 
+            position: absolute; left: 15px; top: 50%; transform: translateY(-50%); 
+            display: flex; flex-direction: column; gap: 20px; z-index: 100; 
+        }
         
-        /* فلتر الرؤية الليلية المتقدم */
-        video { width: 100%; height: 100%; object-fit: cover; filter: sepia(40%) hue-rotate(70deg) brightness(0.7) contrast(1.3); }
+        .btn-asset { 
+            width: 55px; height: 55px; background: rgba(0, 242, 255, 0.05); 
+            backdrop-filter: blur(20px); border: 1.5px solid rgba(0, 242, 255, 0.2); 
+            border-radius: 14px; display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; cursor: pointer; 
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .btn-asset:active { transform: scale(0.8); border-color: #fff; box-shadow: 0 0 20px var(--q-blue); }
+        .btn-asset i { font-size: 20px; color: #fff; filter: drop-shadow(0 0 8px var(--q-blue)); }
+        .btn-asset .fa-medal { color: var(--q-gold); filter: drop-shadow(0 0 10px var(--q-gold)); }
+        .btn-asset span { font-size: 9px; font-family: 'Share Tech Mono'; color: var(--q-blue); margin-top: 3px; font-weight: 900; }
 
-        /* الشاشة التكتيكية HUD */
-        .hud-frame {
-            position: absolute; inset: 0; pointer-events: none; z-index: 10;
-            border: 20px solid transparent;
-            border-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PHBhdGggZD0iTTIwIDBIMHYyME04MCAwaDIwdjIwTTIwIDEwMEgwVjgwaDIwdjIwbTYwIDBoMjBWODBIMTB2MjBaIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMGZmNDEiIHN0cm9rZS13aWR0aD0iMiIvPjwvc3ZnPg==') 30 stretch;
-        }
-        
-        /* الرادار المتحرك */
-        .hud-radar-v10 {
-            position: absolute; bottom: 130px; left: 30px; width: 80px; height: 80px;
-            border: 1px solid var(--nvg-green); border-radius: 50%;
-            background: radial-gradient(circle, rgba(0, 255, 65, 0.1) 0%, transparent 100%);
-        }
-        .radar-line {
-            position: absolute; top: 50%; left: 50%; width: 100%; height: 2px;
-            background: var(--nvg-green); transform-origin: left;
-            animation: rotate-radar 3s linear infinite; box-shadow: 0 0 10px var(--nvg-green);
-        }
-        @keyframes rotate-radar { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        /* أزرار المهمات الخاصة (Special Ops) */
-        .action-sidebar { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 20px; z-index: 100; }
-        .mil-btn { 
-            width: 60px; height: 60px; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
-            border: 2px solid var(--tactical-blue); clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            transition: 0.3s; cursor: pointer;
-        }
-        .mil-btn:hover { border-color: var(--nvg-green); box-shadow: var(--glow); transform: scale(1.1); }
-        .mil-btn i { font-size: 24px; color: #fff; text-shadow: 0 0 10px rgba(0, 136, 255, 0.8); }
-        .mil-btn span { font-size: 9px; font-weight: bold; margin-top: 2px; font-family: 'Share Tech Mono'; color: var(--tactical-blue); }
-
-        /* ناف بار "حزام العمليات" */
+        /* ناف بار "نواة القيادة المركزية" */
         nav { 
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); 
-            width: 90%; max-width: 440px; height: 80px; 
-            background: rgba(10, 15, 20, 0.9); border: 2px solid var(--tactical-blue);
-            display: flex; justify-content: space-around; align-items: center; z-index: 200;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); 
+            width: 88%; max-width: 410px; height: 70px; 
+            background: rgba(0, 5, 10, 0.85); backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 35px;
+            display: flex; justify-content: space-around; align-items: center; z-index: 500;
         }
 
-        .central-trigger {
-            width: 75px; height: 75px; background: linear-gradient(135deg, var(--tactical-blue), #003366);
-            border-radius: 50%; margin-top: -50px; display: flex; align-items: center; justify-content: center;
-            border: 6px solid var(--bg-deep); color: white; font-size: 30px;
-            box-shadow: 0 0 30px rgba(0, 136, 255, 0.4); cursor: pointer;
+        .master-core {
+            width: 70px; height: 70px; background: linear-gradient(135deg, var(--q-blue), #0044ff);
+            border-radius: 50%; margin-top: -45px; display: flex; align-items: center; justify-content: center;
+            border: 5px solid #000; color: white; font-size: 26px; cursor: pointer;
+            box-shadow: 0 0 30px var(--q-blue); transition: 0.4s;
         }
+        .master-core:hover { transform: scale(1.1); box-shadow: 0 0 50px var(--q-blue); }
 
-        /* لوحات التحكم والدردشة العسكرية */
-        #admin-panel, #chat-panel {
-            position: fixed; inset: 0; z-index: 2000; background: rgba(1, 2, 5, 0.98);
-            display: none; flex-direction: column; padding: 40px 25px; 
-            border: 4px solid var(--tactical-blue); border-image: linear-gradient(to bottom, var(--tactical-blue), var(--nvg-green)) 1;
+        /* لوحات التحكم */
+        #admin-panel {
+            position: fixed; inset: 0; z-index: 2000; background: rgba(0, 0, 0, 0.98);
+            display: none; flex-direction: column; padding: 40px 25px;
+            border-top: 5px solid var(--q-blue);
         }
-        .header-stencil { font-family: 'Black Ops One', system-ui; letter-spacing: 4px; color: var(--nvg-green); text-shadow: var(--glow); }
-
-        .msg-line { background: rgba(0, 255, 65, 0.05); border-left: 4px solid var(--nvg-green); padding: 15px; margin-bottom: 12px; font-family: 'Share Tech Mono'; font-size: 14px; color: #fff; }
+        .stencil-title { font-family: 'Black Ops One', cursive; letter-spacing: 4px; color: var(--q-blue); }
     </style>
 </head>
 <body>
 
-    <div class="combat-lights"></div>
-    <div class="mil-grid"></div>
-    
-    <header class="fixed top-6 left-6 right-6 z-[500] flex justify-between items-center pointer-events-none">
-        <div class="bg-black/80 p-3 border-r-4 border-blue-600 pointer-events-auto flex items-center gap-4 backdrop-blur-md">
-            <i class="fas fa-shield-halved text-white text-2xl animate-pulse"></i>
-            <span class="header-stencil text-sm">WAR-ROOM // V10</span>
+    <header class="fixed top-6 left-6 right-6 z-[600] flex justify-between items-center pointer-events-none">
+        <div class="bg-black/60 p-3 border-l-4 border-cyan-400 pointer-events-auto rounded backdrop-blur-xl flex items-center gap-3">
+            <i class="fas fa-microchip text-cyan-400 animate-pulse"></i>
+            <span class="font-[Orbitron] text-[10px] font-black tracking-[4px] text-white">COMMAND_V17</span>
         </div>
-        <div class="font-mono text-[10px] text-green-500 bg-black/70 px-4 py-1 border border-green-900" id="clock">00:00:00</div>
+        <div class="font-mono text-[9px] text-cyan-400 bg-black/70 px-4 py-1 rounded-full border border-cyan-900" id="clock">00:00:00</div>
     </header>
 
     <main class="scroll-engine" id="video-stack"></main>
 
     <nav>
-        <div class="cursor-pointer text-white/30 hover:text-blue-500 transition" onclick="checkAdmin()"><i class="fas fa-fingerprint text-2xl"></i></div>
-        <div class="central-trigger" id="direct-upload-trigger"><i class="fas fa-crosshairs"></i></div>
-        <div class="cursor-pointer text-white/30 hover:text-red-500 transition" onclick="toggleChat()"><i class="fas fa-tower-broadcast text-2xl"></i></div>
+        <div class="cursor-pointer text-white/20 hover:text-cyan-400 transition" onclick="checkAdmin()"><i class="fas fa-fingerprint text-2xl"></i></div>
+        <div class="master-core" id="final-upload-trigger"><i class="fas fa-bolt"></i></div>
+        <div class="cursor-pointer text-white/20 hover:text-blue-500 transition" onclick="toggleChat()"><i class="fas fa-satellite-dish text-2xl"></i></div>
     </nav>
 
     <div id="admin-panel">
-        <div class="flex justify-between items-center mb-8 border-b border-blue-900 pb-4">
-            <h2 class="header-stencil text-2xl">CORE_COMMAND</h2>
-            <i class="fas fa-xmark text-2xl cursor-pointer hover:text-red-500" onclick="closePanels()"></i>
+        <div class="flex justify-between items-center mb-10 border-b border-cyan-900 pb-4">
+            <h2 class="stencil-title text-xl text-white">SYSTEM_PURGE</h2>
+            <i class="fas fa-xmark text-2xl cursor-pointer" onclick="closeAdmin()"></i>
         </div>
         <div id="admin-list" class="flex-1 overflow-y-auto space-y-4"></div>
     </div>
 
-    <div id="chat-panel">
-        <div class="flex justify-between items-center mb-8 border-b border-blue-900 pb-4">
-            <h2 class="header-stencil text-2xl" style="color: var(--tactical-blue);">ENCRYPTED_COMMS</h2>
-            <i class="fas fa-xmark text-2xl cursor-pointer hover:text-red-500" onclick="closePanels()"></i>
-        </div>
-        <div id="chat-box" class="flex-1 overflow-y-auto mb-4 p-3 bg-black/40 rounded"></div>
-        <div class="flex gap-2 p-2 bg-black border border-blue-900 rounded-lg">
-            <input type="text" id="chat-input" class="flex-1 bg-transparent border-none p-3 outline-none text-blue-400 font-mono text-sm" placeholder="Send tactical signal...">
-            <button onclick="sendChat()" class="bg-blue-700 px-8 rounded-md font-bold hover:bg-blue-600">EXECUTE</button>
-        </div>
-    </div>
-
     <script>
         const MASTER_KEY = "1234";
-        // الإعلانات المدمجة
         const ADS = {
             LIKE: "https://www.effectivegatecpm.com/kckhwnffm5?key=a044912bc242a8918aac753c22e082b1",
             CHAT: "https://www.effectivegatecpm.com/fd8bgr2e?key=c5bd0ed87d0ddc0c53101f52264d4b1e",
@@ -155,20 +136,20 @@
             EXTRA: "https://www.effectivegatecpm.com/k60w64w4gk?key=564f3d8cc4ac85949f218179b742495e"
         };
 
-        // ربط القاعدة GOKS
         firebase.initializeApp({ databaseURL: "https://goks-e0cba-default-rtdb.firebaseio.com/" });
         const db = firebase.database();
 
-        // الرفع المباشر على الاستوديو
+        // محرك الرفع الختامي
         const widget = cloudinary.createUploadWidget({ 
             cloudName: "dhdg9gu88", uploadPreset: "go_2go", sources: ['local'],
-            clientAllowedFormats: ["video"]
+            clientAllowedFormats: ["video"],
+            styles: { palette: { window: "#000", windowBorder: "#00f2ff", tabIcon: "#00f2ff", action: "#fff", textLight: "#fff" } }
         }, (err, res) => {
             if (!err && res.event === "success") {
                 db.ref('go_2go_content/').push({ url: res.info.secure_url, likes: 0, timestamp: Date.now() });
             }
         });
-        document.getElementById("direct-upload-trigger").onclick = () => widget.open();
+        document.getElementById("final-upload-trigger").onclick = () => widget.open();
 
         setInterval(() => { document.getElementById('clock').innerText = "OP_TIME: " + new Date().toLocaleTimeString('en-GB'); }, 1000);
 
@@ -184,74 +165,73 @@
                 const section = document.createElement('section');
                 section.className = 'v-seg';
                 section.innerHTML = `
-                    <div class="hud-frame"></div>
-                    <div class="hud-radar-v10"><div class="radar-line"></div></div>
-                    <div class="absolute top-20 right-10 font-mono text-[9px] text-green-500 bg-black/60 p-3 border border-green-900">
-                        UNIT_ID: SWAT_0${id.substring(1,2)}<br>
-                        SIGNAL: ENCRYPTED<br>
-                        ALT: ${(Math.random()*3000).toFixed(0)}m
+                    <div class="hud-overlay"></div>
+                    <div class="data-stream stream-tl">
+                        SYNCING_NODE... [OK]<br>
+                        ENC_STRENGTH: MAXIMUM<br>
+                        UNIT: SWAT_V17
                     </div>
-                    <video id="vid-${id}" loop playsinline src="${vid.url}" onclick="this.paused?this.play():this.pause()"></video>
+                    <div class="data-stream stream-br">
+                        COORD: ${ (Math.random()*100).toFixed(4) }N<br>
+                        STATUS: SECURE_LINK
+                    </div>
+                    <video id="vid-${id}" loop playsinline src="${vid.url}" preload="auto"></video>
                     
-                    <div class="action-sidebar">
-                        <div class="mil-btn" onclick="window.open('${ADS.LIKE}', '_blank'); triggerLike('${id}')">
-                            <i class="fas fa-medal text-yellow-500"></i>
-                            <span class="mt-1">${vid.likes || 0}</span>
+                    <div class="sidebar-tactical">
+                        <div class="btn-asset" onclick="window.open('${ADS.LIKE}', '_blank'); triggerLike('${id}')">
+                            <i class="fas fa-medal"></i>
+                            <span>${vid.likes || 0}</span>
                         </div>
-                        <div class="mil-btn" onclick="window.open('${ADS.CHAT}', '_blank'); toggleChat()">
-                            <i class="fas fa-mask-face"></i>
-                            <span>SWAT_CHAT</span>
+                        <div class="btn-asset" onclick="window.open('${ADS.CHAT}', '_blank'); toggleChat()">
+                            <i class="fas fa-helmet-safety"></i>
+                            <span>SQUAD</span>
                         </div>
-                        <div class="mil-btn" onclick="window.open('${ADS.EXTRA}', '_blank'); toggleMute(this, '${id}')">
+                        <div class="btn-asset" onclick="window.open('${ADS.EXTRA}', '_blank'); toggleMute(this, '${id}')">
                             <i class="fas fa-walkie-talkie"></i>
-                            <span>RADIO</span>
                         </div>
-                        <div class="mil-btn" onclick="window.open('${ADS.SHARE}', '_blank'); navigator.share({url:window.location.href})">
-                            <i class="fas fa-shuttle-space"></i>
-                            <span>DEPLOY</span>
+                        <div class="btn-asset" onclick="window.open('${ADS.SHARE}', '_blank'); navigator.share({url:window.location.href})">
+                            <i class="fas fa-satellite"></i>
                         </div>
+                    </div>
+
+                    <div class="absolute bottom-32 left-10 border-l-2 border-cyan-400 pl-4">
+                        <p class="font-mono text-[9px] text-cyan-400 opacity-70 tracking-tighter">DATA_NODE_STREAM</p>
+                        <h3 class="font-[Orbitron] text-white text-lg tracking-[5px] font-black">COMMAND_0${id.substring(1,2)}</h3>
                     </div>
                 `;
                 container.appendChild(section);
 
-                adminList.innerHTML += `<div class="flex items-center justify-between bg-blue-900/10 p-4 border border-blue-900 rounded-lg">
-                    <video class="w-14 h-14 rounded-md object-cover" src="${vid.url}"></video>
-                    <span class="font-mono text-xs text-blue-300">NODE: ${id.substring(0,10)}</span>
-                    <button onclick="deleteVideo('${id}')" class="text-red-500 p-3 bg-red-950/20 rounded-full"><i class="fas fa-skull"></i></button>
+                adminList.innerHTML += `<div class="flex items-center justify-between bg-white/5 p-4 rounded-xl border border-white/10">
+                    <video class="w-14 h-14 rounded-lg object-cover" src="${vid.url}"></video>
+                    <button onclick="deleteVideo('${id}')" class="text-red-500 bg-red-500/10 p-3 rounded-full"><i class="fas fa-trash"></i></button>
                 </div>`;
             });
-            initObserver();
+            initFinalObserver();
         });
 
-        function checkAdmin() { if(prompt("SCAN BIOMETRIC KEY:") === MASTER_KEY) document.getElementById('admin-panel').style.display = 'flex'; }
-        function toggleChat() { document.getElementById('chat-panel').style.display = 'flex'; }
-        function closePanels() { document.getElementById('admin-panel').style.display = 'none'; document.getElementById('chat-panel').style.display = 'none'; }
-        
-        function sendChat() {
-            const inp = document.getElementById('chat-input');
-            if(inp.value.trim()){ db.ref('vox_chat').push({msg: inp.value}); inp.value = ''; }
-        }
-
-        db.ref('vox_chat').limitToLast(15).on('value', s => {
-            const box = document.getElementById('chat-box'); box.innerHTML = '';
-            s.forEach(m => { box.innerHTML += `<div class="msg-line">REC_SIGNAL:: ${m.val().msg}</div>`; });
-            box.scrollTop = box.scrollHeight;
-        });
-
-        function deleteVideo(id) { if(confirm("Permanently destroy intelligence data?")) db.ref('go_2go_content/' + id).remove(); }
-        function triggerLike(id) { db.ref('go_2go_content/' + id + '/likes').transaction(l => (l || 0) + 1); if(navigator.vibrate) navigator.vibrate(100); }
-        function toggleMute(btn, id) { const v = document.getElementById('vid-'+id); v.muted = !v.muted; btn.innerHTML = v.muted ? '<i class="fas fa-volume-xmark text-red-500"></i>' : '<i class="fas fa-walkie-talkie"></i>'; }
-
-        function initObserver() {
-            const obs = new IntersectionObserver((es) => {
-                es.forEach(e => {
-                    const v = e.target.querySelector('video');
-                    if(e.isIntersecting) v.play().catch(()=>{});
-                    else { v.pause(); v.currentTime = 0; }
+        function initFinalObserver() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const video = entry.target.querySelector('video');
+                    if (entry.isIntersecting) {
+                        video.play().catch(() => {});
+                        video.style.transform = "scale(1)";
+                    } else {
+                        video.pause();
+                        video.currentTime = 0;
+                        video.style.transform = "scale(1.05)";
+                    }
                 });
-            }, { threshold: 0.6 });
-            document.querySelectorAll('.v-seg').forEach(s => obs.observe(s));
+            }, { threshold: 0.8 });
+            document.querySelectorAll('.v-seg').forEach(s => observer.observe(s));
         }
+
+        function checkAdmin() { if(prompt("SCAN BIOMETRIC:") === MASTER_KEY) document.getElementById('admin-panel').style.display = 'flex'; }
+        function closeAdmin() { document.getElementById('admin-panel').style.display = 'none'; }
+        function deleteVideo(id) { if(confirm("Permanently erase data?")) db.ref('go_2go_content/' + id).remove(); }
+        function triggerLike(id) { db.ref('go_2go_content/' + id + '/likes').transaction(l => (l || 0) + 1); if(navigator.vibrate) navigator.vibrate(30); }
+        function toggleMute(btn, id) { const v = document.getElementById('vid-'+id); v.muted = !v.muted; btn.innerHTML = v.muted ? '<i class="fas fa-volume-mute text-red-500"></i>' : '<i class="fas fa-walkie-talkie"></i>'; }
+        function toggleChat() { alert("CONNECTED"); }
     </script>
 </body>
 </html>
