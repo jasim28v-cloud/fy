@@ -2,23 +2,23 @@
 """
 ╔══════════════════════════════════════════════════════════════╗
 ║                                                            ║
-║  💖  ZHARE 2026 - PINK ROSE GLASS EDITION  💖            ║
-║     Ultimate Version - 9 Files - 2000+ Lines               ║
+║  ⚡ SPARK - ULTRA EDITION 2026                            ║
+║     Ultimate Version - 9 Files - Premium                  ║
 ║                                                            ║
 ║  🔥  Firebase: dokf-33e47                                 ║
-║  ☁️   Cloudinary: go29_gm / qlathl0k                      ║
+║  ☁️   Cloudinary: qlathl0k / go29_gm                     ║
 ║  👑  Admin: jasim28v@gmail.com                            ║
 ║  👾  Avatars: DiceBear Big Smile (Random)                  ║
-║  💎  Design: Pink Rose Glass Transparent                   ║
+║  💎  Design: SPARK Orange/Amber Premium                   ║
 ║                                                            ║
 ║  ✨  PREMIUM FEATURES:                                     ║
 ║     • 🔔 Notification System (Working 100%)              ║
 ║     • 🎬 Compact Video Grid with Description              ║
 ║     • 🗑️  Delete Videos from Admin Panel                  ║
 ║     • 🖤 Parallax Cover                                   ║
-║     • 💎 Glass Morphism Transparent Layers                ║
-║     • 💖 Pink Rose Story Rings                           ║
-║     • ✨ Pink Rose Glow Effects                           ║
+║     • 💎 Glass Morphism Dark Layers                       ║
+║     • 👑 Gold Story Rings                                 ║
+║     • ✨ Orange/Amber Glow Effects                         ║
 ║     • 🌟 Smooth In-App Viewer (No Popups!)               ║
 ║     • 📱 Floating Bottom Nav                              ║
 ║     • توثيق + حظر + حذف فيديوهات                          ║
@@ -30,7 +30,7 @@ import os
 import sys
 
 # ═══════════════════════════════════════════════════════════
-# 💖 CONFIGURATION - الإعدادات
+# ⚡ CONFIGURATION - الإعدادات
 # ═══════════════════════════════════════════════════════════
 
 FIREBASE_CONFIG = {
@@ -44,23 +44,23 @@ FIREBASE_CONFIG = {
     "measurementId": "G-B89W16NXQB"
 }
 
-CLOUD_NAME = "go29_gm"
-UPLOAD_PRESET = "qlathl0k"
+CLOUD_NAME = "qlathl0k"
+UPLOAD_PRESET = "go29_gm"
 ADMIN_EMAILS_JS = "['jasim28v@gmail.com']"
 DICEBEAR_URL = "https://api.dicebear.com/7.x/big-smile/svg"
 
-# 💖 Pink Rose Glass Palette
-ROSE_COLORS_JS = """[
-    "linear-gradient(135deg, #be185d, #db2777, #ec4899)",
-    "linear-gradient(135deg, #9d174d, #be185d, #db2777)",
-    "linear-gradient(135deg, #831843, #9d174d, #be185d)",
-    "linear-gradient(135deg, #f472b6, #ec4899, #db2777)",
-    "linear-gradient(135deg, #fbcfe8, #f472b6, #ec4899)",
-    "linear-gradient(135deg, #1a0a14, #2d0f24, #f472b6)"
+# ⚡ SPARK Orange/Amber Palette
+SPARK_COLORS_JS = """[
+    "linear-gradient(135deg, #ff6b35, #f7931e, #f7b733)",
+    "linear-gradient(135deg, #c2410c, #ea580c, #f97316)",
+    "linear-gradient(135deg, #f59e0b, #d97706, #b45309)",
+    "linear-gradient(135deg, #f97316, #fb923c, #fdba74)",
+    "linear-gradient(135deg, #431407, #7c2d12, #ea580c)",
+    "linear-gradient(135deg, #1a0a00, #2d1600, #ff6b35)"
 ]"""
 
 # ═══════════════════════════════════════════════════════════
-# 💖 UTILITY - دوال مساعدة
+# ⚡ UTILITY - دوال مساعدة
 # ═══════════════════════════════════════════════════════════
 
 TOTAL_LINES = 0
@@ -78,16 +78,16 @@ def write(filename, content):
 def section(title):
     """طباعة عنوان القسم"""
     print(f"\n{'='*60}")
-    print(f"  💖 {title}")
+    print(f"  ⚡ {title}")
     print(f"{'='*60}")
 
 # ═══════════════════════════════════════════════════════════
-# 💖 1. firebase-config.js
+# ⚡ 1. firebase-config.js
 # ═══════════════════════════════════════════════════════════
 
 def build_config():
-    return f"""// 💖 ZHARE 2026 - Pink Rose Glass Configuration
-// Firebase: dokf-33e47 | Cloudinary: go29_gm
+    return f"""// ⚡ SPARK 2026 - Premium Configuration
+// Firebase: dokf-33e47 | Cloudinary: qlathl0k
 // ✨ PREMIUM: Notifications + Compact Grid + Delete Videos
 
 const firebaseConfig = {{
@@ -110,22 +110,22 @@ const db = firebase.database();
 const CLOUD_NAME = "{CLOUD_NAME}";
 const UPLOAD_PRESET = "{UPLOAD_PRESET}";
 
-// 💖 ZHARE Settings
+// ⚡ SPARK Settings
 const ADMIN_EMAILS = {ADMIN_EMAILS_JS};
 const DICEBEAR_URL = "{DICEBEAR_URL}";
-const COVER_COLORS = {ROSE_COLORS_JS};
+const COVER_COLORS = {SPARK_COLORS_JS};
 
-// 💖 App Info
-const APP_NAME = "ZHARE";
+// ⚡ App Info
+const APP_NAME = "SPARK";
 const APP_VERSION = "2026.1";
-const PRIMARY_COLOR = "#ec4899";
-const SECONDARY_COLOR = "#f472b6";
+const PRIMARY_COLOR = "#ff6b35";
+const SECONDARY_COLOR = "#f7b733";
 
-console.log('💖 %c'+APP_NAME+' v'+APP_VERSION+' Ready ✨', 'color: #ec4899; font-size: 16px; font-weight: bold;');
+console.log('⚡ %c'+APP_NAME+' v'+APP_VERSION+' Ready ✨', 'color: #ff6b35; font-size: 16px; font-weight: bold;');
 """
 
 # ═══════════════════════════════════════════════════════════
-# 💖 2. auth.html - تسجيل الدخول والاشتراك
+# ⚡ 2. auth.html - تسجيل الدخول والاشتراك
 # ═══════════════════════════════════════════════════════════
 
 def build_auth():
@@ -134,7 +134,7 @@ def build_auth():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>💖 ZHARE | دخول</title>
+    <title>⚡ SPARK | دخول</title>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
@@ -143,45 +143,45 @@ def build_auth():
         *{margin:0;padding:0;box-sizing:border-box}
         body{
             min-height:100vh;
-            background:radial-gradient(ellipse at top, #1a0a14, #0d0610, #08030a);
+            background:radial-gradient(ellipse at top, #1a0a00, #0a0a0a, #000);
             display:flex;align-items:center;justify-content:center;
             font-family:'Segoe UI',sans-serif;overflow:hidden;
         }
         .bg-orb{
-            position:fixed;border-radius:50%;filter:blur(130px);opacity:0.25;
+            position:fixed;border-radius:50%;filter:blur(130px);opacity:0.3;
             animation:orbFloat 20s infinite alternate;
         }
-        .bg-orb:nth-child(1){width:400px;height:400px;background:#ec4899;top:-100px;left:-100px}
-        .bg-orb:nth-child(2){width:350px;height:350px;background:#f472b6;bottom:-100px;right:-100px;animation-delay:5s}
-        .bg-orb:nth-child(3){width:300px;height:300px;background:#fbcfe8;top:50%;left:50%;animation-delay:10s}
+        .bg-orb:nth-child(1){width:400px;height:400px;background:#ff6b35;top:-100px;left:-100px}
+        .bg-orb:nth-child(2){width:350px;height:350px;background:#f7b733;bottom:-100px;right:-100px;animation-delay:5s}
+        .bg-orb:nth-child(3){width:300px;height:300px;background:#f97316;top:50%;left:50%;animation-delay:10s}
         @keyframes orbFloat{0%{transform:translate(0,0) scale(1)}100%{transform:translate(50px,-50px) scale(1.3)}}
 
         .card{
             position:relative;z-index:1;width:90%;max-width:420px;
-            background:rgba(236,72,153,0.03);
+            background:rgba(255,107,53,0.03);
             backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);
             border-radius:32px;padding:36px 24px;
-            border:1px solid rgba(236,72,153,0.15);
-            box-shadow:0 30px 70px rgba(236,72,153,0.08),inset 0 0 30px rgba(236,72,153,0.02);
+            border:1px solid rgba(255,107,53,0.2);
+            box-shadow:0 30px 70px rgba(255,107,53,0.1),inset 0 0 30px rgba(255,107,53,0.02);
             animation:fadeUp 0.8s ease;
         }
         @keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
 
         .logo{
             width:70px;height:70px;margin:0 auto 20px;
-            background:linear-gradient(135deg, rgba(236,72,153,0.25), rgba(244,114,182,0.25));
+            background:linear-gradient(135deg, rgba(255,107,53,0.3), rgba(247,183,51,0.3));
             border-radius:20px;display:flex;align-items:center;justify-content:center;
-            font-size:36px;border:1px solid rgba(236,72,153,0.15);
-            box-shadow:0 15px 40px rgba(236,72,153,0.2);
+            font-size:36px;border:1px solid rgba(255,107,53,0.2);
+            box-shadow:0 15px 40px rgba(255,107,53,0.3);
             animation:logoGlow 3s ease-in-out infinite;
         }
-        @keyframes logoGlow{0%,100%{box-shadow:0 15px 40px rgba(236,72,153,0.2)}50%{box-shadow:0 15px 60px rgba(244,114,182,0.5)}}
-        h1{text-align:center;font-size:36px;font-weight:900;background:linear-gradient(to bottom, #fff, #fbcfe8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
+        @keyframes logoGlow{0%,100%{box-shadow:0 15px 40px rgba(255,107,53,0.3)}50%{box-shadow:0 15px 60px rgba(247,183,51,0.7)}}
+        h1{text-align:center;font-size:36px;font-weight:900;background:linear-gradient(to bottom, #fff, #f7b733);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
         .sub{text-align:center;color:rgba(255,255,255,0.4);font-size:13px;margin-bottom:20px}
 
-        .tabs{display:flex;gap:4px;background:rgba(236,72,153,0.05);border-radius:40px;padding:4px;margin-bottom:24px}
+        .tabs{display:flex;gap:4px;background:rgba(255,107,53,0.06);border-radius:40px;padding:4px;margin-bottom:24px}
         .tab{flex:1;padding:12px;background:none;border:none;color:rgba(255,255,255,0.5);cursor:pointer;border-radius:40px;font-size:14px;transition:all 0.3s;font-weight:500}
-        .tab.active{background:linear-gradient(135deg, #ec4899, #f472b6);color:#fff;box-shadow:0 8px 20px rgba(236,72,153,0.3)}
+        .tab.active{background:linear-gradient(135deg, #ff6b35, #f7b733);color:#fff;box-shadow:0 8px 20px rgba(255,107,53,0.4)}
 
         .form{display:none;animation:fadeIn 0.4s ease}
         .form.active{display:block}
@@ -189,21 +189,21 @@ def build_auth():
 
         input{
             width:100%;padding:15px 18px;margin:8px 0;
-            border-radius:50px;background:rgba(236,72,153,0.03);
-            border:1px solid rgba(236,72,153,0.12);color:#fff;
+            border-radius:50px;background:rgba(255,107,53,0.04);
+            border:1px solid rgba(255,107,53,0.15);color:#fff;
             font-size:14px;outline:none;transition:all 0.4s;
         }
-        input:focus{border-color:rgba(236,72,153,0.5);box-shadow:0 0 20px rgba(236,72,153,0.08);background:rgba(236,72,153,0.06)}
+        input:focus{border-color:rgba(255,107,53,0.6);box-shadow:0 0 20px rgba(255,107,53,0.1);background:rgba(255,107,53,0.08)}
         input::placeholder{color:rgba(255,255,255,0.3)}
 
         button{
             width:100%;padding:15px;margin-top:18px;
-            background:linear-gradient(135deg, #ec4899, #f472b6);
+            background:linear-gradient(135deg, #ff6b35, #f7b733);
             border:none;border-radius:50px;color:#fff;
             font-weight:bold;font-size:15px;cursor:pointer;
-            transition:all 0.3s;box-shadow:0 10px 30px rgba(236,72,153,0.3);
+            transition:all 0.3s;box-shadow:0 10px 30px rgba(255,107,53,0.4);
         }
-        button:hover{transform:translateY(-2px);box-shadow:0 20px 40px rgba(236,72,153,0.5)}
+        button:hover{transform:translateY(-2px);box-shadow:0 20px 40px rgba(255,107,53,0.6)}
         button:active{transform:scale(0.97)}
         button:disabled{opacity:0.5;pointer-events:none}
 
@@ -215,9 +215,9 @@ def build_auth():
     <div class="bg-orb"></div><div class="bg-orb"></div><div class="bg-orb"></div>
 
     <div class="card">
-        <div class="logo">💖</div>
-        <h1>ZHARE</h1>
-        <p class="sub">Pink Rose Glass 2026 ✨</p>
+        <div class="logo">⚡</div>
+        <h1>SPARK</h1>
+        <p class="sub">Premium 2026 ✨</p>
 
         <div class="tabs">
             <button class="tab active" id="tabLogin" onclick="switchTab('login')"><i class="fas fa-sign-in-alt"></i> دخول</button>
@@ -335,13 +335,13 @@ def build_auth():
             if(user) { window.location.replace('index.html'); }
         });
 
-        console.log('💖 ZHARE Auth Ready');
+        console.log('⚡ SPARK Auth Ready');
     </script>
 </body>
 </html>"""
 
 # ═══════════════════════════════════════════════════════════
-# 💖 3. index.html - الرئيسية (مع مشغل داخلي للفيديوهات)
+# ⚡ 3. index.html - الرئيسية (مع مشغل داخلي للفيديوهات)
 # ═══════════════════════════════════════════════════════════
 
 def build_index():
@@ -350,18 +350,18 @@ def build_index():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>💖 ZHARE | الرئيسية</title>
+    <title>⚡ SPARK | الرئيسية</title>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root{
-            --glass:rgba(236,72,153,0.03);
-            --border:rgba(236,72,153,0.1);
-            --accent:#ec4899;
-            --accent2:#f472b6;
-            --bg:#0d0610;
+            --glass:rgba(255,107,53,0.03);
+            --border:rgba(255,107,53,0.12);
+            --accent:#ff6b35;
+            --accent2:#f7b733;
+            --bg:#0a0500;
         }
         *{margin:0;padding:0;box-sizing:border-box}
         body{
@@ -375,13 +375,13 @@ def build_index():
 
         #loaderScreen{
             position:fixed;inset:0;z-index:9999;
-            background:radial-gradient(ellipse at top, #1a0a14, #0d0610, #08030a);
+            background:radial-gradient(ellipse at top, #1a0a00, #0a0a0a, #000);
             display:flex;align-items:center;justify-content:center;
             flex-direction:column;gap:16px;
         }
         .spinner-big{
             width:50px;height:50px;
-            border:4px solid rgba(236,72,153,0.15);
+            border:4px solid rgba(255,107,53,0.2);
             border-top-color:var(--accent);
             border-radius:50%;
             animation:spin 0.8s linear infinite;
@@ -394,24 +394,24 @@ def build_index():
             position:fixed;top:10px;left:10px;right:10px;z-index:100;
             display:flex;justify-content:space-between;align-items:center;
             padding:8px 16px;
-            background:rgba(13,6,16,0.6);
+            background:rgba(10,5,0,0.7);
             backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
             border:1px solid var(--border);
             border-radius:50px;
-            box-shadow:0 8px 32px rgba(236,72,153,0.05);
+            box-shadow:0 8px 32px rgba(255,107,53,0.08);
         }
         .logo-icon{
             width:34px;height:34px;
             background:linear-gradient(135deg,var(--accent),var(--accent2));
             border-radius:50%;display:flex;align-items:center;justify-content:center;
             font-weight:900;font-size:12px;
-            box-shadow:0 0 20px rgba(236,72,153,0.4), 0 0 40px rgba(236,72,153,0.15);
+            box-shadow:0 0 20px rgba(255,107,53,0.5), 0 0 40px rgba(255,107,53,0.2);
             animation:pulseIcon 2s ease-in-out infinite;
         }
-        @keyframes pulseIcon{0%,100%{box-shadow:0 0 20px rgba(236,72,153,0.4)}50%{box-shadow:0 0 35px rgba(244,114,182,0.6)}}
+        @keyframes pulseIcon{0%,100%{box-shadow:0 0 20px rgba(255,107,53,0.5)}50%{box-shadow:0 0 35px rgba(247,183,51,0.8)}}
         .logo-text{
             font-weight:800;font-size:17px;
-            background:linear-gradient(to bottom,#fff,#fbcfe8);
+            background:linear-gradient(to bottom,#fff,#f7b733);
             -webkit-background-clip:text;-webkit-text-fill-color:transparent;
             margin-left:8px;
         }
@@ -421,7 +421,7 @@ def build_index():
             padding:7px 16px;cursor:pointer;border-radius:25px;
             font-size:13px;font-weight:500;transition:all 0.3s;
         }
-        .tab.active{background:rgba(236,72,153,0.2);color:#fff}
+        .tab.active{background:rgba(255,107,53,0.25);color:#fff}
         .top-icons{display:flex;gap:16px}
         .top-icon{
             background:none;border:none;color:rgba(255,255,255,0.7);
@@ -456,18 +456,18 @@ def build_index():
         .author-avatar{
             width:50px;height:50px;border-radius:50%;overflow:hidden;
             cursor:pointer;position:relative;
-            background:linear-gradient(135deg, #ec4899, #f472b6, #fbcfe8);
+            background:linear-gradient(135deg, #ff6b35, #f7b733, #fcd34d);
             padding:3px;
             animation:storyRing 3s ease-in-out infinite;
         }
-        @keyframes storyRing{0%,100%{box-shadow:0 0 15px rgba(236,72,153,0.3)}50%{box-shadow:0 0 25px rgba(244,114,182,0.6)}}
+        @keyframes storyRing{0%,100%{box-shadow:0 0 15px rgba(255,107,53,0.4)}50%{box-shadow:0 0 25px rgba(247,183,51,0.8)}}
         .author-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;border:2px solid var(--bg)}
         .author-name{
             font-weight:700;font-size:15px;cursor:pointer;
             display:flex;align-items:center;gap:6px;flex-wrap:wrap;
         }
         .verified-badge-main{
-            background:linear-gradient(135deg, #ec4899, #f472b6);
+            background:linear-gradient(135deg, #ff6b35, #f7b733);
             color:#fff;
             font-size:10px;
             padding:2px 5px;
@@ -478,16 +478,16 @@ def build_index():
             width:18px;
             height:18px;
             font-weight:bold;
-            box-shadow:0 0 12px rgba(244,114,182,0.5);
+            box-shadow:0 0 12px rgba(247,183,51,0.6);
         }
         .btn-follow{
             background:linear-gradient(135deg,var(--accent),var(--accent2));
             padding:5px 14px;border-radius:20px;font-size:11px;
             font-weight:700;border:none;color:#fff;cursor:pointer;
-            box-shadow:0 4px 15px rgba(236,72,153,0.3);
+            box-shadow:0 4px 15px rgba(255,107,53,0.4);
             transition:all 0.3s;
         }
-        .btn-follow:hover{box-shadow:0 8px 25px rgba(236,72,153,0.5);transform:translateY(-1px)}
+        .btn-follow:hover{box-shadow:0 8px 25px rgba(255,107,53,0.7);transform:translateY(-1px)}
         .caption{font-size:14px;margin-bottom:5px;line-height:1.4}
         .tag{color:var(--accent2);cursor:pointer;font-weight:500}
         .music{font-size:12px;opacity:0.8;display:flex;align-items:center;gap:6px;cursor:pointer}
@@ -515,7 +515,7 @@ def build_index():
         @keyframes likePop{0%{transform:scale(1)}50%{transform:scale(1.4)}100%{transform:scale(1)}}
         .sbtn .cnt{font-weight:700;font-size:11px}
 
-        /* 💖 Fullscreen Video Player (In-App) */
+        /* ⚡ Fullscreen Video Player (In-App) */
         .fullscreen-player {
             position: fixed;
             top: 0;
@@ -550,11 +550,11 @@ def build_index():
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(13,6,16,0.6);
+            background: rgba(0,0,0,0.6);
             backdrop-filter: blur(20px);
             border-radius: 50px;
             padding: 10px 20px;
-            border: 1px solid rgba(236,72,153,0.2);
+            border: 1px solid rgba(255,107,53,0.3);
             z-index: 10000;
             color: #fff;
             gap: 12px;
@@ -569,7 +569,7 @@ def build_index():
             transition: color 0.2s;
             padding: 5px;
         }
-        .player-controls button:hover { color: #f472b6; }
+        .player-controls button:hover { color: #f7b733; }
         .progress-wrap {
             flex: 1;
             display: flex;
@@ -580,14 +580,14 @@ def build_index():
         .progress-bar {
             flex: 1;
             height: 4px;
-            background: rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.2);
             border-radius: 4px;
             cursor: pointer;
             position: relative;
         }
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #ec4899, #f472b6);
+            background: linear-gradient(90deg, #ff6b35, #f7b733);
             border-radius: 4px;
             width: 0%;
         }
@@ -595,9 +595,9 @@ def build_index():
             position: absolute;
             top: 20px;
             left: 20px;
-            background: rgba(13,6,16,0.5);
+            background: rgba(0,0,0,0.5);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(236,72,153,0.3);
+            border: 1px solid rgba(255,107,53,0.4);
             color: #fff;
             width: 44px;
             height: 44px;
@@ -610,13 +610,13 @@ def build_index():
             z-index: 10001;
             transition: all 0.3s;
         }
-        .close-player:hover { background: rgba(236,72,153,0.2); box-shadow: 0 0 20px rgba(236,72,153,0.4); }
+        .close-player:hover { background: rgba(255,107,53,0.3); box-shadow: 0 0 20px rgba(255,107,53,0.5); }
 
-        /* 💖 Image Lightbox (In-App) */
+        /* ⚡ Image Lightbox (In-App) */
         .image-lightbox {
             position: fixed;
             inset: 0;
-            background: rgba(13,6,16,0.96);
+            background: rgba(0,0,0,0.96);
             backdrop-filter: blur(30px);
             z-index: 9999;
             display: flex;
@@ -636,8 +636,8 @@ def build_index():
             max-height: 80vh;
             border-radius: 16px;
             object-fit: contain;
-            box-shadow: 0 20px 60px rgba(236,72,153,0.15);
-            border: 1px solid rgba(236,72,153,0.1);
+            box-shadow: 0 20px 60px rgba(255,107,53,0.2);
+            border: 1px solid rgba(255,107,53,0.15);
         }
         .lightbox-actions {
             display: flex;
@@ -646,8 +646,8 @@ def build_index():
             z-index: 10000;
         }
         .lightbox-actions button {
-            background: rgba(236,72,153,0.1);
-            border: 1px solid rgba(236,72,153,0.25);
+            background: rgba(255,107,53,0.15);
+            border: 1px solid rgba(255,107,53,0.3);
             color: #fff;
             width: 48px;
             height: 48px;
@@ -659,14 +659,14 @@ def build_index():
             font-size: 18px;
             transition: all 0.3s;
         }
-        .lightbox-actions button:hover { background: rgba(236,72,153,0.3); box-shadow: 0 0 25px rgba(236,72,153,0.3); }
+        .lightbox-actions button:hover { background: rgba(255,107,53,0.4); box-shadow: 0 0 25px rgba(255,107,53,0.4); }
         .close-lightbox {
             position: absolute;
             top: 20px;
             left: 20px;
-            background: rgba(13,6,16,0.5);
+            background: rgba(0,0,0,0.5);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(236,72,153,0.3);
+            border: 1px solid rgba(255,107,53,0.4);
             color: #fff;
             width: 44px;
             height: 44px;
@@ -684,12 +684,12 @@ def build_index():
             position:fixed;bottom:12px;left:12px;right:12px;
             display:flex;justify-content:space-around;align-items:center;
             padding:8px 0;
-            background:rgba(13,6,16,0.7);
+            background:rgba(10,5,0,0.8);
             backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
             z-index:100;
             border:1px solid var(--border);
             border-radius:40px;
-            box-shadow:0 -8px 32px rgba(236,72,153,0.04);
+            box-shadow:0 -8px 32px rgba(255,107,53,0.06);
         }
         .nav-item{
             display:flex;flex-direction:column;align-items:center;gap:3px;
@@ -703,52 +703,52 @@ def build_index():
             background:linear-gradient(135deg,var(--accent),var(--accent2));
             border-radius:50%;display:flex;align-items:center;justify-content:center;
             margin-top:-30px;cursor:pointer;
-            box-shadow:0 10px 30px rgba(236,72,153,0.5), 0 0 40px rgba(236,72,153,0.15);
+            box-shadow:0 10px 30px rgba(255,107,53,0.6), 0 0 40px rgba(255,107,53,0.2);
             border:none;color:#fff;font-size:20px;
             z-index:101;
             transition:all 0.3s;text-decoration:none;
         }
-        .btn-add:hover{transform:scale(1.1);box-shadow:0 15px 40px rgba(236,72,153,0.6)}
+        .btn-add:hover{transform:scale(1.1);box-shadow:0 15px 40px rgba(255,107,53,0.8)}
 
         .toast{
             position:fixed;bottom:120px;left:50%;transform:translateX(-50%);
-            background:rgba(13,6,16,0.95);padding:12px 24px;border-radius:50px;
+            background:rgba(10,5,0,0.95);padding:12px 24px;border-radius:50px;
             z-index:1000;opacity:0;transition:opacity 0.3s;pointer-events:none;
-            border:1px solid rgba(236,72,153,0.25);font-size:13px;
-            box-shadow:0 8px 32px rgba(236,72,153,0.1);
+            border:1px solid rgba(255,107,53,0.3);font-size:13px;
+            box-shadow:0 8px 32px rgba(255,107,53,0.15);
         }
         .toast.show{opacity:1}
 
         .overlay{
-            position:fixed;inset:0;background:rgba(13,6,16,0.97);
+            position:fixed;inset:0;background:rgba(10,5,0,0.97);
             backdrop-filter:blur(40px);z-index:400;overflow-y:auto;
         }
         .overlay-header{
             display:flex;justify-content:space-between;align-items:center;
             padding:16px;border-bottom:1px solid var(--border);
-            position:sticky;top:0;background:rgba(13,6,16,0.7);
+            position:sticky;top:0;background:rgba(10,5,0,0.8);
         }
         .btn-close{
-            background:rgba(236,72,153,0.08);border:1px solid var(--border);
+            background:rgba(255,107,53,0.1);border:1px solid var(--border);
             color:#fff;width:36px;height:36px;border-radius:50%;
             display:flex;align-items:center;justify-content:center;
             cursor:pointer;font-size:18px;transition:all 0.3s;
         }
-        .btn-close:hover{background:rgba(236,72,153,0.15)}
+        .btn-close:hover{background:rgba(255,107,53,0.2)}
     </style>
 </head>
 <body>
 
 <div id="loaderScreen">
     <div class="spinner-big"></div>
-    <p style="color:rgba(255,255,255,0.5);font-size:15px">💖 ZHARE جاري التحميل...</p>
+    <p style="color:rgba(255,255,255,0.5);font-size:15px">⚡ SPARK جاري التحميل...</p>
 </div>
 
 <div id="mainApp">
     <div class="topbar">
         <div style="display:flex;align-items:center">
-            <div class="logo-icon">💖</div>
-            <span class="logo-text">ZHARE</span>
+            <div class="logo-icon">⚡</div>
+            <span class="logo-text">SPARK</span>
         </div>
         <div class="tabs">
             <button class="tab" onclick="switchFeed('following')">متابَعين</button>
@@ -762,13 +762,13 @@ def build_index():
 
     <div class="videos-wrap" id="videosWrap">
         <div style="display:flex;align-items:center;justify-content:center;height:100vh;color:rgba(255,255,255,0.5);flex-direction:column;gap:12px">
-            <i class="fas fa-video" style="font-size:48px;opacity:0.3;color:#ec4899"></i>
+            <i class="fas fa-video" style="font-size:48px;opacity:0.3;color:#ff6b35"></i>
             <p>لا توجد فيديوهات بعد</p>
-            <p style="font-size:12px;opacity:0.5">ارفع أول فيديو! 💖</p>
+            <p style="font-size:12px;opacity:0.5">ارفع أول فيديو! ⚡</p>
         </div>
     </div>
 
-    <!-- 💖 Fullscreen Video Player -->
+    <!-- ⚡ Fullscreen Video Player -->
     <div class="fullscreen-player" id="fullscreenPlayer" onclick="if(event.target===this)closePlayer()">
         <button class="close-player" onclick="closePlayer()"><i class="fas fa-times"></i></button>
         <video id="fullscreenVideo" controls playsinline></video>
@@ -784,11 +784,11 @@ def build_index():
                 <span id="duration">0:00</span>
             </div>
             <button onclick="toggleMutePlayer()"><i class="fas fa-volume-up" id="muteIcon"></i></button>
-            <a id="downloadLink" href="#" download style="color:#f472b6;text-decoration:none;margin-left:10px;"><i class="fas fa-download"></i></a>
+            <a id="downloadLink" href="#" download style="color:#f7b733;text-decoration:none;margin-left:10px;"><i class="fas fa-download"></i></a>
         </div>
     </div>
 
-    <!-- 💖 Image Lightbox -->
+    <!-- ⚡ Image Lightbox -->
     <div class="image-lightbox" id="imageLightbox" onclick="if(event.target===this)closeLightbox()">
         <button class="close-lightbox" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
         <img id="lightboxImage" src="" alt="صورة">
@@ -821,7 +821,7 @@ def build_index():
     let currentShareUrl = null;
     let playerVideo = null;
 
-    // 💖 Player Functions
+    // ⚡ Player Functions
     function openPlayer(url, title) {
         const player = document.getElementById('fullscreenPlayer');
         const video = document.getElementById('fullscreenVideo');
@@ -882,7 +882,7 @@ def build_index():
     }
     window.toggleMutePlayer = toggleMutePlayer;
 
-    // 💖 Lightbox Functions
+    // ⚡ Lightbox Functions
     function openLightbox(url) {
         const lb = document.getElementById('imageLightbox');
         const img = document.getElementById('lightboxImage');
@@ -993,7 +993,7 @@ def build_index():
         if (!container) return;
         let filtered = currentFeed === 'forYou' ? allVideos : allVideos.filter(v => currentUserData?.following?.[v.sender]);
         if (!filtered.length) {
-            container.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100vh;color:rgba(255,255,255,0.5);flex-direction:column;gap:12px"><i class="fas fa-video" style="font-size:48px;opacity:0.3;color:#ec4899"></i><p>${currentFeed === 'forYou' ? 'لا توجد فيديوهات بعد' : 'تابع مستخدمين لرؤية فيديوهاتهم'}</p></div>`;
+            container.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100vh;color:rgba(255,255,255,0.5);flex-direction:column;gap:12px"><i class="fas fa-video" style="font-size:48px;opacity:0.3;color:#ff6b35"></i><p>${currentFeed === 'forYou' ? 'لا توجد فيديوهات بعد' : 'تابع مستخدمين لرؤية فيديوهاتهم'}</p></div>`;
             return;
         }
         container.innerHTML = '';
@@ -1002,7 +1002,7 @@ def build_index():
             const user = allUsers[video.sender] || { username: video.senderName || 'مستخدم' };
             const isFollowing = currentUserData?.following && currentUserData.following[video.sender];
             const commentsCount = video.comments ? Object.keys(video.comments).length : 0;
-            const caption = (video.description || '').replace(/#(\w+)/g, '<span class="tag">#$1</span>');
+            const caption = (video.description || '').replace(/#(\\w+)/g, '<span class="tag">#$1</span>');
             const avatarUrl = user.avatarUrl || (DICEBEAR_URL + '?seed=' + video.sender);
             const verifiedBadgeHtml = user.isVerified ? '<span class="verified-badge-main"><i class="fas fa-check"></i></span>' : '';
             const musicHtml = video.music ? `<div class="music-wave">${[1,2,3,4,5].map(()=>'<span></span>').join('')}</div> ${video.music}` : 'Original Sound';
@@ -1099,7 +1099,7 @@ def build_index():
 
     function openShare(url) {
         currentShareUrl = url;
-        showOverlay('📤 مشاركة', `<div onclick="copyLink()" style="display:flex;align-items:center;gap:12px;padding:14px;cursor:pointer;border-bottom:1px solid var(--border)"><i class="fas fa-link" style="color:#ec4899;font-size:20px"></i><span>نسخ الرابط</span></div><div onclick="shareWA()" style="display:flex;align-items:center;gap:12px;padding:14px;cursor:pointer;border-bottom:1px solid var(--border)"><i class="fab fa-whatsapp" style="color:#25D366;font-size:20px"></i><span>WhatsApp</span></div><div onclick="shareTG()" style="display:flex;align-items:center;gap:12px;padding:14px;cursor:pointer"><i class="fab fa-telegram" style="color:#0088cc;font-size:20px"></i><span>Telegram</span></div>`);
+        showOverlay('📤 مشاركة', `<div onclick="copyLink()" style="display:flex;align-items:center;gap:12px;padding:14px;cursor:pointer;border-bottom:1px solid var(--border)"><i class="fas fa-link" style="color:#ff6b35;font-size:20px"></i><span>نسخ الرابط</span></div><div onclick="shareWA()" style="display:flex;align-items:center;gap:12px;padding:14px;cursor:pointer;border-bottom:1px solid var(--border)"><i class="fab fa-whatsapp" style="color:#25D366;font-size:20px"></i><span>WhatsApp</span></div><div onclick="shareTG()" style="display:flex;align-items:center;gap:12px;padding:14px;cursor:pointer"><i class="fab fa-telegram" style="color:#0088cc;font-size:20px"></i><span>Telegram</span></div>`);
     }
     window.copyLink = function() { navigator.clipboard.writeText(currentShareUrl); const t = document.getElementById('toast'); t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); closeOverlay(); };
     window.shareWA = function() { window.open('https://wa.me/?text=' + encodeURIComponent(currentShareUrl), '_blank'); closeOverlay(); };
@@ -1111,9 +1111,9 @@ def build_index():
         let commentsList = '';
         Object.values(comments).reverse().forEach(c => {
             const user = allUsers[c.userId] || { username: c.username || 'مستخدم' };
-            commentsList += `<div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid rgba(236,72,153,0.08);animation:fadeIn 0.3s ease"><img src="${user.avatarUrl || (DICEBEAR_URL + '?seed=' + c.userId)}" style="width:36px;height:36px;border-radius:50%"><div><div style="font-weight:600">@${user.username}</div><div style="font-size:13px;opacity:0.8;margin-top:2px">${c.text}</div></div></div>`;
+            commentsList += `<div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,107,53,0.1);animation:fadeIn 0.3s ease"><img src="${user.avatarUrl || (DICEBEAR_URL + '?seed=' + c.userId)}" style="width:36px;height:36px;border-radius:50%"><div><div style="font-weight:600">@${user.username}</div><div style="font-size:13px;opacity:0.8;margin-top:2px">${c.text}</div></div></div>`;
         });
-        showOverlay('💬 التعليقات', commentsList + `<div style="display:flex;gap:8px;padding-top:12px"><input type="text" id="cmtInput" placeholder="أضف تعليقاً..." style="flex:1;padding:12px;border-radius:30px;background:rgba(236,72,153,0.03);border:1px solid rgba(236,72,153,0.12);color:#fff;outline:none"><button onclick="addComment('${videoId}')" style="background:linear-gradient(135deg,#ec4899,#f472b6);border:none;color:#fff;padding:12px 20px;border-radius:30px;font-weight:700;cursor:pointer;white-space:nowrap">نشر</button></div>`);
+        showOverlay('💬 التعليقات', commentsList + `<div style="display:flex;gap:8px;padding-top:12px"><input type="text" id="cmtInput" placeholder="أضف تعليقاً..." style="flex:1;padding:12px;border-radius:30px;background:rgba(255,107,53,0.04);border:1px solid rgba(255,107,53,0.15);color:#fff;outline:none"><button onclick="addComment('${videoId}')" style="background:linear-gradient(135deg,#ff6b35,#f7b733);border:none;color:#fff;padding:12px 20px;border-radius:30px;font-weight:700;cursor:pointer;white-space:nowrap">نشر</button></div>`);
     }
     window.addComment = async function(videoId) {
         const input = document.getElementById('cmtInput');
@@ -1135,11 +1135,11 @@ def build_index():
         const items = Object.values(ns).reverse();
         let notifHTML = '';
         if (!items.length) {
-            notifHTML = '<div style="text-align:center;opacity:0.5;padding:40px"><i class="fas fa-bell" style="font-size:48px;color:#ec4899;margin-bottom:12px;display:block"></i><p>لا توجد إشعارات</p></div>';
+            notifHTML = '<div style="text-align:center;opacity:0.5;padding:40px"><i class="fas fa-bell" style="font-size:48px;color:#ff6b35;margin-bottom:12px;display:block"></i><p>لا توجد إشعارات</p></div>';
         } else {
             items.forEach(n => {
-                notifHTML += `<div style="display:flex;gap:12px;padding:14px;border-bottom:1px solid rgba(236,72,153,0.08);align-items:center;animation:fadeIn 0.3s ease">
-                    <div style="width:40px;height:40px;border-radius:50%;background:rgba(236,72,153,0.1);display:flex;align-items:center;justify-content:center;font-size:18px;color:#ec4899"><i class="fas fa-bell"></i></div>
+                notifHTML += `<div style="display:flex;gap:12px;padding:14px;border-bottom:1px solid rgba(255,107,53,0.1);align-items:center;animation:fadeIn 0.3s ease">
+                    <div style="width:40px;height:40px;border-radius:50%;background:rgba(255,107,53,0.15);display:flex;align-items:center;justify-content:center;font-size:18px;color:#ff6b35"><i class="fas fa-bell"></i></div>
                     <div><div style="font-weight:600">${n.from || 'مستخدم'}</div><div style="font-size:12px;opacity:0.6;margin-top:2px">${n.msg || ''}</div><div style="font-size:10px;opacity:0.3;margin-top:4px">${new Date(n.timestamp).toLocaleString('ar-SA')}</div></div></div>`;
             });
         }
@@ -1150,14 +1150,14 @@ def build_index():
     }
 
     function openSearch() {
-        showOverlay('🔍 بحث', `<input type="text" id="searchQ" onkeyup="doSearch()" placeholder="ابحث عن مستخدمين، فيديوهات..." style="width:100%;padding:14px;border-radius:30px;background:rgba(236,72,153,0.03);border:1px solid rgba(236,72,153,0.12);color:#fff;font-size:14px;outline:none;margin-bottom:16px"><div id="searchR"></div>`);
+        showOverlay('🔍 بحث', `<input type="text" id="searchQ" onkeyup="doSearch()" placeholder="ابحث عن مستخدمين، فيديوهات..." style="width:100%;padding:14px;border-radius:30px;background:rgba(255,107,53,0.04);border:1px solid rgba(255,107,53,0.15);color:#fff;font-size:14px;outline:none;margin-bottom:16px"><div id="searchR"></div>`);
         window.doSearch = function() {
             const query = document.getElementById('searchQ').value.toLowerCase();
             const resultsDiv = document.getElementById('searchR');
             if (!query) { resultsDiv.innerHTML = ''; return; }
             const users = Object.values(allUsers).filter(u => u.username?.toLowerCase().includes(query));
             const vids = allVideos.filter(v => (v.description || '').toLowerCase().includes(query));
-            resultsDiv.innerHTML = `${users.length ? `<div style="margin-bottom:16px"><h4 style="font-size:12px;opacity:0.5;margin-bottom:8px"><i class="fas fa-users"></i> مستخدمين</h4>${users.map(u => `<div onclick="openUserProfile('${u.uid || Object.keys(allUsers).find(k=>allUsers[k]===u)}')" style="display:flex;align-items:center;gap:10px;padding:10px;cursor:pointer;border-bottom:1px solid rgba(236,72,153,0.08)"><img src="${u.avatarUrl || (DICEBEAR_URL + '?seed=' + (u.uid || u.username))}" style="width:40px;height:40px;border-radius:50%"><div>@${u.username} ${u.isVerified ? '<span class="verified-badge-main"><i class="fas fa-check"></i></span>' : ''}</div></div>`).join('')}</div>` : ''}${vids.length ? `<div><h4 style="font-size:12px;opacity:0.5;margin-bottom:8px"><i class="fas fa-video"></i> فيديوهات</h4>${vids.map(v => `<div onclick="openPlayer('${v.url}', 'video.mp4')" style="display:flex;align-items:center;gap:10px;padding:10px;cursor:pointer;border-bottom:1px solid rgba(236,72,153,0.08)"><i class="fas fa-play-circle" style="color:#ec4899;font-size:20px"></i><span style="font-size:13px">${(v.description || 'فيديو').substring(0, 40)}</span></div>`).join('')}</div>` : ''}${!users.length && !vids.length ? '<div style="text-align:center;opacity:0.5;padding:30px">لا توجد نتائج</div>' : ''}`;
+            resultsDiv.innerHTML = `${users.length ? `<div style="margin-bottom:16px"><h4 style="font-size:12px;opacity:0.5;margin-bottom:8px"><i class="fas fa-users"></i> مستخدمين</h4>${users.map(u => `<div onclick="openUserProfile('${u.uid || Object.keys(allUsers).find(k=>allUsers[k]===u)}')" style="display:flex;align-items:center;gap:10px;padding:10px;cursor:pointer;border-bottom:1px solid rgba(255,107,53,0.1)"><img src="${u.avatarUrl || (DICEBEAR_URL + '?seed=' + (u.uid || u.username))}" style="width:40px;height:40px;border-radius:50%"><div>@${u.username} ${u.isVerified ? '<span class="verified-badge-main"><i class="fas fa-check"></i></span>' : ''}</div></div>`).join('')}</div>` : ''}${vids.length ? `<div><h4 style="font-size:12px;opacity:0.5;margin-bottom:8px"><i class="fas fa-video"></i> فيديوهات</h4>${vids.map(v => `<div onclick="openPlayer('${v.url}', 'video.mp4')" style="display:flex;align-items:center;gap:10px;padding:10px;cursor:pointer;border-bottom:1px solid rgba(255,107,53,0.1)"><i class="fas fa-play-circle" style="color:#ff6b35;font-size:20px"></i><span style="font-size:13px">${(v.description || 'فيديو').substring(0, 40)}</span></div>`).join('')}</div>` : ''}${!users.length && !vids.length ? '<div style="text-align:center;opacity:0.5;padding:30px">لا توجد نتائج</div>' : ''}`;
         };
         setTimeout(() => { const input = document.getElementById('searchQ'); if (input) input.focus(); }, 300);
     }
@@ -1176,13 +1176,13 @@ def build_index():
         return m + ':' + (s < 10 ? '0' : '') + s;
     }
 
-    console.log('💖 ZHARE Index Ready ✨');
+    console.log('⚡ SPARK Index Ready ✨');
 </script>
 </body>
 </html>"""
 
 # ═══════════════════════════════════════════════════════════
-# 💖 4. profile.html - ملف شخصي مع فيديوهات متلاصقة + وصف
+# ⚡ 4-9. الملفات المتبقية (profile, upload, chat, explore, notifications, settings)
 # ═══════════════════════════════════════════════════════════
 
 def build_profile():
@@ -1191,52 +1191,52 @@ def build_profile():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>💖 ZHARE | ملف شخصي</title>
+    <title>⚡ SPARK | ملف شخصي</title>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root{--glass:rgba(236,72,153,0.03);--border:rgba(236,72,153,0.12);--accent:#ec4899;--accent2:#f472b6;--bg:#0d0610;--card:rgba(236,72,153,0.05)}
+        :root{--glass:rgba(255,107,53,0.04);--border:rgba(255,107,53,0.15);--accent:#ff6b35;--accent2:#f7b733;--bg:#0a0500;--card:rgba(255,107,53,0.06)}
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:#fff;min-height:100vh;overflow-y:auto;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
         .cover-section{position:relative;width:100%;height:260px;overflow:hidden;cursor:pointer}
         .cover-img{width:100%;height:130%;object-fit:cover;transition:transform 0.1s linear;transform:translateY(0)}
-        .cover-gradient{position:absolute;inset:0;background:linear-gradient(to bottom, transparent 30%, rgba(13,6,16,0.4) 60%, rgba(13,6,16,0.95) 100%);pointer-events:none;z-index:1}
-        .cover-glow{position:absolute;inset:0;background:radial-gradient(ellipse at center, rgba(236,72,153,0.1) 0%, transparent 70%);pointer-events:none;z-index:2}
-        .cover-edit-btn{position:absolute;top:12px;left:12px;background:rgba(13,6,16,0.5);backdrop-filter:blur(15px);width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;border:1px solid rgba(236,72,153,0.25);color:#fff;font-size:14px;transition:all 0.3s;box-shadow:0 4px 15px rgba(0,0,0,0.3)}
-        .cover-edit-btn:hover{background:rgba(236,72,153,0.3);box-shadow:0 0 20px rgba(236,72,153,0.4)}
-        .btn-back{position:fixed;top:20px;right:20px;background:rgba(13,6,16,0.5);backdrop-filter:blur(15px);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:50;border:1px solid var(--border);color:#fff;font-size:16px;transition:all 0.3s}
-        .btn-back:hover{background:rgba(236,72,153,0.2);box-shadow:0 0 20px rgba(236,72,153,0.3)}
+        .cover-gradient{position:absolute;inset:0;background:linear-gradient(to bottom, transparent 30%, rgba(10,5,0,0.4) 60%, rgba(10,5,0,0.95) 100%);pointer-events:none;z-index:1}
+        .cover-glow{position:absolute;inset:0;background:radial-gradient(ellipse at center, rgba(255,107,53,0.15) 0%, transparent 70%);pointer-events:none;z-index:2}
+        .cover-edit-btn{position:absolute;top:12px;left:12px;background:rgba(0,0,0,0.5);backdrop-filter:blur(15px);width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;border:1px solid rgba(255,107,53,0.3);color:#fff;font-size:14px;transition:all 0.3s;box-shadow:0 4px 15px rgba(0,0,0,0.3)}
+        .cover-edit-btn:hover{background:rgba(255,107,53,0.4);box-shadow:0 0 20px rgba(255,107,53,0.5)}
+        .btn-back{position:fixed;top:20px;right:20px;background:rgba(0,0,0,0.5);backdrop-filter:blur(15px);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:50;border:1px solid var(--border);color:#fff;font-size:16px;transition:all 0.3s}
+        .btn-back:hover{background:rgba(255,107,53,0.3);box-shadow:0 0 20px rgba(255,107,53,0.4)}
         .avatar-wrap{position:relative;z-index:2;margin-top:-60px;display:flex;justify-content:center}
-        .avatar-lg{width:120px;height:120px;border-radius:50%;overflow:hidden;cursor:pointer;background:linear-gradient(135deg, #ec4899, #f472b6, #fbcfe8);padding:3px;box-shadow:0 0 30px rgba(236,72,153,0.3), 0 0 60px rgba(236,72,153,0.08);animation:avatarGlow 3s ease-in-out infinite}
-        @keyframes avatarGlow{0%,100%{box-shadow:0 0 30px rgba(236,72,153,0.3), 0 0 60px rgba(236,72,153,0.08)}50%{box-shadow:0 0 40px rgba(244,114,182,0.5), 0 0 80px rgba(236,72,153,0.2)}}
+        .avatar-lg{width:120px;height:120px;border-radius:50%;overflow:hidden;cursor:pointer;background:linear-gradient(135deg, #ff6b35, #f7b733, #fcd34d);padding:3px;box-shadow:0 0 30px rgba(255,107,53,0.4), 0 0 60px rgba(255,107,53,0.1);animation:avatarGlow 3s ease-in-out infinite}
+        @keyframes avatarGlow{0%,100%{box-shadow:0 0 30px rgba(255,107,53,0.4), 0 0 60px rgba(255,107,53,0.1)}50%{box-shadow:0 0 40px rgba(247,183,51,0.7), 0 0 80px rgba(255,107,53,0.3)}}
         .avatar-lg img{width:100%;height:100%;object-fit:cover;border-radius:50%;border:3px solid var(--bg)}
-        .avatar-edit-btn{position:absolute;bottom:5px;right:5px;width:30px;height:30px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:2px solid var(--bg);color:#fff;font-size:12px;box-shadow:0 0 15px rgba(236,72,153,0.4)}
-        .online-dot{position:absolute;top:10px;right:10px;width:18px;height:18px;background:#22c55e;border-radius:50%;border:3px solid var(--bg);z-index:3;box-shadow:0 0 10px rgba(34,197,94,0.5)}
+        .avatar-edit-btn{position:absolute;bottom:5px;right:5px;width:30px;height:30px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:2px solid var(--bg);color:#fff;font-size:12px;box-shadow:0 0 15px rgba(255,107,53,0.5)}
+        .online-dot{position:absolute;top:10px;right:10px;width:18px;height:18px;background:#22c55e;border-radius:50%;border:3px solid var(--bg);z-index:3;box-shadow:0 0 10px rgba(34,197,94,0.6)}
         .profile-info{padding:20px 20px 10px;text-align:center}
         .username{font-size:22px;font-weight:800;margin-bottom:4px;display:flex;align-items:center;justify-content:center;gap:8px}
         .bio-text{font-size:13px;opacity:0.7;margin-bottom:8px;max-width:320px;margin-left:auto;margin-right:auto;line-height:1.5}
         .contact-info{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:8px;font-size:12px}
         .contact-info a{color:var(--accent2);text-decoration:none;display:flex;align-items:center;gap:5px;background:var(--card);padding:6px 14px;border-radius:20px;border:1px solid var(--border);transition:all 0.3s}
-        .contact-info a:hover{background:rgba(236,72,153,0.12);box-shadow:0 0 15px rgba(236,72,153,0.15)}
+        .contact-info a:hover{background:rgba(255,107,53,0.15);box-shadow:0 0 15px rgba(255,107,53,0.2)}
         .last-seen{font-size:11px;opacity:0.5;display:flex;align-items:center;justify-content:center;gap:5px;margin-top:6px}
-        .stats-row{display:flex;justify-content:center;gap:30px;margin:15px 20px;padding:18px;background:rgba(236,72,153,0.03);backdrop-filter:blur(20px);border-radius:20px;border:1px solid var(--border);box-shadow:0 8px 32px rgba(0,0,0,0.2)}
+        .stats-row{display:flex;justify-content:center;gap:30px;margin:15px 20px;padding:18px;background:rgba(255,107,53,0.04);backdrop-filter:blur(20px);border-radius:20px;border:1px solid var(--border);box-shadow:0 8px 32px rgba(0,0,0,0.2)}
         .stat-item{text-align:center;cursor:pointer;transition:transform 0.2s}
         .stat-item:hover{transform:scale(1.05)}
         .stat-val{font-size:20px;font-weight:700;color:var(--accent2)}
         .stat-lbl{font-size:10px;opacity:0.6;margin-top:2px}
         .action-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:0 20px 20px}
-        .btn{background:rgba(236,72,153,0.05);border:1px solid var(--border);padding:10px 20px;border-radius:25px;color:#fff;cursor:pointer;font-size:13px;transition:all 0.3s;display:flex;align-items:center;gap:6px;backdrop-filter:blur(10px)}
-        .btn:hover{background:rgba(236,72,153,0.12);border-color:var(--accent);box-shadow:0 0 20px rgba(236,72,153,0.15)}
-        .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;font-weight:700;color:#fff;box-shadow:0 8px 25px rgba(236,72,153,0.3)}
-        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(236,72,153,0.45)}
+        .btn{background:rgba(255,107,53,0.06);border:1px solid var(--border);padding:10px 20px;border-radius:25px;color:#fff;cursor:pointer;font-size:13px;transition:all 0.3s;display:flex;align-items:center;gap:6px;backdrop-filter:blur(10px)}
+        .btn:hover{background:rgba(255,107,53,0.15);border-color:var(--accent);box-shadow:0 0 20px rgba(255,107,53,0.2)}
+        .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;font-weight:700;color:#fff;box-shadow:0 8px 25px rgba(255,107,53,0.4)}
+        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(255,107,53,0.6)}
         .btn-follow{background:linear-gradient(135deg,#ef4444,#dc2626);border:none;font-weight:700}
         .btn-follow.following{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
         .section-title{font-size:16px;font-weight:700;padding:0 20px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
         .videos-compact{padding:0 8px 80px}
-        .video-compact-item{display:flex;gap:10px;margin-bottom:8px;background:rgba(236,72,153,0.02);border:1px solid rgba(236,72,153,0.06);border-radius:16px;padding:8px;cursor:pointer;transition:all 0.3s;backdrop-filter:blur(10px)}
-        .video-compact-item:hover{background:rgba(236,72,153,0.05);border-color:var(--accent);box-shadow:0 0 20px rgba(236,72,153,0.08)}
+        .video-compact-item{display:flex;gap:10px;margin-bottom:8px;background:rgba(255,107,53,0.03);border:1px solid rgba(255,107,53,0.08);border-radius:16px;padding:8px;cursor:pointer;transition:all 0.3s;backdrop-filter:blur(10px)}
+        .video-compact-item:hover{background:rgba(255,107,53,0.06);border-color:var(--accent);box-shadow:0 0 20px rgba(255,107,53,0.1)}
         .video-compact-thumb{width:120px;aspect-ratio:9/16;border-radius:10px;overflow:hidden;position:relative;flex-shrink:0;background:#000}
         .video-compact-thumb video{width:100%;height:100%;object-fit:cover}
         .video-compact-thumb .play-icon{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,0.5);z-index:1}
@@ -1244,31 +1244,31 @@ def build_profile():
         .video-compact-info .vci-caption{font-size:13px;line-height:1.5;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
         .video-compact-info .vci-meta{font-size:11px;opacity:0.5;display:flex;gap:12px;align-items:center}
         .video-compact-info .vci-meta span{display:flex;align-items:center;gap:3px}
-        .badge-verified{background:linear-gradient(135deg, #ec4899, #f472b6);color:#fff;font-size:12px;padding:3px 6px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;font-weight:bold;box-shadow:0 0 15px rgba(244,114,182,0.5);animation:verifyGlow 2s ease-in-out infinite}
-        @keyframes verifyGlow{0%,100%{box-shadow:0 0 15px rgba(244,114,182,0.5)}50%{box-shadow:0 0 25px rgba(244,114,182,0.7)}}
-        .edit-panel{position:fixed;bottom:0;left:0;right:0;background:rgba(13,6,16,0.98);backdrop-filter:blur(40px);border-top:2px solid var(--accent);border-radius:24px 24px 0 0;padding:24px 20px 40px;z-index:200;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.4,0,0.2,1);max-height:80vh;overflow-y:auto;box-shadow:0 -10px 40px rgba(236,72,153,0.08)}
+        .badge-verified{background:linear-gradient(135deg, #ff6b35, #f7b733);color:#fff;font-size:12px;padding:3px 6px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;font-weight:bold;box-shadow:0 0 15px rgba(247,183,51,0.6);animation:verifyGlow 2s ease-in-out infinite}
+        @keyframes verifyGlow{0%,100%{box-shadow:0 0 15px rgba(247,183,51,0.6)}50%{box-shadow:0 0 25px rgba(247,183,51,0.9)}}
+        .edit-panel{position:fixed;bottom:0;left:0;right:0;background:rgba(10,5,0,0.98);backdrop-filter:blur(40px);border-top:2px solid var(--accent);border-radius:24px 24px 0 0;padding:24px 20px 40px;z-index:200;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.4,0,0.2,1);max-height:80vh;overflow-y:auto;box-shadow:0 -10px 40px rgba(255,107,53,0.1)}
         .edit-panel.show{transform:translateY(0)}
         .edit-panel h3{font-size:18px;font-weight:700;margin-bottom:20px;color:var(--accent2);text-align:center}
         .edit-panel label{display:block;font-size:12px;opacity:0.7;margin-bottom:6px;margin-top:14px}
         .edit-panel input,.edit-panel textarea{width:100%;padding:12px 16px;border-radius:14px;background:var(--card);border:1px solid var(--border);color:#fff;font-size:14px;outline:none;resize:none;font-family:'Segoe UI',sans-serif;transition:border 0.3s}
-        .edit-panel input:focus,.edit-panel textarea:focus{border-color:var(--accent);box-shadow:0 0 15px rgba(236,72,153,0.1)}
+        .edit-panel input:focus,.edit-panel textarea:focus{border-color:var(--accent);box-shadow:0 0 15px rgba(255,107,53,0.15)}
         .edit-panel textarea{min-height:80px}
         .edit-actions{display:flex;gap:10px;margin-top:20px}
         .edit-actions button{flex:1;padding:12px;border-radius:25px;font-weight:700;cursor:pointer;font-size:14px;transition:all 0.3s}
         .btn-save{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#fff}
         .btn-cancel{background:var(--card);border:1px solid var(--border);color:#fff}
-        .btn-save:hover{box-shadow:0 8px 25px rgba(236,72,153,0.4);transform:translateY(-2px)}
+        .btn-save:hover{box-shadow:0 8px 25px rgba(255,107,53,0.5);transform:translateY(-2px)}
         .overlay-panel{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:150;display:none}
         .overlay-panel.show{display:block}
-        .spinner{width:36px;height:36px;border:3px solid rgba(236,72,153,0.15);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;margin:30px auto}
+        .spinner{width:36px;height:36px;border:3px solid rgba(255,107,53,0.2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;margin:30px auto}
         @keyframes spin{to{transform:rotate(360deg)}}
         .load-center{display:flex;align-items:center;justify-content:center;min-height:80vh;flex-direction:column;gap:12px;color:rgba(255,255,255,0.5)}
         .empty-state{text-align:center;opacity:0.5;padding:40px 20px}
         .empty-state i{font-size:48px;color:var(--accent);margin-bottom:12px;display:block}
-        .toast-msg{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:rgba(13,6,16,0.95);padding:12px 24px;border-radius:30px;z-index:300;border:1px solid rgba(236,72,153,0.25);font-size:13px;opacity:0;transition:opacity 0.3s;pointer-events:none;white-space:nowrap;box-shadow:0 8px 32px rgba(0,0,0,0.4)}
+        .toast-msg{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:rgba(10,5,0,0.95);padding:12px 24px;border-radius:30px;z-index:300;border:1px solid rgba(255,107,53,0.3);font-size:13px;opacity:0;transition:opacity 0.3s;pointer-events:none;white-space:nowrap;box-shadow:0 8px 32px rgba(0,0,0,0.4)}
         .toast-msg.show{opacity:1}
 
-        /* 💖 PLAYER & LIGHTBOX (Reused from index) */
+        /* ⚡ PLAYER & LIGHTBOX (Reused from index) */
         .fullscreen-player {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: #000; z-index: 9999; display: flex; align-items: center;
@@ -1280,38 +1280,38 @@ def build_profile():
         .player-controls {
             position: absolute; bottom: 100px; left: 20px; right: 20px;
             display: flex; align-items: center; justify-content: space-between;
-            background: rgba(13,6,16,0.6); backdrop-filter: blur(20px);
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(20px);
             border-radius: 50px; padding: 10px 20px;
-            border: 1px solid rgba(236,72,153,0.2); z-index: 10000; color: #fff; gap: 12px; flex-wrap: wrap;
+            border: 1px solid rgba(255,107,53,0.3); z-index: 10000; color: #fff; gap: 12px; flex-wrap: wrap;
         }
         .player-controls button { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; transition: color 0.2s; padding: 5px; }
-        .player-controls button:hover { color: #f472b6; }
+        .player-controls button:hover { color: #f7b733; }
         .progress-wrap { flex: 1; display: flex; align-items: center; gap: 8px; min-width: 100px; }
-        .progress-bar { flex: 1; height: 4px; background: rgba(255,255,255,0.15); border-radius: 4px; cursor: pointer; position: relative; }
-        .progress-fill { height: 100%; background: linear-gradient(90deg, #ec4899, #f472b6); border-radius: 4px; width: 0%; }
+        .progress-bar { flex: 1; height: 4px; background: rgba(255,255,255,0.2); border-radius: 4px; cursor: pointer; position: relative; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #ff6b35, #f7b733); border-radius: 4px; width: 0%; }
         .close-player {
             position: absolute; top: 20px; left: 20px;
-            background: rgba(13,6,16,0.5); backdrop-filter: blur(10px);
-            border: 1px solid rgba(236,72,153,0.3); color: #fff;
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,107,53,0.4); color: #fff;
             width: 44px; height: 44px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             cursor: pointer; font-size: 20px; z-index: 10001; transition: all 0.3s;
         }
-        .close-player:hover { background: rgba(236,72,153,0.2); box-shadow: 0 0 20px rgba(236,72,153,0.4); }
+        .close-player:hover { background: rgba(255,107,53,0.3); box-shadow: 0 0 20px rgba(255,107,53,0.5); }
 
         /* ADMIN */
         .admin-panel{background:transparent;border:none;padding:0 8px;margin:0 8px 100px 8px;font-family:'Segoe UI',sans-serif}
-        .admin-panel h3{color:#f472b6;font-size:20px;margin-bottom:20px;display:flex;align-items:center;gap:10px;font-weight:700}
+        .admin-panel h3{color:#f7b733;font-size:20px;margin-bottom:20px;display:flex;align-items:center;gap:10px;font-weight:700}
         .admin-stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px}
-        .stat-card{background:rgba(236,72,153,0.05);border:1px solid rgba(236,72,153,0.12);border-radius:16px;padding:16px;display:flex;align-items:center;gap:14px;backdrop-filter:blur(10px)}
-        .stat-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 15px rgba(236,72,153,0.25)}
+        .stat-card{background:rgba(255,107,53,0.06);border:1px solid rgba(255,107,53,0.15);border-radius:16px;padding:16px;display:flex;align-items:center;gap:14px;backdrop-filter:blur(10px)}
+        .stat-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 15px rgba(255,107,53,0.3)}
         .stat-info h4{font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:4px;font-weight:500}
         .stat-info span{font-size:22px;font-weight:800}
-        .admin-user-list-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;color:rgba(255,255,255,0.6);font-size:13px;font-weight:600;border-bottom:1px solid rgba(236,72,153,0.08);padding-bottom:8px}
+        .admin-user-list-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;color:rgba(255,255,255,0.6);font-size:13px;font-weight:600;border-bottom:1px solid rgba(255,107,53,0.1);padding-bottom:8px}
         .admin-user-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.03);transition:background 0.2s;border-radius:8px;padding:8px}
-        .admin-user-item:hover{background:rgba(236,72,153,0.03)}
+        .admin-user-item:hover{background:rgba(255,107,53,0.04)}
         .admin-user-info{display:flex;align-items:center;gap:12px}
-        .admin-avatar{width:40px;height:40px;border-radius:50%;background:#333;overflow:hidden;border:2px solid rgba(236,72,153,0.25)}
+        .admin-avatar{width:40px;height:40px;border-radius:50%;background:#333;overflow:hidden;border:2px solid rgba(255,107,53,0.3)}
         .admin-avatar img{width:100%;height:100%;object-fit:cover}
         .admin-user-details h4{font-weight:600;font-size:15px;display:flex;align-items:center;gap:5px}
         .admin-user-details p{font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px}
@@ -1322,14 +1322,14 @@ def build_profile():
         .btn-ban:hover{background:rgba(239,68,68,0.2)}
         .btn-unban{background:rgba(34,197,94,0.1);color:#4ade80;border:1px solid rgba(34,197,94,0.2)}
         .btn-unban:hover{background:rgba(34,197,94,0.2)}
-        .btn-verify{background:linear-gradient(135deg, #ec4899, #f472b6);color:#fff;box-shadow:0 4px 12px rgba(236,72,153,0.25)}
-        .btn-verify:hover{box-shadow:0 6px 18px rgba(236,72,153,0.4);transform:translateY(-1px)}
+        .btn-verify{background:linear-gradient(135deg, #ff6b35, #f7b733);color:#fff;box-shadow:0 4px 12px rgba(255,107,53,0.3)}
+        .btn-verify:hover{box-shadow:0 6px 18px rgba(255,107,53,0.5);transform:translateY(-1px)}
         .btn-verify.unverify{background:rgba(255,255,255,0.1);color:#fff;box-shadow:none}
         .btn-verify.unverify:hover{background:rgba(239,68,68,0.2);color:#f87171}
         .btn-delete-video{background:rgba(239,68,68,0.1);color:#f87171;border:1px solid rgba(239,68,68,0.2)}
         .btn-delete-video:hover{background:rgba(239,68,68,0.3);box-shadow:0 0 15px rgba(239,68,68,0.3)}
         .admin-video-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.03);transition:background 0.2s;border-radius:8px;padding:8px}
-        .admin-video-item:hover{background:rgba(236,72,153,0.03)}
+        .admin-video-item:hover{background:rgba(255,107,53,0.04)}
         .admin-video-info{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
         .admin-video-thumb{width:50px;height:70px;border-radius:8px;overflow:hidden;background:#000;flex-shrink:0}
         .admin-video-thumb img{width:100%;height:100%;object-fit:cover}
@@ -1355,11 +1355,11 @@ def build_profile():
             <span id="duration">0:00</span>
         </div>
         <button onclick="toggleMutePlayer()"><i class="fas fa-volume-up" id="muteIcon"></i></button>
-        <a id="downloadLink" href="#" download style="color:#f472b6;text-decoration:none;margin-left:10px;"><i class="fas fa-download"></i></a>
+        <a id="downloadLink" href="#" download style="color:#f7b733;text-decoration:none;margin-left:10px;"><i class="fas fa-download"></i></a>
     </div>
 </div>
 
-<div class="load-center" id="loader"><div class="spinner"></div><span>💖 تحميل الملف...</span></div>
+<div class="load-center" id="loader"><div class="spinner"></div><span>⚡ تحميل الملف...</span></div>
 
 <div id="content" style="display:none">
     <div class="cover-section" id="coverSection" onmousemove="parallaxCover(event)">
@@ -1406,7 +1406,7 @@ def build_profile():
 
 <div class="overlay-panel" id="overlayPanel" onclick="closeEditPanel()"></div>
 <div class="edit-panel" id="editPanel">
-    <h3>💖 لوحة تعديل الملف الشخصي</h3>
+    <h3>⚡ لوحة تعديل الملف الشخصي</h3>
     <label>👤 اسم المستخدم</label>
     <input type="text" id="editUsername" placeholder="اسم المستخدم">
     <label>📝 السيرة الذاتية</label>
@@ -1509,8 +1509,8 @@ def build_profile():
     async function loadProfile() {
         const u = allUsers[profileUserId];
         if (!u) { document.getElementById('content').innerHTML = '<div class="empty-state" style="padding-top:100px"><i class="fas fa-user-slash"></i><p>المستخدم غير موجود</p></div>'; return; }
-        const pinkVerifiedBadge = u.isVerified ? '<span class="badge-verified"><i class="fas fa-check"></i></span>' : '';
-        document.getElementById('nameDisplay').innerHTML = '@' + (u.username || 'مستخدم') + ' ' + pinkVerifiedBadge;
+        const goldVerifiedBadge = u.isVerified ? '<span class="badge-verified"><i class="fas fa-check"></i></span>' : '';
+        document.getElementById('nameDisplay').innerHTML = '@' + (u.username || 'مستخدم') + ' ' + goldVerifiedBadge;
         document.getElementById('bioDisplay').innerText = u.bio || 'لم تتم إضافة سيرة ذاتية بعد';
         const contactInfo = document.getElementById('contactInfo');
         let contactHTML = '';
@@ -1623,7 +1623,7 @@ def build_profile():
     }
     async function copyProfile() {
         const u = allUsers[profileUserId];
-        const text = `👤 @${u.username || 'مستخدم'}\\n📝 ${u.bio || ''}\\n💖 ZHARE 2026`;
+        const text = `👤 @${u.username || 'مستخدم'}\\n📝 ${u.bio || ''}\\n⚡ SPARK 2026`;
         try { await navigator.clipboard.writeText(text); } catch(e) { const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); }
         showToast('✅ تم نسخ معلومات الملف الشخصي');
     }
@@ -1636,6 +1636,7 @@ def build_profile():
         alert((type === 'followers' ? 'المتابِعون' : 'المتابَعون') + ':\\n' + names);
     }
     function showToast(msg) { const toast = document.getElementById('toastMsg'); toast.innerText = msg; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2500); }
+    function formatTime(ts) { if (!ts) return 'غير معروف'; const now = Date.now(); const diff = now - ts; const mins = Math.floor(diff / 60000); const hours = Math.floor(diff / 3600000); const days = Math.floor(diff / 86400000); if (mins < 1) return 'الآن'; if (mins < 60) return 'منذ ' + mins + ' دقيقة'; if (hours < 24) return 'منذ ' + hours + ' ساعة'; if (days < 7) return 'منذ ' + days + ' يوم'; return new Date(ts).toLocaleDateString('ar-SA'); }
 
     async function loadAdminPanel() {
         const vc = document.getElementById('videosContainer'); if (!vc) return;
@@ -1650,8 +1651,8 @@ def build_profile():
             <div class="admin-stats-grid">
                 <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-info"><h4>المستخدمين</h4><span>${totalUsers}</span></div></div>
                 <div class="stat-card"><div class="stat-icon" style="background: linear-gradient(135deg, #22c55e, #16a34a);"><i class="fas fa-wifi"></i></div><div class="stat-info"><h4>متصلين</h4><span>${totalOnline}</span></div></div>
-                <div class="stat-card"><div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b, #ec4899);"><i class="fas fa-video"></i></div><div class="stat-info"><h4>فيديوهات</h4><span>${totalVideos}</span></div></div>
-                <div class="stat-card"><div class="stat-icon" style="background: linear-gradient(135deg, #f472b6, #fbcfe8);"><i class="fas fa-check-circle"></i></div><div class="stat-info"><h4>موثقين</h4><span>${totalVerified}</span></div></div>
+                <div class="stat-card"><div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b, #ff6b35);"><i class="fas fa-video"></i></div><div class="stat-info"><h4>فيديوهات</h4><span>${totalVideos}</span></div></div>
+                <div class="stat-card"><div class="stat-icon" style="background: linear-gradient(135deg, #f7b733, #f97316);"><i class="fas fa-check-circle"></i></div><div class="stat-info"><h4>موثقين</h4><span>${totalVerified}</span></div></div>
                 <div class="stat-card" style="grid-column: span 2;"><div class="stat-icon" style="background: linear-gradient(135deg, #ef4444, #dc2626);"><i class="fas fa-ban"></i></div><div class="stat-info"><h4>محظورين</h4><span>${totalBanned}</span></div></div>
             </div>
             <div class="admin-user-list-header"><span>📋 قائمة المستخدمين (أحدث 15)</span><span style="font-size: 11px;">${totalUsers} إجمالي</span></div>
@@ -1695,14 +1696,10 @@ def build_profile():
     window.toggleBanUser = async function(id) { const snap = await db.ref('users/' + id).once('value'); const data = snap.val(); if (!data) return; const newState = !data.banned; if (!confirm(`تأكيد ${newState ? 'حظر' : 'إلغاء حظر'} @${data.username || 'المستخدم'}؟`)) return; await db.ref('users/' + id).update({ banned: newState, bannedAt: newState ? Date.now() : null, bannedBy: newState ? currentUser.uid : null }); await loadAll(); await loadProfile(); showToast(`✅ تم ${newState ? 'حظر' : 'إلغاء حظر'} المستخدم`); loadAdminUsersList(); };
     window.openUserProfile = function(id) { if (id === currentUser?.uid) { window.location.href = 'profile.html'; } else { window.location.href = 'profile.html?uid=' + id; } };
 
-    console.log('💖 ZHARE Profile Ready ✨');
+    console.log('⚡ SPARK Profile Ready ✨');
 </script>
 </body>
 </html>"""
-
-# ═══════════════════════════════════════════════════════════
-# 💖 5-9. الملفات المتبقية
-# ═══════════════════════════════════════════════════════════
 
 def build_upload():
     return """<!DOCTYPE html>
@@ -1710,30 +1707,30 @@ def build_upload():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>💖 ZHARE | رفع فيديو</title>
+    <title>⚡ SPARK | رفع فيديو</title>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root{--glass:rgba(236,72,153,0.03);--border:rgba(236,72,153,0.1);--accent:#ec4899;--accent2:#f472b6;--bg:#0d0610}
+        :root{--glass:rgba(255,107,53,0.03);--border:rgba(255,107,53,0.12);--accent:#ff6b35;--accent2:#f7b733;--bg:#0a0500}
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:#fff;min-height:100vh;overflow-y:auto}
-        .header{display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid var(--border);background:rgba(13,6,16,0.7);backdrop-filter:blur(20px);position:sticky;top:0;z-index:10}
-        .btn-back{background:rgba(236,72,153,0.08);border:1px solid var(--border);width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;font-size:16px}
+        .header{display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid var(--border);background:rgba(10,5,0,0.8);backdrop-filter:blur(20px);position:sticky;top:0;z-index:10}
+        .btn-back{background:rgba(255,107,53,0.1);border:1px solid var(--border);width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;font-size:16px}
         .container{max-width:500px;margin:0 auto;padding:20px}
-        .dropzone{border:2px dashed rgba(236,72,153,0.25);border-radius:20px;padding:50px 20px;text-align:center;cursor:pointer;background:var(--glass);margin-bottom:20px}
+        .dropzone{border:2px dashed rgba(255,107,53,0.3);border-radius:20px;padding:50px 20px;text-align:center;cursor:pointer;background:var(--glass);margin-bottom:20px}
         .dropzone i{font-size:48px;color:var(--accent)}
         .dropzone video{width:100%;max-height:250px;object-fit:contain;margin-top:12px;border-radius:12px;display:none}
-        .form-card{background:rgba(236,72,153,0.02);border:1px solid var(--border);border-radius:20px;padding:20px}
+        .form-card{background:rgba(255,107,53,0.03);border:1px solid var(--border);border-radius:20px;padding:20px}
         .form-card label{display:block;font-size:13px;opacity:0.7;margin-bottom:6px;margin-top:12px}
-        .form-card textarea,.form-card input{width:100%;padding:14px 16px;border-radius:16px;background:rgba(236,72,153,0.03);border:1px solid var(--border);color:#fff;font-size:14px;outline:none;resize:none;font-family:'Segoe UI',sans-serif}
+        .form-card textarea,.form-card input{width:100%;padding:14px 16px;border-radius:16px;background:rgba(255,107,53,0.04);border:1px solid var(--border);color:#fff;font-size:14px;outline:none;resize:none;font-family:'Segoe UI',sans-serif}
         .form-card textarea{min-height:80px}
         .progress-wrap{display:none;margin:16px 0}
         .progress-bar{background:rgba(255,255,255,0.1);border-radius:30px;height:6px;overflow:hidden}
         .progress-fill{background:linear-gradient(90deg,var(--accent),var(--accent2));height:100%;border-radius:30px;width:0%}
         .progress-text{text-align:center;font-size:12px;margin-top:6px;color:var(--accent2)}
-        .btn-upload{width:100%;padding:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:30px;color:#fff;font-weight:700;font-size:15px;cursor:pointer;margin-top:16px;box-shadow:0 10px 25px rgba(236,72,153,0.3)}
+        .btn-upload{width:100%;padding:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:30px;color:#fff;font-weight:700;font-size:15px;cursor:pointer;margin-top:16px;box-shadow:0 10px 25px rgba(255,107,53,0.4)}
         .btn-upload:disabled{opacity:0.5}
         .status{text-align:center;margin-top:12px;font-size:13px}
     </style>
@@ -1777,51 +1774,51 @@ def build_chat():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>💖 ZHARE | دردشة</title>
+    <title>⚡ SPARK | دردشة</title>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root{--glass:rgba(236,72,153,0.03);--border:rgba(236,72,153,0.1);--accent:#ec4899;--accent2:#f472b6;--bg:#0d0610}
+        :root{--glass:rgba(255,107,53,0.03);--border:rgba(255,107,53,0.12);--accent:#ff6b35;--accent2:#f7b733;--bg:#0a0500}
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:#fff;height:100vh;display:flex;flex-direction:column}
-        .header{display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid var(--border);background:rgba(13,6,16,0.7);backdrop-filter:blur(20px)}
-        .btn-back{background:rgba(236,72,153,0.08);border:1px solid var(--border);width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;font-size:16px}
+        .header{display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid var(--border);background:rgba(10,5,0,0.8);backdrop-filter:blur(20px)}
+        .btn-back{background:rgba(255,107,53,0.1);border:1px solid var(--border);width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;font-size:16px}
         .msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:8px}
         .bubble{max-width:80%;padding:10px 16px;border-radius:20px;word-break:break-word;font-size:14px;position:relative;animation:msgIn 0.3s ease}
         @keyframes msgIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
         .bubble.sent{background:linear-gradient(135deg,var(--accent),var(--accent2));align-self:flex-end;color:#fff}
-        .bubble.received{background:rgba(236,72,153,0.05);align-self:flex-start;border:1px solid rgba(236,72,153,0.08)}
+        .bubble.received{background:rgba(255,107,53,0.06);align-self:flex-start;border:1px solid rgba(255,107,53,0.1)}
         .bubble img{max-width:200px;border-radius:12px;cursor:pointer;margin-top:4px}
         .bubble .time{font-size:9px;opacity:0.6;margin-top:4px}
-        .input-bar{display:flex;gap:10px;padding:12px;background:rgba(13,6,16,0.95);backdrop-filter:blur(20px);border-top:1px solid var(--border);align-items:center}
+        .input-bar{display:flex;gap:10px;padding:12px;background:rgba(10,5,0,0.95);backdrop-filter:blur(20px);border-top:1px solid var(--border);align-items:center}
         .input-bar input{flex:1;padding:12px 16px;border-radius:30px;background:var(--glass);border:1px solid var(--border);color:#fff;font-size:14px;outline:none}
-        .btn-icon{width:42px;height:42px;background:rgba(236,72,153,0.08);border:1px solid var(--border);border-radius:50%;color:#fff;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center}
+        .btn-icon{width:42px;height:42px;background:rgba(255,107,53,0.1);border:1px solid var(--border);border-radius:50%;color:#fff;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center}
         .btn-send{width:42px;height:42px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:50%;color:#fff;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center}
         .conv-item{display:flex;align-items:center;gap:12px;padding:14px;border-bottom:1px solid var(--border);cursor:pointer}
-        .conv-item:hover{background:rgba(236,72,153,0.03)}
-        .chat-avatar{width:40px;height:40px;border-radius:50%;overflow:hidden;border:2px solid rgba(236,72,153,0.25)}
+        .conv-item:hover{background:rgba(255,107,53,0.04)}
+        .chat-avatar{width:40px;height:40px;border-radius:50%;overflow:hidden;border:2px solid rgba(255,107,53,0.3)}
         .chat-avatar img{width:100%;height:100%;object-fit:cover}
         .online-indicator{width:10px;height:10px;background:#22c55e;border-radius:50%;display:inline-block;margin-left:6px}
-        .spinner{width:32px;height:32px;border:3px solid rgba(236,72,153,0.15);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;margin:30px auto}
+        .spinner{width:32px;height:32px;border:3px solid rgba(255,107,53,0.2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;margin:30px auto}
         @keyframes spin{to{transform:rotate(360deg)}}
-        .toast-msg{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:rgba(13,6,16,0.95);padding:10px 22px;border-radius:30px;z-index:300;border:1px solid rgba(236,72,153,0.25);font-size:13px;opacity:0;transition:opacity 0.3s;pointer-events:none}
+        .toast-msg{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:rgba(10,5,0,0.95);padding:10px 22px;border-radius:30px;z-index:300;border:1px solid rgba(255,107,53,0.3);font-size:13px;opacity:0;transition:opacity 0.3s;pointer-events:none}
         .toast-msg.show{opacity:1}
 
-        /* 💖 Image Lightbox (In-App) */
+        /* ⚡ Image Lightbox (In-App) */
         .image-lightbox {
             position: fixed; inset: 0;
-            background: rgba(13,6,16,0.96); backdrop-filter: blur(30px);
+            background: rgba(0,0,0,0.96); backdrop-filter: blur(30px);
             z-index: 9999; display: flex; align-items: center; justify-content: center;
             opacity: 0; pointer-events: none; transition: opacity 0.3s ease; flex-direction: column;
         }
         .image-lightbox.active { opacity: 1; pointer-events: auto; }
-        .image-lightbox img { max-width: 95vw; max-height: 80vh; border-radius: 16px; object-fit: contain; box-shadow: 0 20px 60px rgba(236,72,153,0.15); border: 1px solid rgba(236,72,153,0.1); }
+        .image-lightbox img { max-width: 95vw; max-height: 80vh; border-radius: 16px; object-fit: contain; box-shadow: 0 20px 60px rgba(255,107,53,0.2); border: 1px solid rgba(255,107,53,0.15); }
         .lightbox-actions { display: flex; gap: 20px; margin-top: 20px; z-index: 10000; }
-        .lightbox-actions button { background: rgba(236,72,153,0.1); border: 1px solid rgba(236,72,153,0.25); color: #fff; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; transition: all 0.3s; }
-        .lightbox-actions button:hover { background: rgba(236,72,153,0.3); box-shadow: 0 0 25px rgba(236,72,153,0.3); }
-        .close-lightbox { position: absolute; top: 20px; left: 20px; background: rgba(13,6,16,0.5); backdrop-filter: blur(10px); border: 1px solid rgba(236,72,153,0.3); color: #fff; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 20px; z-index: 10001; }
+        .lightbox-actions button { background: rgba(255,107,53,0.15); border: 1px solid rgba(255,107,53,0.3); color: #fff; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; transition: all 0.3s; }
+        .lightbox-actions button:hover { background: rgba(255,107,53,0.4); box-shadow: 0 0 25px rgba(255,107,53,0.4); }
+        .close-lightbox { position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); border: 1px solid rgba(255,107,53,0.4); color: #fff; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 20px; z-index: 10001; }
     </style>
 </head>
 <body>
@@ -1834,7 +1831,7 @@ def build_chat():
     </div>
 </div>
 
-<div id="loader" style="flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px"><div class="spinner"></div><span>💖 تحميل...</span></div>
+<div id="loader" style="flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px"><div class="spinner"></div><span>⚡ تحميل...</span></div>
 <div id="convView" style="display:none;flex:1;flex-direction:column;overflow:hidden"><div class="header"><button class="btn-back" onclick="window.location.href='index.html'"><i class="fas fa-arrow-right"></i></button><h2><i class="fas fa-comments"></i> المحادثات</h2></div><div id="convList" style="flex:1;overflow-y:auto"></div></div>
 <div id="chatView" style="display:none;flex:1;flex-direction:column;overflow:hidden"><div class="header"><button class="btn-back" onclick="showConvs()"><i class="fas fa-arrow-right"></i></button><div class="chat-avatar" id="chatAvatar"></div><h3 id="chatName">محادثة</h3><span id="chatOnline" style="font-size:11px;opacity:0.5;margin-right:8px"></span></div><div class="msgs" id="msgsList"></div><div class="input-bar"><button class="btn-icon" onclick="sendImage()" title="إرسال صورة"><i class="fas fa-image"></i></button><input type="text" id="msgInput" placeholder="اكتب رسالة..." onkeydown="if(event.key==='Enter')sendMsg()"><button class="btn-send" onclick="sendMsg()"><i class="fas fa-paper-plane"></i></button><button class="btn-icon" onclick="copyChat()" title="نسخ المحادثة"><i class="fas fa-copy"></i></button></div></div>
 <div class="toast-msg" id="toastMsg">✅ تم</div>
@@ -1853,13 +1850,13 @@ def build_chat():
 
     auth.onAuthStateChanged(async u=>{if(!u){window.location.href='auth.html';return}currentUser=u;const us=await db.ref('users').once('value');allUsers=us.val()||{};document.getElementById('loader').style.display='none';const params = new URLSearchParams(window.location.search);const targetUid = params.get('uid');if(targetUid){openChat(targetUid);}else{showConvs();}setInterval(()=>{if(currentUser)db.ref('users/'+currentUser.uid+'/lastSeen').set(Date.now());},60000);});
     function showConvs(){document.getElementById('chatView').style.display='none';document.getElementById('convView').style.display='flex';chatUserId=null;loadConvs();}
-    async function loadConvs(){const cl=document.getElementById('convList');cl.innerHTML='';const snap=await db.ref('private_messages').once('value');const all=snap.val()||{};const found=new Set();Object.keys(all).forEach(cid=>{const[u1,u2]=cid.split('_');const other=u1===currentUser.uid?u2:u2===currentUser.uid?u1:null;if(other&&!found.has(other)&&allUsers[other])found.add(other);});if(!found.size){cl.innerHTML='<div style="text-align:center;opacity:0.5;padding:40px">لا محادثات</div>';return}found.forEach(uid=>{const u=allUsers[uid];const d=document.createElement('div');d.className='conv-item';d.innerHTML=`<div class="chat-avatar"><img src="${u?.avatarUrl||(DICEBEAR_URL+'?seed='+uid)}"></div><div><div style="font-weight:600">@${u?.username||'?'} ${u?.isVerified?'<span style="color:#f472b6;font-size:12px;"><i class="fas fa-check-circle"></i></span>':''}</div></div>`;d.onclick=()=>openChat(uid);cl.appendChild(d);});}
+    async function loadConvs(){const cl=document.getElementById('convList');cl.innerHTML='';const snap=await db.ref('private_messages').once('value');const all=snap.val()||{};const found=new Set();Object.keys(all).forEach(cid=>{const[u1,u2]=cid.split('_');const other=u1===currentUser.uid?u2:u2===currentUser.uid?u1:null;if(other&&!found.has(other)&&allUsers[other])found.add(other);});if(!found.size){cl.innerHTML='<div style="text-align:center;opacity:0.5;padding:40px">لا محادثات</div>';return}found.forEach(uid=>{const u=allUsers[uid];const d=document.createElement('div');d.className='conv-item';d.innerHTML=`<div class="chat-avatar"><img src="${u?.avatarUrl||(DICEBEAR_URL+'?seed='+uid)}"></div><div><div style="font-weight:600">@${u?.username||'?'} ${u?.isVerified?'<span style="color:#f7b733;font-size:12px;"><i class="fas fa-check-circle"></i></span>':''}</div></div>`;d.onclick=()=>openChat(uid);cl.appendChild(d);});}
     async function openChat(uid){chatUserId=uid;const u=allUsers[uid];document.getElementById('chatName').innerText='@'+(u?.username||'مستخدم');document.getElementById('chatAvatar').innerHTML=`<img src="${u?.avatarUrl||(DICEBEAR_URL+'?seed='+uid)}">`;document.getElementById('convView').style.display='none';document.getElementById('chatView').style.display='flex';db.ref('presence/'+uid).on('value',s=>{const online=s.val();document.getElementById('chatOnline').innerHTML=online?'<span class="online-indicator"></span> نشط الآن':'آخر ظهور: '+formatTime(u?.lastSeen);});await loadMsgs();}
     function getChatId(){return [currentUser.uid,chatUserId].sort().join('_');}
     async function loadMsgs(){const ml=document.getElementById('msgsList');ml.innerHTML='';if(!chatUserId)return;const snap=await db.ref('private_messages/'+getChatId()).once('value');const ms=snap.val()||{};Object.values(ms).sort((a,b)=>a.timestamp-b.timestamp).forEach(m=>{const sent=m.senderId===currentUser.uid;const d=document.createElement('div');d.className='bubble '+(sent?'sent':'received');d.innerHTML=`${m.type==='image'?`<img src="${m.imageUrl}" onclick="openLightbox('${m.imageUrl}')">`:m.text}<div class="time">${new Date(m.timestamp).toLocaleTimeString('ar-SA')}</div>`;ml.appendChild(d);});ml.scrollTop=ml.scrollHeight;}
     async function sendMsg(){const inp=document.getElementById('msgInput');const txt=inp.value.trim();if(!txt||!chatUserId)return;await db.ref('private_messages/'+getChatId()).push({senderId:currentUser.uid,text:txt,type:'text',timestamp:Date.now()});inp.value='';await loadMsgs();}
     async function sendImage(){if(!chatUserId)return;const inp=document.createElement('input');inp.type='file';inp.accept='image/*';inp.onchange=async(e)=>{const file=e.target.files[0];if(!file)return;showToast('⏳ جاري رفع الصورة...');const fd=new FormData();fd.append('file',file);fd.append('upload_preset',UPLOAD_PRESET);const res=await fetch('https://api.cloudinary.com/v1_1/'+CLOUD_NAME+'/image/upload',{method:'POST',body:fd});const data=await res.json();if(data.secure_url){await db.ref('private_messages/'+getChatId()).push({senderId:currentUser.uid,type:'image',imageUrl:data.secure_url,timestamp:Date.now()});await loadMsgs();}};inp.click();}
-    async function copyChat(){if(!chatUserId)return;const snap=await db.ref('private_messages/'+getChatId()).once('value');const msgs=snap.val()||{};let text='💬 محادثة ZHARE\\n'+'─'.repeat(30)+'\\n';Object.values(msgs).sort((a,b)=>a.timestamp-b.timestamp).forEach(m=>{const sender=m.senderId===currentUser.uid?'أنت':(allUsers[m.senderId]?.username||'مستخدم');const content=m.type==='image'?'[صورة]':m.text;const time=new Date(m.timestamp).toLocaleTimeString('ar-SA');text+=`\\n${sender} (${time}):\\n${content}\\n`;});try{await navigator.clipboard.writeText(text);}catch(e){const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);}showToast('✅ تم نسخ المحادثة');}
+    async function copyChat(){if(!chatUserId)return;const snap=await db.ref('private_messages/'+getChatId()).once('value');const msgs=snap.val()||{};let text='💬 محادثة SPARK\\n'+'─'.repeat(30)+'\\n';Object.values(msgs).sort((a,b)=>a.timestamp-b.timestamp).forEach(m=>{const sender=m.senderId===currentUser.uid?'أنت':(allUsers[m.senderId]?.username||'مستخدم');const content=m.type==='image'?'[صورة]':m.text;const time=new Date(m.timestamp).toLocaleTimeString('ar-SA');text+=`\\n${sender} (${time}):\\n${content}\\n`;});try{await navigator.clipboard.writeText(text);}catch(e){const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);}showToast('✅ تم نسخ المحادثة');}
     function showToast(msg){const toast=document.getElementById('toastMsg');toast.innerText=msg;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2500);}
     function formatTime(ts){if(!ts)return'غير معروف';const diff=Date.now()-ts;const mins=Math.floor(diff/60000);const hours=Math.floor(diff/3600000);const days=Math.floor(diff/86400000);if(mins<1)return'الآن';if(mins<60)return'منذ '+mins+' دقيقة';if(hours<24)return'منذ '+hours+' ساعة';if(days<7)return'منذ '+days+' يوم';return new Date(ts).toLocaleDateString('ar-SA');}
 </script>
@@ -1872,26 +1869,26 @@ def build_explore():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>💖 ZHARE | استكشاف</title>
+    <title>⚡ SPARK | استكشاف</title>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root{--accent:#ec4899;--border:rgba(236,72,153,0.1);--bg:#0d0610}
+        :root{--accent:#ff6b35;--border:rgba(255,107,53,0.12);--bg:#0a0500}
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:#fff;min-height:100vh;overflow-y:auto}
-        .header{display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,6,16,0.7);backdrop-filter:blur(20px);z-index:10}
-        .btn-back{background:rgba(236,72,153,0.08);border:1px solid var(--border);width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;font-size:16px}
+        .header{display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(10,5,0,0.8);backdrop-filter:blur(20px);z-index:10}
+        .btn-back{background:rgba(255,107,53,0.1);border:1px solid var(--border);width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;font-size:16px}
         h2{font-size:18px;font-weight:700}
         .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:2px}
-        .thumb{aspect-ratio:9/16;background:rgba(236,72,153,0.04);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden}
+        .thumb{aspect-ratio:9/16;background:rgba(255,107,53,0.05);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden}
         .thumb:hover{transform:scale(1.03);z-index:1}
         .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
         .thumb i{position:absolute;font-size:24px;color:#fff;z-index:1;opacity:0;transition:opacity 0.3s}
         .thumb:hover i{opacity:1}
         .thumb .views{position:absolute;bottom:4px;left:4px;font-size:10px;background:rgba(0,0,0,0.6);padding:2px 6px;border-radius:10px}
-        .spinner{width:32px;height:32px;border:3px solid rgba(236,72,153,0.15);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;margin:30px auto}
+        .spinner{width:32px;height:32px;border:3px solid rgba(255,107,53,0.2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;margin:30px auto}
         @keyframes spin{to{transform:rotate(360deg)}}
     </style>
 </head>
@@ -1920,20 +1917,20 @@ def build_notifications():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>💖 ZHARE | إشعارات</title>
+    <title>⚡ SPARK | إشعارات</title>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root{--accent:#ec4899;--border:rgba(236,72,153,0.1);--bg:#0d0610}
+        :root{--accent:#ff6b35;--border:rgba(255,107,53,0.12);--bg:#0a0500}
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:#fff;min-height:100vh;overflow-y:auto}
-        .header{display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,6,16,0.7);backdrop-filter:blur(20px);z-index:10}
-        .btn-back{background:rgba(236,72,153,0.08);border:1px solid var(--border);width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;font-size:16px}
+        .header{display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(10,5,0,0.8);backdrop-filter:blur(20px);z-index:10}
+        .btn-back{background:rgba(255,107,53,0.1);border:1px solid var(--border);width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;font-size:16px}
         .notif-item{display:flex;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border);align-items:center}
-        .notif-icon{width:40px;height:40px;border-radius:50%;background:rgba(236,72,153,0.08);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--accent)}
-        .spinner{width:32px;height:32px;border:3px solid rgba(236,72,153,0.15);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;margin:30px auto}
+        .notif-icon{width:40px;height:40px;border-radius:50%;background:rgba(255,107,53,0.1);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--accent)}
+        .spinner{width:32px;height:32px;border:3px solid rgba(255,107,53,0.2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;margin:30px auto}
         @keyframes spin{to{transform:rotate(360deg)}}
     </style>
 </head>
@@ -1949,7 +1946,7 @@ def build_notifications():
         const ns=snap.val()||{};
         const c=document.getElementById('notifsList');
         const items=Object.values(ns).reverse();
-        if(!items.length){c.innerHTML='<div style="text-align:center;opacity:0.5;padding:40px"><i class="fas fa-bell" style="font-size:48px;color:#ec4899;margin-bottom:12px;display:block"></i><p>لا توجد إشعارات</p></div>';return}
+        if(!items.length){c.innerHTML='<div style="text-align:center;opacity:0.5;padding:40px"><i class="fas fa-bell" style="font-size:48px;color:#ff6b35;margin-bottom:12px;display:block"></i><p>لا توجد إشعارات</p></div>';return}
         c.innerHTML=items.map(n=>`<div class="notif-item"><div class="notif-icon"><i class="fas fa-bell"></i></div><div><div style="font-weight:600">${n.from||'مستخدم'}</div><div style="font-size:12px;opacity:0.6;margin-top:2px">${n.msg||''}</div></div></div>`).join('');
     }
 </script>
@@ -1962,17 +1959,17 @@ def build_settings():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>💖 ZHARE | إعدادات</title>
+    <title>⚡ SPARK | إعدادات</title>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root{--accent:#ec4899;--border:rgba(236,72,153,0.1);--bg:#0d0610;--glass:rgba(236,72,153,0.03)}
+        :root{--accent:#ff6b35;--border:rgba(255,107,53,0.12);--bg:#0a0500;--glass:rgba(255,107,53,0.03)}
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:#fff;min-height:100vh;overflow-y:auto}
-        .header{display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,6,16,0.7);backdrop-filter:blur(20px);z-index:10}
-        .btn-back{background:rgba(236,72,153,0.08);border:1px solid var(--border);width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;font-size:16px}
+        .header{display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(10,5,0,0.8);backdrop-filter:blur(20px);z-index:10}
+        .btn-back{background:rgba(255,107,53,0.1);border:1px solid var(--border);width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;font-size:16px}
         .setting-item{display:flex;justify-content:space-between;align-items:center;padding:16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.2s}
         .setting-item:hover{background:var(--glass)}
         .setting-item i{color:var(--accent);font-size:18px;width:30px}
@@ -1985,7 +1982,7 @@ def build_settings():
     <div class="setting-item" onclick="window.location.href='profile.html'"><div style="display:flex;align-items:center;gap:12px"><i class="fas fa-user"></i><span>تعديل الملف الشخصي</span></div><i class="fas fa-chevron-left" style="opacity:0.5"></i></div>
     <div class="setting-item"><div style="display:flex;align-items:center;gap:12px"><i class="fas fa-lock"></i><span>الخصوصية</span></div><i class="fas fa-chevron-left" style="opacity:0.5"></i></div>
     <div class="setting-item"><div style="display:flex;align-items:center;gap:12px"><i class="fas fa-globe"></i><span>اللغة</span></div><span style="opacity:0.5;font-size:13px">العربية</span></div>
-    <div class="setting-item"><div style="display:flex;align-items:center;gap:12px"><i class="fas fa-info-circle"></i><span>حول التطبيق</span></div><span style="opacity:0.5;font-size:13px">v2026.1 💖</span></div>
+    <div class="setting-item"><div style="display:flex;align-items:center;gap:12px"><i class="fas fa-info-circle"></i><span>حول التطبيق</span></div><span style="opacity:0.5;font-size:13px">v2026.1 ⚡</span></div>
     <button class="btn-danger" onclick="if(confirm('تسجيل الخروج؟')){auth.signOut();window.location.href='auth.html'}"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</button>
 </div>
 <script src="firebase-config.js"></script>
@@ -1994,15 +1991,15 @@ def build_settings():
 </html>"""
 
 # ═══════════════════════════════════════════════════════════
-# 💖 MAIN
+# ⚡ MAIN
 # ═══════════════════════════════════════════════════════════
 
 def main():
     print("""
 ╔══════════════════════════════════════════════════════════╗
 ║                                                          ║
-║  💖  ZHARE 2026 - PINK ROSE GLASS EDITION  ✨         ║
-║     Ultimate Generator - 9 Files - 2000+ Lines           ║
+║  ⚡  SPARK 2026 - ULTRA EDITION  ✨                     ║
+║     Premium Generator - 9 Files - 2000+ Lines            ║
 ║                                                          ║
 ║  ✨  Notifications + Compact Grid + Delete Videos     ║
 ║                                                          ║
@@ -2023,7 +2020,7 @@ def main():
     
     print(f"""
 {'='*60}
-  💖 BUILD COMPLETE - تم الإنشاء بنجاح! ✨
+  ⚡ BUILD COMPLETE - تم الإنشاء بنجاح! ✨
 {'='*60}
 
   📊 إحصائيات:
@@ -2041,23 +2038,23 @@ def main():
      8. notifications.html   → صفحة الإشعارات
      9. settings.html        → إعدادات
 
-  💖 المميزات الجديدة:
+  ⚡ المميزات الجديدة:
      • 🎥 مشغل فيديو احترافي داخلي (بدون نوافذ خارجية)
      • 🖼️ عارض صور داخلي في الدردشة (بدون نوافذ خارجية)
-     • 💖 ستايل زهري فاخر مع توهجات شفافة
-     • 💖 Pink Rose Story Rings
+     • ⚡ ستايل برتقالي فاخر مع توهجات عنبرية
+     • 👑 Gold Story Rings
      • 🔔 نظام إشعارات شغال 100%
      • 🎬 دعم الفيديوهات العرضية والطولية
      • 🗑️ حذف فيديوهات من لوحة الأدمن
      • 🛡️ توثيق + حظر
 
-  🔑 بيانات الاتصال الجديدة:
+  🔑 بيانات الاتصال:
      • Firebase: dokf-33e47
-     • Cloudinary: go29_gm / qlathl0k
+     • Cloudinary: qlathl0k / go29_gm
      • Admin: jasim28v@gmail.com
 
-  💖 للتشغيل: شغّل الملف وبعدها افتح auth.html في المتصفح
-  💖 ZHARE PINK ROSE GLASS READY! ✨
+  ⚡ للتشغيل: شغّل الملف وبعدها افتح auth.html في المتصفح
+  ⚡ SPARK ULTRA READY! ✨
 {'='*60}
     """)
 
