@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>🌷 ZHARE | الرئيسية</title>
+    <title>💖 ZHARE | الرئيسية</title>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root{
-            --glass:rgba(244,114,182,0.06);
-            --border:rgba(244,114,182,0.2);
-            --accent:#f472b6;
-            --accent2:#ec4899;
-            --bg:#fdf2f8;
+            --glass:rgba(236,72,153,0.03);
+            --border:rgba(236,72,153,0.1);
+            --accent:#ec4899;
+            --accent2:#f472b6;
+            --bg:#0d0610;
         }
         *{margin:0;padding:0;box-sizing:border-box}
         body{
             font-family:'Segoe UI',sans-serif;
             background:var(--bg);
-            color:#831843;
+            color:#fff;
             height:100vh;overflow:hidden;
             -webkit-tap-highlight-color:transparent;
             user-select:none;
@@ -28,13 +28,13 @@
 
         #loaderScreen{
             position:fixed;inset:0;z-index:9999;
-            background:radial-gradient(ellipse at top, #fce7f3, #fdf2f8, #fbcfe8);
+            background:radial-gradient(ellipse at top, #1a0a14, #0d0610, #08030a);
             display:flex;align-items:center;justify-content:center;
             flex-direction:column;gap:16px;
         }
         .spinner-big{
             width:50px;height:50px;
-            border:4px solid rgba(244,114,182,0.2);
+            border:4px solid rgba(236,72,153,0.15);
             border-top-color:var(--accent);
             border-radius:50%;
             animation:spin 0.8s linear infinite;
@@ -47,37 +47,37 @@
             position:fixed;top:10px;left:10px;right:10px;z-index:100;
             display:flex;justify-content:space-between;align-items:center;
             padding:8px 16px;
-            background:rgba(255,255,255,0.8);
+            background:rgba(13,6,16,0.6);
             backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
-            border:2px solid var(--border);
+            border:1px solid var(--border);
             border-radius:50px;
-            box-shadow:0 8px 32px rgba(244,114,182,0.1);
+            box-shadow:0 8px 32px rgba(236,72,153,0.05);
         }
         .logo-icon{
             width:34px;height:34px;
             background:linear-gradient(135deg,var(--accent),var(--accent2));
             border-radius:50%;display:flex;align-items:center;justify-content:center;
             font-weight:900;font-size:12px;
-            box-shadow:0 0 20px rgba(244,114,182,0.6), 0 0 40px rgba(236,72,153,0.3);
+            box-shadow:0 0 20px rgba(236,72,153,0.4), 0 0 40px rgba(236,72,153,0.15);
             animation:pulseIcon 2s ease-in-out infinite;
         }
-        @keyframes pulseIcon{0%,100%{box-shadow:0 0 20px rgba(244,114,182,0.6)}50%{box-shadow:0 0 35px rgba(236,72,153,0.9)}}
+        @keyframes pulseIcon{0%,100%{box-shadow:0 0 20px rgba(236,72,153,0.4)}50%{box-shadow:0 0 35px rgba(244,114,182,0.6)}}
         .logo-text{
             font-weight:800;font-size:17px;
-            background:linear-gradient(to bottom,#be185d,#ec4899);
+            background:linear-gradient(to bottom,#fff,#fbcfe8);
             -webkit-background-clip:text;-webkit-text-fill-color:transparent;
             margin-left:8px;
         }
         .tabs{display:flex;gap:4px;background:var(--glass);border-radius:30px;padding:3px}
         .tab{
-            background:none;border:none;color:rgba(190,24,93,0.5);
+            background:none;border:none;color:rgba(255,255,255,0.5);
             padding:7px 16px;cursor:pointer;border-radius:25px;
             font-size:13px;font-weight:500;transition:all 0.3s;
         }
-        .tab.active{background:rgba(244,114,182,0.3);color:#831843}
+        .tab.active{background:rgba(236,72,153,0.2);color:#fff}
         .top-icons{display:flex;gap:16px}
         .top-icon{
-            background:none;border:none;color:rgba(190,24,93,0.7);
+            background:none;border:none;color:rgba(255,255,255,0.7);
             font-size:18px;cursor:pointer;transition:all 0.3s;position:relative;
         }
         .top-icon:hover{color:var(--accent2)}
@@ -86,7 +86,7 @@
             width:10px;height:10px;
             background:#ef4444;
             border-radius:50%;
-            border:2px solid #fff;
+            border:2px solid var(--bg);
             animation:badgePulse 2s ease-in-out infinite;
             display:none;
         }
@@ -109,18 +109,18 @@
         .author-avatar{
             width:50px;height:50px;border-radius:50%;overflow:hidden;
             cursor:pointer;position:relative;
-            background:linear-gradient(135deg, #f9a8d4, #f472b6, #ec4899);
+            background:linear-gradient(135deg, #ec4899, #f472b6, #fbcfe8);
             padding:3px;
             animation:storyRing 3s ease-in-out infinite;
         }
-        @keyframes storyRing{0%,100%{box-shadow:0 0 15px rgba(244,114,182,0.5)}50%{box-shadow:0 0 25px rgba(236,72,153,0.9)}}
-        .author-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;border:2px solid #000}
+        @keyframes storyRing{0%,100%{box-shadow:0 0 15px rgba(236,72,153,0.3)}50%{box-shadow:0 0 25px rgba(244,114,182,0.6)}}
+        .author-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;border:2px solid var(--bg)}
         .author-name{
             font-weight:700;font-size:15px;cursor:pointer;
-            display:flex;align-items:center;gap:6px;flex-wrap:wrap;color:#fff;
+            display:flex;align-items:center;gap:6px;flex-wrap:wrap;
         }
         .verified-badge-main{
-            background:linear-gradient(135deg, #f472b6, #ec4899);
+            background:linear-gradient(135deg, #ec4899, #f472b6);
             color:#fff;
             font-size:10px;
             padding:2px 5px;
@@ -131,21 +131,21 @@
             width:18px;
             height:18px;
             font-weight:bold;
-            box-shadow:0 0 12px rgba(244,114,182,0.7);
+            box-shadow:0 0 12px rgba(244,114,182,0.5);
         }
         .btn-follow{
             background:linear-gradient(135deg,var(--accent),var(--accent2));
             padding:5px 14px;border-radius:20px;font-size:11px;
             font-weight:700;border:none;color:#fff;cursor:pointer;
-            box-shadow:0 4px 15px rgba(244,114,182,0.5);
+            box-shadow:0 4px 15px rgba(236,72,153,0.3);
             transition:all 0.3s;
         }
-        .btn-follow:hover{box-shadow:0 8px 25px rgba(244,114,182,0.8);transform:translateY(-1px)}
-        .caption{font-size:14px;margin-bottom:5px;line-height:1.4;color:#fff}
-        .tag{color:#fbcfe8;cursor:pointer;font-weight:500}
-        .music{font-size:12px;opacity:0.8;display:flex;align-items:center;gap:6px;cursor:pointer;color:#fff}
+        .btn-follow:hover{box-shadow:0 8px 25px rgba(236,72,153,0.5);transform:translateY(-1px)}
+        .caption{font-size:14px;margin-bottom:5px;line-height:1.4}
+        .tag{color:var(--accent2);cursor:pointer;font-weight:500}
+        .music{font-size:12px;opacity:0.8;display:flex;align-items:center;gap:6px;cursor:pointer}
         .music-wave{display:flex;gap:2px;align-items:flex-end;height:16px}
-        .music-wave span{width:2px;background:#fbcfe8;border-radius:1px;animation:musicWave 1s ease-in-out infinite}
+        .music-wave span{width:2px;background:var(--accent2);border-radius:1px;animation:musicWave 1s ease-in-out infinite}
         .music-wave span:nth-child(1){height:8px;animation-delay:0s}
         .music-wave span:nth-child(2){height:14px;animation-delay:0.15s}
         .music-wave span:nth-child(3){height:6px;animation-delay:0.3s}
@@ -168,7 +168,7 @@
         @keyframes likePop{0%{transform:scale(1)}50%{transform:scale(1.4)}100%{transform:scale(1)}}
         .sbtn .cnt{font-weight:700;font-size:11px}
 
-        /* 🌷 Fullscreen Video Player (In-App) */
+        /* 💖 Fullscreen Video Player (In-App) */
         .fullscreen-player {
             position: fixed;
             top: 0;
@@ -203,26 +203,26 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(255,255,255,0.9);
+            background: rgba(13,6,16,0.6);
             backdrop-filter: blur(20px);
             border-radius: 50px;
             padding: 10px 20px;
-            border: 2px solid rgba(244,114,182,0.4);
+            border: 1px solid rgba(236,72,153,0.2);
             z-index: 10000;
-            color: #831843;
+            color: #fff;
             gap: 12px;
             flex-wrap: wrap;
         }
         .player-controls button {
             background: none;
             border: none;
-            color: #831843;
+            color: #fff;
             font-size: 20px;
             cursor: pointer;
             transition: color 0.2s;
             padding: 5px;
         }
-        .player-controls button:hover { color: #ec4899; }
+        .player-controls button:hover { color: #f472b6; }
         .progress-wrap {
             flex: 1;
             display: flex;
@@ -233,14 +233,14 @@
         .progress-bar {
             flex: 1;
             height: 4px;
-            background: rgba(244,114,182,0.2);
+            background: rgba(255,255,255,0.15);
             border-radius: 4px;
             cursor: pointer;
             position: relative;
         }
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #f472b6, #ec4899);
+            background: linear-gradient(90deg, #ec4899, #f472b6);
             border-radius: 4px;
             width: 0%;
         }
@@ -248,10 +248,10 @@
             position: absolute;
             top: 20px;
             left: 20px;
-            background: rgba(255,255,255,0.8);
+            background: rgba(13,6,16,0.5);
             backdrop-filter: blur(10px);
-            border: 2px solid rgba(244,114,182,0.5);
-            color: #831843;
+            border: 1px solid rgba(236,72,153,0.3);
+            color: #fff;
             width: 44px;
             height: 44px;
             border-radius: 50%;
@@ -263,13 +263,13 @@
             z-index: 10001;
             transition: all 0.3s;
         }
-        .close-player:hover { background: rgba(244,114,182,0.3); box-shadow: 0 0 20px rgba(244,114,182,0.6); }
+        .close-player:hover { background: rgba(236,72,153,0.2); box-shadow: 0 0 20px rgba(236,72,153,0.4); }
 
-        /* 🌷 Image Lightbox (In-App) */
+        /* 💖 Image Lightbox (In-App) */
         .image-lightbox {
             position: fixed;
             inset: 0;
-            background: rgba(253,242,248,0.98);
+            background: rgba(13,6,16,0.96);
             backdrop-filter: blur(30px);
             z-index: 9999;
             display: flex;
@@ -289,8 +289,8 @@
             max-height: 80vh;
             border-radius: 16px;
             object-fit: contain;
-            box-shadow: 0 20px 60px rgba(244,114,182,0.3);
-            border: 2px solid rgba(244,114,182,0.2);
+            box-shadow: 0 20px 60px rgba(236,72,153,0.15);
+            border: 1px solid rgba(236,72,153,0.1);
         }
         .lightbox-actions {
             display: flex;
@@ -299,9 +299,9 @@
             z-index: 10000;
         }
         .lightbox-actions button {
-            background: rgba(244,114,182,0.2);
-            border: 2px solid rgba(244,114,182,0.4);
-            color: #831843;
+            background: rgba(236,72,153,0.1);
+            border: 1px solid rgba(236,72,153,0.25);
+            color: #fff;
             width: 48px;
             height: 48px;
             border-radius: 50%;
@@ -312,15 +312,15 @@
             font-size: 18px;
             transition: all 0.3s;
         }
-        .lightbox-actions button:hover { background: rgba(244,114,182,0.5); box-shadow: 0 0 25px rgba(244,114,182,0.5); }
+        .lightbox-actions button:hover { background: rgba(236,72,153,0.3); box-shadow: 0 0 25px rgba(236,72,153,0.3); }
         .close-lightbox {
             position: absolute;
             top: 20px;
             left: 20px;
-            background: rgba(255,255,255,0.8);
+            background: rgba(13,6,16,0.5);
             backdrop-filter: blur(10px);
-            border: 2px solid rgba(244,114,182,0.5);
-            color: #831843;
+            border: 1px solid rgba(236,72,153,0.3);
+            color: #fff;
             width: 44px;
             height: 44px;
             border-radius: 50%;
@@ -332,21 +332,21 @@
             z-index: 10001;
         }
 
-        /* 🌷 FLOATING BOTTOM NAV */
+        /* 📱 FLOATING BOTTOM NAV */
         .nav-bottom{
             position:fixed;bottom:12px;left:12px;right:12px;
             display:flex;justify-content:space-around;align-items:center;
             padding:8px 0;
-            background:rgba(255,255,255,0.9);
+            background:rgba(13,6,16,0.7);
             backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
             z-index:100;
-            border:2px solid var(--border);
+            border:1px solid var(--border);
             border-radius:40px;
-            box-shadow:0 -8px 32px rgba(244,114,182,0.08);
+            box-shadow:0 -8px 32px rgba(236,72,153,0.04);
         }
         .nav-item{
             display:flex;flex-direction:column;align-items:center;gap:3px;
-            background:none;border:none;color:rgba(190,24,93,0.5);
+            background:none;border:none;color:rgba(255,255,255,0.5);
             font-size:10px;cursor:pointer;transition:all 0.3s;text-decoration:none;
         }
         .nav-item i{font-size:22px}
@@ -356,51 +356,51 @@
             background:linear-gradient(135deg,var(--accent),var(--accent2));
             border-radius:50%;display:flex;align-items:center;justify-content:center;
             margin-top:-30px;cursor:pointer;
-            box-shadow:0 10px 30px rgba(244,114,182,0.7), 0 0 40px rgba(236,72,153,0.3);
+            box-shadow:0 10px 30px rgba(236,72,153,0.5), 0 0 40px rgba(236,72,153,0.15);
             border:none;color:#fff;font-size:20px;
             z-index:101;
             transition:all 0.3s;text-decoration:none;
         }
-        .btn-add:hover{transform:scale(1.1);box-shadow:0 15px 40px rgba(236,72,153,0.9)}
+        .btn-add:hover{transform:scale(1.1);box-shadow:0 15px 40px rgba(236,72,153,0.6)}
 
         .toast{
             position:fixed;bottom:120px;left:50%;transform:translateX(-50%);
-            background:rgba(255,255,255,0.95);padding:12px 24px;border-radius:50px;
+            background:rgba(13,6,16,0.95);padding:12px 24px;border-radius:50px;
             z-index:1000;opacity:0;transition:opacity 0.3s;pointer-events:none;
-            border:2px solid rgba(244,114,182,0.4);font-size:13px;color:#831843;
-            box-shadow:0 8px 32px rgba(244,114,182,0.2);
+            border:1px solid rgba(236,72,153,0.25);font-size:13px;
+            box-shadow:0 8px 32px rgba(236,72,153,0.1);
         }
         .toast.show{opacity:1}
 
         .overlay{
-            position:fixed;inset:0;background:rgba(253,242,248,0.98);
+            position:fixed;inset:0;background:rgba(13,6,16,0.97);
             backdrop-filter:blur(40px);z-index:400;overflow-y:auto;
         }
         .overlay-header{
             display:flex;justify-content:space-between;align-items:center;
-            padding:16px;border-bottom:2px solid var(--border);
-            position:sticky;top:0;background:rgba(255,255,255,0.8);color:#831843;
+            padding:16px;border-bottom:1px solid var(--border);
+            position:sticky;top:0;background:rgba(13,6,16,0.7);
         }
         .btn-close{
-            background:rgba(244,114,182,0.15);border:2px solid var(--border);
-            color:#831843;width:36px;height:36px;border-radius:50%;
+            background:rgba(236,72,153,0.08);border:1px solid var(--border);
+            color:#fff;width:36px;height:36px;border-radius:50%;
             display:flex;align-items:center;justify-content:center;
             cursor:pointer;font-size:18px;transition:all 0.3s;
         }
-        .btn-close:hover{background:rgba(244,114,182,0.3)}
+        .btn-close:hover{background:rgba(236,72,153,0.15)}
     </style>
 </head>
 <body>
 
 <div id="loaderScreen">
     <div class="spinner-big"></div>
-    <p style="color:rgba(190,24,93,0.5);font-size:15px">🌷 ZHARE جاري التحميل...</p>
+    <p style="color:rgba(255,255,255,0.5);font-size:15px">💖 ZHARE جاري التحميل...</p>
 </div>
 
 <div id="mainApp">
     <div class="topbar">
         <div style="display:flex;align-items:center">
-            <div class="logo-icon">🌷</div>
+            <div class="logo-icon">💖</div>
             <span class="logo-text">ZHARE</span>
         </div>
         <div class="tabs">
@@ -414,14 +414,14 @@
     </div>
 
     <div class="videos-wrap" id="videosWrap">
-        <div style="display:flex;align-items:center;justify-content:center;height:100vh;color:rgba(190,24,93,0.5);flex-direction:column;gap:12px">
-            <i class="fas fa-video" style="font-size:48px;opacity:0.3;color:#f472b6"></i>
+        <div style="display:flex;align-items:center;justify-content:center;height:100vh;color:rgba(255,255,255,0.5);flex-direction:column;gap:12px">
+            <i class="fas fa-video" style="font-size:48px;opacity:0.3;color:#ec4899"></i>
             <p>لا توجد فيديوهات بعد</p>
-            <p style="font-size:12px;opacity:0.5">ارفع أول فيديو! 🌷</p>
+            <p style="font-size:12px;opacity:0.5">ارفع أول فيديو! 💖</p>
         </div>
     </div>
 
-    <!-- 🌷 Fullscreen Video Player -->
+    <!-- 💖 Fullscreen Video Player -->
     <div class="fullscreen-player" id="fullscreenPlayer" onclick="if(event.target===this)closePlayer()">
         <button class="close-player" onclick="closePlayer()"><i class="fas fa-times"></i></button>
         <video id="fullscreenVideo" controls playsinline></video>
@@ -437,11 +437,11 @@
                 <span id="duration">0:00</span>
             </div>
             <button onclick="toggleMutePlayer()"><i class="fas fa-volume-up" id="muteIcon"></i></button>
-            <a id="downloadLink" href="#" download style="color:#ec4899;text-decoration:none;margin-left:10px;"><i class="fas fa-download"></i></a>
+            <a id="downloadLink" href="#" download style="color:#f472b6;text-decoration:none;margin-left:10px;"><i class="fas fa-download"></i></a>
         </div>
     </div>
 
-    <!-- 🌷 Image Lightbox -->
+    <!-- 💖 Image Lightbox -->
     <div class="image-lightbox" id="imageLightbox" onclick="if(event.target===this)closeLightbox()">
         <button class="close-lightbox" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
         <img id="lightboxImage" src="" alt="صورة">
@@ -474,7 +474,7 @@
     let currentShareUrl = null;
     let playerVideo = null;
 
-    // 🌷 Player Functions
+    // 💖 Player Functions
     function openPlayer(url, title) {
         const player = document.getElementById('fullscreenPlayer');
         const video = document.getElementById('fullscreenVideo');
@@ -535,7 +535,7 @@
     }
     window.toggleMutePlayer = toggleMutePlayer;
 
-    // 🌷 Lightbox Functions
+    // 💖 Lightbox Functions
     function openLightbox(url) {
         const lb = document.getElementById('imageLightbox');
         const img = document.getElementById('lightboxImage');
@@ -646,7 +646,7 @@
         if (!container) return;
         let filtered = currentFeed === 'forYou' ? allVideos : allVideos.filter(v => currentUserData?.following?.[v.sender]);
         if (!filtered.length) {
-            container.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100vh;color:rgba(190,24,93,0.5);flex-direction:column;gap:12px"><i class="fas fa-video" style="font-size:48px;opacity:0.3;color:#f472b6"></i><p>${currentFeed === 'forYou' ? 'لا توجد فيديوهات بعد' : 'تابع مستخدمين لرؤية فيديوهاتهم'}</p></div>`;
+            container.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100vh;color:rgba(255,255,255,0.5);flex-direction:column;gap:12px"><i class="fas fa-video" style="font-size:48px;opacity:0.3;color:#ec4899"></i><p>${currentFeed === 'forYou' ? 'لا توجد فيديوهات بعد' : 'تابع مستخدمين لرؤية فيديوهاتهم'}</p></div>`;
             return;
         }
         container.innerHTML = '';
@@ -679,7 +679,7 @@
                 </div>
                 <div class="side-btns">
                     <button class="sbtn" onclick="toggleMute()"><i class="fas ${isMuted ? 'fa-volume-mute' : 'fa-volume-up'}"></i></button>
-                    <button class="sbtn like-btn ${isLiked ? 'liked' : ''}" onclick="toggleLike('${video.id}', this)">🌷<span class="cnt">${video.likes || 0}</span></button>
+                    <button class="sbtn like-btn ${isLiked ? 'liked' : ''}" onclick="toggleLike('${video.id}', this)"><i class="fas fa-heart"></i><span class="cnt">${video.likes || 0}</span></button>
                     <button class="sbtn" onclick="openComments('${video.id}')"><i class="fas fa-comment"></i><span class="cnt">${commentsCount}</span></button>
                     <button class="sbtn" onclick="openPlayer('${video.url}', 'video.mp4')"><i class="fas fa-expand"></i></button>
                     <button class="sbtn" onclick="openShare('${video.url}')"><i class="fas fa-share"></i></button>
@@ -729,7 +729,7 @@
         else { 
             likes++; likedBy[currentUser.uid] = true;
             if (video.sender && video.sender !== currentUser.uid) {
-                sendNotification(video.sender, currentUserData?.username, 'أعجب بفيديو الخاص بك 🌷');
+                sendNotification(video.sender, currentUserData?.username, 'أعجب بفيديو الخاص بك ❤️');
             }
         }
         await ref.update({ likes, likedBy });
@@ -746,7 +746,7 @@
         if (snap.exists()) { await userRef.remove(); await targetRef.remove(); btn.innerHTML = '<i class="fas fa-user-plus"></i> متابعة'; }
         else { 
             await userRef.set(true); await targetRef.set(true); btn.innerHTML = '<i class="fas fa-user-check"></i> متابع';
-            sendNotification(userId, currentUserData?.username, 'بدأ بمتابعتك 🌷');
+            sendNotification(userId, currentUserData?.username, 'بدأ بمتابعتك 👤');
         }
     }
 
@@ -764,9 +764,9 @@
         let commentsList = '';
         Object.values(comments).reverse().forEach(c => {
             const user = allUsers[c.userId] || { username: c.username || 'مستخدم' };
-            commentsList += `<div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid rgba(244,114,182,0.1);animation:fadeIn 0.3s ease"><img src="${user.avatarUrl || (DICEBEAR_URL + '?seed=' + c.userId)}" style="width:36px;height:36px;border-radius:50%"><div><div style="font-weight:600">@${user.username}</div><div style="font-size:13px;opacity:0.8;margin-top:2px">${c.text}</div></div></div>`;
+            commentsList += `<div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid rgba(236,72,153,0.08);animation:fadeIn 0.3s ease"><img src="${user.avatarUrl || (DICEBEAR_URL + '?seed=' + c.userId)}" style="width:36px;height:36px;border-radius:50%"><div><div style="font-weight:600">@${user.username}</div><div style="font-size:13px;opacity:0.8;margin-top:2px">${c.text}</div></div></div>`;
         });
-        showOverlay('💬 التعليقات', commentsList + `<div style="display:flex;gap:8px;padding-top:12px"><input type="text" id="cmtInput" placeholder="أضف تعليقاً..." style="flex:1;padding:12px;border-radius:30px;background:rgba(244,114,182,0.06);border:1px solid rgba(244,114,182,0.2);color:#831843;outline:none"><button onclick="addComment('${videoId}')" style="background:linear-gradient(135deg,#f472b6,#ec4899);border:none;color:#fff;padding:12px 20px;border-radius:30px;font-weight:700;cursor:pointer;white-space:nowrap">نشر</button></div>`);
+        showOverlay('💬 التعليقات', commentsList + `<div style="display:flex;gap:8px;padding-top:12px"><input type="text" id="cmtInput" placeholder="أضف تعليقاً..." style="flex:1;padding:12px;border-radius:30px;background:rgba(236,72,153,0.03);border:1px solid rgba(236,72,153,0.12);color:#fff;outline:none"><button onclick="addComment('${videoId}')" style="background:linear-gradient(135deg,#ec4899,#f472b6);border:none;color:#fff;padding:12px 20px;border-radius:30px;font-weight:700;cursor:pointer;white-space:nowrap">نشر</button></div>`);
     }
     window.addComment = async function(videoId) {
         const input = document.getElementById('cmtInput');
@@ -788,11 +788,11 @@
         const items = Object.values(ns).reverse();
         let notifHTML = '';
         if (!items.length) {
-            notifHTML = '<div style="text-align:center;opacity:0.5;padding:40px"><i class="fas fa-bell" style="font-size:48px;color:#f472b6;margin-bottom:12px;display:block"></i><p>لا توجد إشعارات</p></div>';
+            notifHTML = '<div style="text-align:center;opacity:0.5;padding:40px"><i class="fas fa-bell" style="font-size:48px;color:#ec4899;margin-bottom:12px;display:block"></i><p>لا توجد إشعارات</p></div>';
         } else {
             items.forEach(n => {
-                notifHTML += `<div style="display:flex;gap:12px;padding:14px;border-bottom:1px solid rgba(244,114,182,0.1);align-items:center;animation:fadeIn 0.3s ease">
-                    <div style="width:40px;height:40px;border-radius:50%;background:rgba(244,114,182,0.2);display:flex;align-items:center;justify-content:center;font-size:18px;color:#ec4899"><i class="fas fa-bell"></i></div>
+                notifHTML += `<div style="display:flex;gap:12px;padding:14px;border-bottom:1px solid rgba(236,72,153,0.08);align-items:center;animation:fadeIn 0.3s ease">
+                    <div style="width:40px;height:40px;border-radius:50%;background:rgba(236,72,153,0.1);display:flex;align-items:center;justify-content:center;font-size:18px;color:#ec4899"><i class="fas fa-bell"></i></div>
                     <div><div style="font-weight:600">${n.from || 'مستخدم'}</div><div style="font-size:12px;opacity:0.6;margin-top:2px">${n.msg || ''}</div><div style="font-size:10px;opacity:0.3;margin-top:4px">${new Date(n.timestamp).toLocaleString('ar-SA')}</div></div></div>`;
             });
         }
@@ -803,14 +803,14 @@
     }
 
     function openSearch() {
-        showOverlay('🔍 بحث', `<input type="text" id="searchQ" onkeyup="doSearch()" placeholder="ابحث عن مستخدمين، فيديوهات..." style="width:100%;padding:14px;border-radius:30px;background:rgba(244,114,182,0.06);border:1px solid rgba(244,114,182,0.2);color:#831843;font-size:14px;outline:none;margin-bottom:16px"><div id="searchR"></div>`);
+        showOverlay('🔍 بحث', `<input type="text" id="searchQ" onkeyup="doSearch()" placeholder="ابحث عن مستخدمين، فيديوهات..." style="width:100%;padding:14px;border-radius:30px;background:rgba(236,72,153,0.03);border:1px solid rgba(236,72,153,0.12);color:#fff;font-size:14px;outline:none;margin-bottom:16px"><div id="searchR"></div>`);
         window.doSearch = function() {
             const query = document.getElementById('searchQ').value.toLowerCase();
             const resultsDiv = document.getElementById('searchR');
             if (!query) { resultsDiv.innerHTML = ''; return; }
             const users = Object.values(allUsers).filter(u => u.username?.toLowerCase().includes(query));
             const vids = allVideos.filter(v => (v.description || '').toLowerCase().includes(query));
-            resultsDiv.innerHTML = `${users.length ? `<div style="margin-bottom:16px"><h4 style="font-size:12px;opacity:0.5;margin-bottom:8px"><i class="fas fa-users"></i> مستخدمين</h4>${users.map(u => `<div onclick="openUserProfile('${u.uid || Object.keys(allUsers).find(k=>allUsers[k]===u)}')" style="display:flex;align-items:center;gap:10px;padding:10px;cursor:pointer;border-bottom:1px solid rgba(244,114,182,0.1)"><img src="${u.avatarUrl || (DICEBEAR_URL + '?seed=' + (u.uid || u.username))}" style="width:40px;height:40px;border-radius:50%"><div>@${u.username} ${u.isVerified ? '<span class="verified-badge-main"><i class="fas fa-check"></i></span>' : ''}</div></div>`).join('')}</div>` : ''}${vids.length ? `<div><h4 style="font-size:12px;opacity:0.5;margin-bottom:8px"><i class="fas fa-video"></i> فيديوهات</h4>${vids.map(v => `<div onclick="openPlayer('${v.url}', 'video.mp4')" style="display:flex;align-items:center;gap:10px;padding:10px;cursor:pointer;border-bottom:1px solid rgba(244,114,182,0.1)"><i class="fas fa-play-circle" style="color:#f472b6;font-size:20px"></i><span style="font-size:13px">${(v.description || 'فيديو').substring(0, 40)}</span></div>`).join('')}</div>` : ''}${!users.length && !vids.length ? '<div style="text-align:center;opacity:0.5;padding:30px">لا توجد نتائج</div>' : ''}`;
+            resultsDiv.innerHTML = `${users.length ? `<div style="margin-bottom:16px"><h4 style="font-size:12px;opacity:0.5;margin-bottom:8px"><i class="fas fa-users"></i> مستخدمين</h4>${users.map(u => `<div onclick="openUserProfile('${u.uid || Object.keys(allUsers).find(k=>allUsers[k]===u)}')" style="display:flex;align-items:center;gap:10px;padding:10px;cursor:pointer;border-bottom:1px solid rgba(236,72,153,0.08)"><img src="${u.avatarUrl || (DICEBEAR_URL + '?seed=' + (u.uid || u.username))}" style="width:40px;height:40px;border-radius:50%"><div>@${u.username} ${u.isVerified ? '<span class="verified-badge-main"><i class="fas fa-check"></i></span>' : ''}</div></div>`).join('')}</div>` : ''}${vids.length ? `<div><h4 style="font-size:12px;opacity:0.5;margin-bottom:8px"><i class="fas fa-video"></i> فيديوهات</h4>${vids.map(v => `<div onclick="openPlayer('${v.url}', 'video.mp4')" style="display:flex;align-items:center;gap:10px;padding:10px;cursor:pointer;border-bottom:1px solid rgba(236,72,153,0.08)"><i class="fas fa-play-circle" style="color:#ec4899;font-size:20px"></i><span style="font-size:13px">${(v.description || 'فيديو').substring(0, 40)}</span></div>`).join('')}</div>` : ''}${!users.length && !vids.length ? '<div style="text-align:center;opacity:0.5;padding:30px">لا توجد نتائج</div>' : ''}`;
         };
         setTimeout(() => { const input = document.getElementById('searchQ'); if (input) input.focus(); }, 300);
     }
@@ -829,7 +829,7 @@
         return m + ':' + (s < 10 ? '0' : '') + s;
     }
 
-    console.log('🌷 ZHARE Index Ready ✨');
+    console.log('💖 ZHARE Index Ready ✨');
 </script>
 </body>
 </html>

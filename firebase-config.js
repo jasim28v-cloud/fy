@@ -1,5 +1,5 @@
-// 🌷 ZHARE 2026 - Pink Blossom Configuration
-// Firebase: dokf-33e47 | Cloudinary: qlathl0k
+// 💖 ZHARE 2026 - Pink Rose Glass Configuration
+// Firebase: dokf-33e47 | Cloudinary: go29_gm
 // ✨ PREMIUM: Notifications + Compact Grid + Delete Videos
 
 const firebaseConfig = {
@@ -19,25 +19,25 @@ const auth = firebase.auth();
 const db = firebase.database();
 
 // Cloudinary Configuration
-const CLOUD_NAME = "qlathl0k";
-const UPLOAD_PRESET = "go29_gm";
+const CLOUD_NAME = "go29_gm";
+const UPLOAD_PRESET = "qlathl0k";
 
-// 🌷 ZHARE Settings
+// 💖 ZHARE Settings
 const ADMIN_EMAILS = ['jasim28v@gmail.com'];
 const DICEBEAR_URL = "https://api.dicebear.com/7.x/big-smile/svg";
 const COVER_COLORS = [
-    "linear-gradient(135deg, #fbcfe8, #f9a8d4, #f472b6)",
-    "linear-gradient(135deg, #fce7f3, #fbcfe8, #f9a8d4)",
-    "linear-gradient(135deg, #fdf2f8, #fce7f3, #fbcfe8)",
-    "linear-gradient(135deg, #ec4899, #db2777, #be185d)",
+    "linear-gradient(135deg, #be185d, #db2777, #ec4899)",
+    "linear-gradient(135deg, #9d174d, #be185d, #db2777)",
+    "linear-gradient(135deg, #831843, #9d174d, #be185d)",
     "linear-gradient(135deg, #f472b6, #ec4899, #db2777)",
-    "linear-gradient(135deg, #fdf2f8, #fbcfe8, #ec4899)"
+    "linear-gradient(135deg, #fbcfe8, #f472b6, #ec4899)",
+    "linear-gradient(135deg, #1a0a14, #2d0f24, #f472b6)"
 ];
 
-// 🌷 App Info
+// 💖 App Info
 const APP_NAME = "ZHARE";
 const APP_VERSION = "2026.1";
-const PRIMARY_COLOR = "#f472b6";
-const SECONDARY_COLOR = "#f9a8d4";
+const PRIMARY_COLOR = "#ec4899";
+const SECONDARY_COLOR = "#f472b6";
 
-console.log('🌷 %c'+APP_NAME+' v'+APP_VERSION+' Ready ✨', 'color: #f472b6; font-size: 16px; font-weight: bold;');
+console.log('💖 %c'+APP_NAME+' v'+APP_VERSION+' Ready ✨', 'color: #ec4899; font-size: 16px; font-weight: bold;');
